@@ -1,0 +1,14 @@
+query vehiculo ($datospersona: String!){
+    vehiculo(datospersona: $datospersona){
+    municipio
+    estadovehiculo
+    marcavehiculo
+    chapanueva
+    numeromotor
+    numerocarroseria
+    marcamotor
+    numeroidentidad
+    datospersona
+    direccion
+  }
+}
