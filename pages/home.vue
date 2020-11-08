@@ -6,7 +6,7 @@
       <div class="column is-10 has-text-centered">
         <b-select v-model="selectedProvince" placeholder="Provincias">
           <option
-            v-for="option in province"
+            v-for="option in provinces"
             :key="option.id"
             :value="option.value"
           >
@@ -59,22 +59,46 @@
 
 <script>
 // Apollo
-import contributorsMissingInOnatPinarQuery from '~/apollo/queries/provinces/firstOption.graphql'
-import contributorsWithDifferentInformationPinarQuery from '~/apollo/queries/provinces/secondOption.graphql'
-import contributorsWithEqualsInformationPinarQuery from '~/apollo/queries/provinces/thirdOption.graphql'
-// import contributorsWithDifferentInformationPinarQuery from '~/apollo/queries/provinces/contributorsWithDifferentInformationPinar.graphql'
-// import contributorsWithDifferentInformationQuery from '~/apollo/queries/contributorsWithDifferentInformation.graphql'
-// import contributorsWithEqualsInformationQuery from '~/apollo/queries/contributorsWithEqualsInformation.graphql'
+
+// Artemisa
+import contributorsMissingInOnatArtemisaQuery from '~/apollo/queries/provinces/artemisa/actions/firstOption.graphql'
+import contributorsWithDifferentInformatioArtemisaQuery from '~/apollo/queries/provinces/artemisa/actions/secondOption.graphql'
+import contributorsWithEqualsInformationArtemisaQuery from '~/apollo/queries/provinces/artemisa/actions/thirdOption.graphql'
+
+// Camaguey
+import contributorsMissingInOnatCamagueyQuery from '~/apollo/queries/provinces/camaguey/actions/firstOption.graphql'
+import contributorsWithDifferentInformatioCamagueyQuery from '~/apollo/queries/provinces/camaguey/actions/secondOption.graphql'
+import contributorsWithEqualsInformationCamagueyQuery from '~/apollo/queries/provinces/camaguey/actions/thirdOption.graphql'
+
+// Ciego de Avila
+import contributorsMissingInOnatCiegoDeAvilaQuery from '~/apollo/queries/provinces/ciegoDeAvila/actions/firstOption.graphql'
+import contributorsWithDifferentInformationCiegoDeAvilaQuery from '~/apollo/queries/provinces/ciegoDeAvila/actions/secondOption.graphql'
+import contributorsWithEqualsInformationCiegoDeAvilaQuery from '~/apollo/queries/provinces/ciegoDeAvila/actions/thirdOption.graphql'
+
+// Cienfuegos
+import contributorsMissingInOnatCienfuegosQuery from '~/apollo/queries/provinces/cienfuegos/actions/firstOption.graphql'
+import contributorsWithDifferentInformationCienfuegosQuery from '~/apollo/queries/provinces/cienfuegos/actions/secondOption.graphql'
+import contributorsWithEqualsInformationCienfuegosQuery from '~/apollo/queries/provinces/cienfuegos/actions/thirdOption.graphql'
+
+// Granma
+import contributorsMissingInOnatGranmaQuery from '~/apollo/queries/provinces/granma/actions/firstOption.graphql'
+import contributorsWithDifferentInformationGranmaQuery from '~/apollo/queries/provinces/granma/actions/secondOption.graphql'
+import contributorsWithEqualsInformationGranmaQuery from '~/apollo/queries/provinces/granma/actions/thirdOption.graphql'
+
+// Pinar del Rio
+import contributorsMissingInOnatPinarQuery from '~/apollo/queries/provinces/pinarDelRio/actions/firstOption.graphql'
+import contributorsWithDifferentInformationPinarQuery from '~/apollo/queries/provinces/pinarDelRio/actions/secondOption.graphql'
+import contributorsWithEqualsInformationPinarQuery from '~/apollo/queries/provinces/pinarDelRio/actions/thirdOption.graphql'
 // Components
 import ColumnOptions from '~/components/ColumnOptions'
 import StatesTable from '~/components/StatesTable'
 // Json loading
-import province from '~/static/provinces.json'
+import provinces from '~/static/provinces.json'
 import tableColumns from '~/static/tableColumns.json'
 export default {
   components: { ColumnOptions, StatesTable },
   asyncData({ req }) {
-    return { province, tableColumns }
+    return { provinces, tableColumns }
   },
   data() {
     return {
@@ -112,38 +136,178 @@ export default {
     toggle(row) {
       this.$refs.table.toggleDetails(row)
     },
-    select(option) {
-      console.log('qwewq')
+    select() {
+      // Pinar del Rio
       if (this.selectedProvince === 'pinarDelRio') {
-        console.log(this.selectedAction + 'seleceted action')
         if (this.selectedAction === 1) {
-          console.log('aaaaaaaaaaaaaaaa')
           this.$apollo
             .query({ query: contributorsMissingInOnatPinarQuery })
             .then(({ data }) => {
               this.data = data.contributorsMissingInOnatPinar
               this.loading = false
-              this.$store.commit('vehiculo/set', null)
             })
         }
         if (this.selectedAction === 2) {
-          console.log('bbbbbbbbb')
           this.$apollo
             .query({ query: contributorsWithDifferentInformationPinarQuery })
             .then(({ data }) => {
               this.data = data.contributorsWithDifferentInformationPinar
               this.loading = false
-              this.$store.commit('vehiculo/set', null)
             })
         }
         if (this.selectedAction === 3) {
-          console.log('bbbbbbbbb')
           this.$apollo
             .query({ query: contributorsWithEqualsInformationPinarQuery })
             .then(({ data }) => {
               this.data = data.contributorsWithEqualsInformationPinar
               this.loading = false
-              this.$store.commit('vehiculo/set', null)
+            })
+        }
+      }
+      // Artemisa
+      else if (this.selectedProvince === 'artemisa') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatArtemisaQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatArtemisa
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({ query: contributorsWithDifferentInformatioArtemisaQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsWithDifferentInformatioArtemisa
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({ query: contributorsWithEqualsInformationArtemisaQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationArtemisa
+              this.loading = false
+            })
+        }
+      }
+      // Camaguey
+      else if (this.selectedProvince === 'camaguey') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatCamagueyQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatCamaguey
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({ query: contributorsWithDifferentInformatioCamagueyQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsWithDifferentInformatioCamaguey
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({ query: contributorsWithEqualsInformationCamagueyQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationCamaguey
+              this.loading = false
+            })
+        }
+      }
+      // Ciego De Avila
+      else if (this.selectedProvince === 'ciegoDeAvila') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatCiegoDeAvilaQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatCiegoDeAvila
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({
+              query: contributorsWithDifferentInformationCiegoDeAvilaQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithDifferentInformationCiegoDeAvila
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({
+              query: contributorsWithEqualsInformationCiegoDeAvilaQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationCiegoDeAvila
+              this.loading = false
+            })
+        }
+      }
+      // Cienfuegos
+      else if (this.selectedProvince === 'cienfuegos') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatCienfuegosQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatCienfuegos
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({
+              query: contributorsWithDifferentInformationCienfuegosQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithDifferentInformationCienfuegos
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({
+              query: contributorsWithEqualsInformationCienfuegosQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationCienfuegos
+              this.loading = false
+            })
+        }
+      }
+      // Granma
+      else if (this.selectedProvince === 'granma') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatGranmaQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatGranma
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({
+              query: contributorsWithDifferentInformationGranmaQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithDifferentInformationGranma
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({
+              query: contributorsWithEqualsInformationGranmaQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationGranma
+              this.loading = false
             })
         }
       }
