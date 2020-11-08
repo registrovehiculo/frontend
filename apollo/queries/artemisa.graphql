@@ -1,0 +1,14 @@
+query artemisa ($datospersona: String!){
+    artemisa(datospersona: $datospersona){
+    municipio
+    estadovehiculo
+    marcavehiculo
+    chapanueva
+    numeromotor
+    numerocarroseria
+    marcamotor
+    numeroidentidad
+    datospersona
+    direccion
+  }
+}

@@ -1,0 +1,7 @@
+query pinar{
+  pinar{
+     id
+    chapanueva
+    datospersona
+  }
+}

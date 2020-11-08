@@ -1,0 +1,17 @@
+mutation search($criteria: String!) {
+  search(criteria: $criteria) {
+    status
+    artemisa {
+    municipio
+    estadovehiculo
+    marcavehiculo
+    chapanueva
+    numeromotor
+    numerocarroseria
+    marcamotor
+    numeroidentidad
+    datospersona
+    direccion
+    }
+}
+}
