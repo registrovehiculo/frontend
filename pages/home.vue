@@ -59,17 +59,17 @@
 
 <script>
 // Apollo
-import contributorsMissingInOnatPinarQuery from '~/apollo/queries/province/pinarOption1.graphql'
-import contributorsWithDifferentInformationPinarQuery from '~/apollo/queries/province/pinarOption2.graphql'
-import contributorsWithEqualsInformationPinarQuery from '~/apollo/queries/province/pinarOption3.graphql'
-// import contributorsWithDifferentInformationPinarQuery from '~/apollo/queries/province/contributorsWithDifferentInformationPinar.graphql'
+import contributorsMissingInOnatPinarQuery from '~/apollo/queries/provinces/firstOption.graphql'
+import contributorsWithDifferentInformationPinarQuery from '~/apollo/queries/provinces/secondOption.graphql'
+import contributorsWithEqualsInformationPinarQuery from '~/apollo/queries/provinces/thirdOption.graphql'
+// import contributorsWithDifferentInformationPinarQuery from '~/apollo/queries/provinces/contributorsWithDifferentInformationPinar.graphql'
 // import contributorsWithDifferentInformationQuery from '~/apollo/queries/contributorsWithDifferentInformation.graphql'
 // import contributorsWithEqualsInformationQuery from '~/apollo/queries/contributorsWithEqualsInformation.graphql'
 // Components
 import ColumnOptions from '~/components/ColumnOptions'
 import StatesTable from '~/components/StatesTable'
 // Json loading
-import province from '~/static/province.json'
+import province from '~/static/provinces.json'
 import tableColumns from '~/static/tableColumns.json'
 export default {
   components: { ColumnOptions, StatesTable },

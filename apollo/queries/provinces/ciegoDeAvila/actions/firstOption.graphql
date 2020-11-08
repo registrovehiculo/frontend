@@ -1,0 +1,14 @@
+query contributorsMissingInOnatCiegoDeAvila{
+    contributorsMissingInOnatCiegoDeAvila{
+    municipio
+    estadovehiculo
+    marcavehiculo
+    chapanueva
+    numeromotor
+    numerocarroseria
+    marcamotor
+    numeroidentidad
+    datospersona
+    direccion
+  }
+}
