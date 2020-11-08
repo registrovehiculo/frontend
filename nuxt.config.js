@@ -125,10 +125,10 @@ export default {
   },
   auth: {
     redirect: {
-      login: '/login',
+      login: '/',
       logout: '/',
       callback: '/accounts/callback',
-      home: '/home',
+      home: false,
       user: '/profile',
     },
     strategies: {

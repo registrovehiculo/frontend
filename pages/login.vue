@@ -71,7 +71,6 @@ export default {
   },
   beforeCreate() {
     const url = this.$cookies.get('auth.redirect')
-    console.log(url + ' url')
     if (url && this.$auth.loggedIn) {
       this.$router.replace(url)
     }

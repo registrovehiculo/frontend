@@ -1,0 +1,8 @@
+[
+        {
+          "field": "datospersona",
+          "label": "Nombre",
+          "searchable": true,
+          "visible": true
+        }
+  ]

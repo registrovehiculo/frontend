@@ -1,0 +1,85 @@
+[
+  {
+
+      "id": "1",
+      "name": "Artemisa",
+      "value": "artemisa"
+    },
+  {
+
+      "id": "2",
+      "name": "La Habana",
+      "value": "habana"
+
+  },
+  {
+      "id": "3",
+      "name": "Las Tunas",
+      "value": "lasTunas"
+  },
+  {
+      "id": "4",
+      "name": "Isla de la Juventud",
+      "value": "islaDeLaJuventud"
+  },
+  {
+    "id": "5",
+    "name": "Camagüey",
+    "value": "camaguey"
+  },
+  {
+    "id": "6",
+    "name": "Ciego de Avila",
+    "value": "ciegoDeAvila"
+  },
+  {
+    "id": "7",
+    "name": "Cienfuegos",
+    "value": "cienfuegos"
+},
+  {
+    "id": "8",
+    "name": "Guantanamo",
+    "value": "guantanamo"
+},
+  {
+    "id": "9",
+    "name": "Holguin",
+    "value": "holguin"
+},
+  {
+    "id": "10",
+    "name": "Matanzas",
+    "value": "matanzas"
+},
+  {
+      "id": "11",
+      "name": "Pinar del Rio",
+      "value": "pinarDelRio"
+  },
+  {
+      "id": "12",
+      "name": "Sancti Spiritus",
+      "value": "santciSpiritus"
+  },
+  {
+      "id": "13",
+      "name": "Santiago de Cuba",
+      "value": "santiagoDeCuba"
+  },
+  {
+      "id": "14",
+      "name": "Villa Clara",
+      "value": "villaClara"
+  },
+  {
+  "id": "15",
+  "name": "Granma",
+  "value": "granma"
+},
+  {
+      "id": "16",
+      "name": "Mayabeque",
+      "value": "mayabeque"
+  }
+]

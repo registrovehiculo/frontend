@@ -63,7 +63,6 @@
     "nuxt-fontawesome": "^0.4.0",
     "nuxt-i18n": "^6.15.1",
     "nuxt-responsive-loader": "^2.0.1",
-    "oauth2": "0.0.1",
     "placeholder-loading": "^0.2.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

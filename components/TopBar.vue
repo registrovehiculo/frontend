@@ -5,21 +5,21 @@
       role="navigation"
       aria-label="main navigation"
     >
-      <div class="navbar-brand">
+      <div class="navbar-brand margin-top-5">
         <nuxt-link class="navbar-item" to="/home">
           <img src="~assets/car.png" alt="car" height="10" />
         </nuxt-link>
       </div>
       <div class="navbar-menu">
-        <div style="margin-top: 0.6rem" class="margin-left-10">
-          <Searcher style="width: 150%" />
+        <div style="margin-top: 0.75rem; width: 25%" class="margin-left-10">
+          <Searcher />
         </div>
         <div class="navbar-end">
           <div
             v-if="$auth.loggedIn"
             class="navbar-item has-dropdown is-hoverable"
           >
-            <a class="navbar-link"> {{ getUsername() }} </a>
+            <a class="navbar-link font-size-3"> {{ getUsername() }} </a>
             <div class="navbar-dropdown">
               <a class="navbar-item" @click="logout">Salir</a>
             </div>
@@ -53,7 +53,6 @@ export default {
       this.$cookies.remove('auth.user')
       await this.$auth.logout().then(() => {
         this.cleanAuth()
-        this.$socket.close(1000, 'Complete')
       })
     },
     linkify: require('~/services/linkify').linkify,
@@ -63,6 +62,7 @@ export default {
     }),
     ...mapMutations({
       loadAuth: 'loadFromCookie',
+      cleanAuth: 'cleanAuth',
     }),
   },
 }

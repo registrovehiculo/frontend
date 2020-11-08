@@ -1,10 +1,12 @@
 [
+
         {
           "field": "municipio",
           "label": "Municipio",
           "searchable": true,
           "visible": true
-        },        {
+        },
+        {
           "field": "estadovehiculo",
           "label": "Estado Vehiculo",
           "searchable": true,

@@ -5,15 +5,16 @@
       v-model="input"
       :data="suggestions"
       :loading="loading"
-      :class="focus ? 'focused' : ''"
-      placeholder="Buscar contribuyente en Registro Vehiculo"
+      placeholder="Buscar contribuyente en Registro Vehiculo..."
       field="description"
-      size="is-small"
       expanded
       rounded
       max-height="375px"
       scrollable
-      style="width: 100%; margin-bottom: 6pt"
+      size="is-small"
+      style="width: 100%"
+      icon="magnify"
+      clearable
       @input="search()"
       @select="select"
     >
@@ -27,7 +28,7 @@
 <script>
 // Apollo
 import searchMutation from '~/apollo/mutations/search.graphql'
-import artemisaQuery from '~/apollo/queries/artemisa.graphql'
+import vehiculoQuery from '~/apollo/queries/vehiculo.graphql'
 // Components
 import SearchResultThumbnail from '~/components/SearchResultThumbnail'
 export default {
@@ -41,13 +42,6 @@ export default {
     }
   },
   methods: {
-    focus() {
-      this.focused = true
-      this.$refs.input.focus()
-    },
-    blur() {
-      this.focused = false
-    },
     search() {
       if (!this.loading && this.input !== undefined) {
         this.loading = true
@@ -58,10 +52,10 @@ export default {
             variables: { criteria: this.input },
           })
           .then(({ data }) => {
-            const { status, artemisa } = data.search
+            const { status, vehiculo } = data.search
             if (status === 'ok') {
-              artemisa.forEach((i) => {
-                this.suggestions.push({ artemisa: i })
+              vehiculo.forEach((i) => {
+                this.suggestions.push({ vehiculo: i })
               })
               this.loading = false
             }
@@ -69,15 +63,16 @@ export default {
       }
     },
     select(option) {
-      if (option.artemisa) {
+      if (option.vehiculo) {
         this.$apollo
           .query({
-            query: artemisaQuery,
-            variables: { datospersona: `${option.artemisa.datospersona}` },
+            query: vehiculoQuery,
+            variables: { datospersona: `${option.vehiculo.datospersona}` },
           })
           .then(({ data }) => {
-            this.searchResult = data.artemisa
-            this.$store.commit('artemisa/set', this.searchResult)
+            this.searchResult = data.vehiculo
+            console.log(this.searchResult)
+            this.$store.commit('vehiculo/set', this.searchResult)
           })
       }
     },

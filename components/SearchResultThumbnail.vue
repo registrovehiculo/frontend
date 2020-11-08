@@ -16,8 +16,8 @@ export default {
   },
   computed: {
     title() {
-      if (this.result.artemisa) {
-        return `${this.result.artemisa.datospersona}`
+      if (this.result.vehiculo) {
+        return `${this.result.vehiculo.datospersona}`
       }
       return ''
     },
