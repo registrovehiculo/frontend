@@ -4,7 +4,11 @@
     <hr />
     <div class="columns is-centered">
       <div class="column is-10 has-text-centered">
-        <b-select v-model="selectedProvince" placeholder="Provincias">
+        <b-select
+          v-model="selectedProvince"
+          placeholder="Provincias"
+          @change="reset"
+        >
           <option
             v-for="option in provinces"
             :key="option.id"
@@ -14,7 +18,7 @@
           </option>
         </b-select>
         {{ selectedProvince }}
-        <div v-show="selectedProvince" class="margin-top-20">
+        <div v-if="selectedProvince" class="margin-top-20">
           <b-select
             v-model="selectedAction"
             placeholder="Acciones"
@@ -33,12 +37,14 @@
     </div>
     <div class="margin-top-10"></div>
     {{ selectedAction }}
-    <StatesTable
-      v-if="(vehiculo && !selectedAction) || (vehiculo && loading)"
-      :data="vehiculo"
-      :columns="tableColumns"
-      :loading="false"
-    />
+    <div v-if="getActive()">
+      <StatesTable
+        v-if="vehiculo"
+        :data="vehiculo"
+        :columns="tableColumns"
+        :loading="false"
+      />
+    </div>
 
     <b
       v-if="selectedAction"
@@ -46,7 +52,8 @@
     >
       {{ actions[selectedAction - 1].name }}</b
     >
-    <div v-if="selectedAction">
+    {{ getActive() }}
+    <div v-if="selectedAction && !getActive()">
       <StatesTable
         v-if="data"
         :data="data"
@@ -59,36 +66,71 @@
 
 <script>
 // Apollo
-
 // Artemisa
+import { mapGetters, mapMutations } from 'vuex'
 import contributorsMissingInOnatArtemisaQuery from '~/apollo/queries/provinces/artemisa/actions/firstOption.graphql'
-import contributorsWithDifferentInformatioArtemisaQuery from '~/apollo/queries/provinces/artemisa/actions/secondOption.graphql'
+import contributorsWithDifferentInformationArtemisaQuery from '~/apollo/queries/provinces/artemisa/actions/secondOption.graphql'
 import contributorsWithEqualsInformationArtemisaQuery from '~/apollo/queries/provinces/artemisa/actions/thirdOption.graphql'
-
 // Camaguey
 import contributorsMissingInOnatCamagueyQuery from '~/apollo/queries/provinces/camaguey/actions/firstOption.graphql'
-import contributorsWithDifferentInformatioCamagueyQuery from '~/apollo/queries/provinces/camaguey/actions/secondOption.graphql'
+import contributorsWithDifferentInformationCamagueyQuery from '~/apollo/queries/provinces/camaguey/actions/secondOption.graphql'
 import contributorsWithEqualsInformationCamagueyQuery from '~/apollo/queries/provinces/camaguey/actions/thirdOption.graphql'
-
 // Ciego de Avila
 import contributorsMissingInOnatCiegoDeAvilaQuery from '~/apollo/queries/provinces/ciegoDeAvila/actions/firstOption.graphql'
 import contributorsWithDifferentInformationCiegoDeAvilaQuery from '~/apollo/queries/provinces/ciegoDeAvila/actions/secondOption.graphql'
 import contributorsWithEqualsInformationCiegoDeAvilaQuery from '~/apollo/queries/provinces/ciegoDeAvila/actions/thirdOption.graphql'
-
 // Cienfuegos
 import contributorsMissingInOnatCienfuegosQuery from '~/apollo/queries/provinces/cienfuegos/actions/firstOption.graphql'
 import contributorsWithDifferentInformationCienfuegosQuery from '~/apollo/queries/provinces/cienfuegos/actions/secondOption.graphql'
 import contributorsWithEqualsInformationCienfuegosQuery from '~/apollo/queries/provinces/cienfuegos/actions/thirdOption.graphql'
-
 // Granma
 import contributorsMissingInOnatGranmaQuery from '~/apollo/queries/provinces/granma/actions/firstOption.graphql'
 import contributorsWithDifferentInformationGranmaQuery from '~/apollo/queries/provinces/granma/actions/secondOption.graphql'
 import contributorsWithEqualsInformationGranmaQuery from '~/apollo/queries/provinces/granma/actions/thirdOption.graphql'
-
+// Guantanamo
+import contributorsMissingInOnatGuantanamoQuery from '~/apollo/queries/provinces/guantanamo/actions/firstOption.graphql'
+import contributorsWithDifferentInformationGuantanamoQuery from '~/apollo/queries/provinces/guantanamo/actions/secondOption.graphql'
+import contributorsWithEqualsInformationGuantanamoQuery from '~/apollo/queries/provinces/guantanamo/actions/thirdOption.graphql'
+// Holguin
+import contributorsMissingInOnatHolguinQuery from '~/apollo/queries/provinces/holguin/actions/firstOption.graphql'
+import contributorsWithDifferentInformationHolguinQuery from '~/apollo/queries/provinces/holguin/actions/secondOption.graphql'
+import contributorsWithEqualsInformationHolguinQuery from '~/apollo/queries/provinces/holguin/actions/thirdOption.graphql'
+// Isla de la juventud
+import contributorsMissingInOnatIslaDeLaJuventudQuery from '~/apollo/queries/provinces/islaDeLaJuventud/actions/firstOption.graphql'
+import contributorsWithDifferentInformationIslaDeLaJuventudQuery from '~/apollo/queries/provinces/islaDeLaJuventud/actions/secondOption.graphql'
+import contributorsWithEqualsInformationIslaDeLaJuventudQuery from '~/apollo/queries/provinces/islaDeLaJuventud/actions/thirdOption.graphql'
+// La Habana
+import contributorsMissingInOnatLaHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/firstOption.graphql'
+import contributorsWithDifferentInformationLaHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/secondOption.graphql'
+import contributorsWithEqualsInformationLaHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/thirdOption.graphql'
+// Las Tunas
+import contributorsMissingInOnatLasTunasQuery from '~/apollo/queries/provinces/lasTunas/actions/firstOption.graphql'
+import contributorsWithDifferentInformationLasTunasQuery from '~/apollo/queries/provinces/lasTunas/actions/secondOption.graphql'
+import contributorsWithEqualsInformationLasTunasQuery from '~/apollo/queries/provinces/lasTunas/actions/thirdOption.graphql'
+// Matanzas
+import contributorsMissingInOnatMatanzasQuery from '~/apollo/queries/provinces/matanzas/actions/firstOption.graphql'
+import contributorsWithDifferentInformationMatanzasQuery from '~/apollo/queries/provinces/matanzas/actions/secondOption.graphql'
+import contributorsWithEqualsInformationMatanzasQuery from '~/apollo/queries/provinces/matanzas/actions/thirdOption.graphql'
+// Mayabeque
+import contributorsMissingInOnatMayabequeQuery from '~/apollo/queries/provinces/mayabeque/actions/firstOption.graphql'
+import contributorsWithDifferentInformationMayabequeQuery from '~/apollo/queries/provinces/mayabeque/actions/secondOption.graphql'
+import contributorsWithEqualsInformationMayabequeQuery from '~/apollo/queries/provinces/mayabeque/actions/thirdOption.graphql'
 // Pinar del Rio
 import contributorsMissingInOnatPinarQuery from '~/apollo/queries/provinces/pinarDelRio/actions/firstOption.graphql'
 import contributorsWithDifferentInformationPinarQuery from '~/apollo/queries/provinces/pinarDelRio/actions/secondOption.graphql'
 import contributorsWithEqualsInformationPinarQuery from '~/apollo/queries/provinces/pinarDelRio/actions/thirdOption.graphql'
+// Santiago de Cuba
+import contributorsMissingInOnatSantiagoDeCubaQuery from '~/apollo/queries/provinces/santiagoDeCuba/actions/firstOption.graphql'
+import contributorsWithDifferentInformationSantiagoDeCubaQuery from '~/apollo/queries/provinces/santiagoDeCuba/actions/secondOption.graphql'
+import contributorsWithEqualsInformationSantiagoDeCubaQuery from '~/apollo/queries/provinces/santiagoDeCuba/actions/thirdOption.graphql'
+// Santic Espiritud
+import contributorsMissingInOnatSanticEspiritudQuery from '~/apollo/queries/provinces/santicEspiritud/actions/firstOption.graphql'
+import contributorsWithDifferentInformationSanticEspiritudQuery from '~/apollo/queries/provinces/santicEspiritud/actions/secondOption.graphql'
+import contributorsWithEqualsInformationSanticEspiritudQuery from '~/apollo/queries/provinces/santicEspiritud/actions/thirdOption.graphql'
+// Villa Clara
+import contributorsMissingInOnatVillaClaraQuery from '~/apollo/queries/provinces/villaClara/actions/firstOption.graphql'
+import contributorsWithDifferentInformationVillaClaraQuery from '~/apollo/queries/provinces/villaClara/actions/secondOption.graphql'
+import contributorsWithEqualsInformationVillaClaraQuery from '~/apollo/queries/provinces/villaClara/actions/thirdOption.graphql'
 // Components
 import ColumnOptions from '~/components/ColumnOptions'
 import StatesTable from '~/components/StatesTable'
@@ -137,57 +179,38 @@ export default {
       this.$refs.table.toggleDetails(row)
     },
     select() {
-      // Pinar del Rio
-      if (this.selectedProvince === 'pinarDelRio') {
-        if (this.selectedAction === 1) {
-          this.$apollo
-            .query({ query: contributorsMissingInOnatPinarQuery })
-            .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatPinar
-              this.loading = false
-            })
-        }
-        if (this.selectedAction === 2) {
-          this.$apollo
-            .query({ query: contributorsWithDifferentInformationPinarQuery })
-            .then(({ data }) => {
-              this.data = data.contributorsWithDifferentInformationPinar
-              this.loading = false
-            })
-        }
-        if (this.selectedAction === 3) {
-          this.$apollo
-            .query({ query: contributorsWithEqualsInformationPinarQuery })
-            .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationPinar
-              this.loading = false
-            })
-        }
-      }
       // Artemisa
-      else if (this.selectedProvince === 'artemisa') {
+      if (this.selectedProvince === 'artemisa') {
         if (this.selectedAction === 1) {
+          this.loading = true
+          this.$store.commit('search/setActive', false)
           this.$apollo
             .query({ query: contributorsMissingInOnatArtemisaQuery })
             .then(({ data }) => {
               this.data = data.contributorsMissingInOnatArtemisa
               this.loading = false
+              this.$store.commit('search/set', false)
+              this.actions.id = null
             })
         }
         if (this.selectedAction === 2) {
+          this.loading = true
           this.$apollo
-            .query({ query: contributorsWithDifferentInformatioArtemisaQuery })
+            .query({ query: contributorsWithDifferentInformationArtemisaQuery })
             .then(({ data }) => {
-              this.data = data.contributorsWithDifferentInformatioArtemisa
+              this.data = data.contributorsWithDifferentInformationArtemisa
               this.loading = false
+              this.$store.commit('search/set', false)
             })
         }
         if (this.selectedAction === 3) {
+          this.loading = true
           this.$apollo
             .query({ query: contributorsWithEqualsInformationArtemisaQuery })
             .then(({ data }) => {
               this.data = data.contributorsWithEqualsInformationArtemisa
               this.loading = false
+              this.$store.commit('search/set', false)
             })
         }
       }
@@ -203,9 +226,9 @@ export default {
         }
         if (this.selectedAction === 2) {
           this.$apollo
-            .query({ query: contributorsWithDifferentInformatioCamagueyQuery })
+            .query({ query: contributorsWithDifferentInformationCamagueyQuery })
             .then(({ data }) => {
-              this.data = data.contributorsWithDifferentInformatioCamaguey
+              this.data = data.contributorsWithDifferentInformationCamaguey
               this.loading = false
             })
         }
@@ -311,7 +334,361 @@ export default {
             })
         }
       }
+
+      // Guantanamo
+      else if (this.selectedProvince === 'guantanamo') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatGuantanamoQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatGuantanamo
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({
+              query: contributorsWithDifferentInformationGuantanamoQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithDifferentInformationGuantanamo
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({
+              query: contributorsWithEqualsInformationGuantanamoQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationGuantanamo
+              this.loading = false
+            })
+        }
+      }
+
+      // Holguin
+      else if (this.selectedProvince === 'holguin') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatHolguinQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatHolguin
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({
+              query: contributorsWithDifferentInformationHolguinQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithDifferentInformationHolguin
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({
+              query: contributorsWithEqualsInformationHolguinQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationHolguin
+              this.loading = false
+            })
+        }
+      }
+      // Isla de la juventud
+      else if (this.selectedProvince === 'islaDeLaJuventud') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatIslaDeLaJuventudQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatIslaDeLaJuventud
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({
+              query: contributorsWithDifferentInformationIslaDeLaJuventudQuery,
+            })
+            .then(({ data }) => {
+              this.data =
+                data.contributorsWithDifferentInformationIslaDeLaJuventud
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({
+              query: contributorsWithEqualsInformationIslaDeLaJuventudQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationIslaDeLaJuventud
+              this.loading = false
+            })
+        }
+      }
+
+      // La habana
+      else if (this.selectedProvince === 'habana') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatLaHabanaQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatLaHabana
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({
+              query: contributorsWithDifferentInformationLaHabanaQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithDifferentInformationLaHabana
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({
+              query: contributorsWithEqualsInformationLaHabanaQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationLaHabana
+              this.loading = false
+            })
+        }
+      }
+
+      // Las Tunas
+      else if (this.selectedProvince === 'lasTunas') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatLasTunasQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatLasTunas
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({
+              query: contributorsWithDifferentInformationLasTunasQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithDifferentInformationLasTunas
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({
+              query: contributorsWithEqualsInformationLasTunasQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationLasTunas
+              this.loading = false
+            })
+        }
+      }
+
+      // Matanzas
+      else if (this.selectedProvince === 'matanzas') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatMatanzasQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatMatanzas
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({
+              query: contributorsWithDifferentInformationMatanzasQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithDifferentInformationMatanzas
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({
+              query: contributorsWithEqualsInformationMatanzasQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationMatanzas
+              this.loading = false
+            })
+        }
+      }
+
+      // Mayabeque
+      else if (this.selectedProvince === 'mayabeque') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatMayabequeQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatMayabeque
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({
+              query: contributorsWithDifferentInformationMayabequeQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithDifferentInformationMayabeque
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({
+              query: contributorsWithEqualsInformationMayabequeQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationMayabeque
+              this.loading = false
+            })
+        }
+      }
+
+      // Pinar del Rio
+      else if (this.selectedProvince === 'pinarDelRio') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatPinarQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatPinar
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({ query: contributorsWithDifferentInformationPinarQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsWithDifferentInformationPinar
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({ query: contributorsWithEqualsInformationPinarQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationPinar
+              this.loading = false
+            })
+        }
+      }
+
+      // Santiago de Cuba
+      else if (this.selectedProvince === 'santiagoDeCuba') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatSantiagoDeCubaQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatSantiagoDeCuba
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({
+              query: contributorsWithDifferentInformationSantiagoDeCubaQuery,
+            })
+            .then(({ data }) => {
+              this.data =
+                data.contributorsWithDifferentInformationSantiagoDeCuba
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({
+              query: contributorsWithEqualsInformationSantiagoDeCubaQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationSantiagoDeCuba
+              this.loading = false
+            })
+        }
+      }
+
+      // Santic Espiritud
+      else if (this.selectedProvince === 'santciSpiritus') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatSanticEspiritudQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatSanticEspiritud
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({
+              query: contributorsWithDifferentInformationSanticEspiritudQuery,
+            })
+            .then(({ data }) => {
+              this.data =
+                data.contributorsWithDifferentInformationSanticEspiritud
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({
+              query: contributorsWithEqualsInformationSanticEspiritudQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationSanticEspiritud
+              this.loading = false
+            })
+        }
+      }
+
+      // Villa Clara
+      else if (this.selectedProvince === 'villaClara') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatVillaClaraQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatVillaClara
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({
+              query: contributorsWithDifferentInformationVillaClaraQuery,
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithDifferentInformationVillaClara
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({ query: contributorsWithEqualsInformationVillaClaraQuery })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationVillaClara
+              this.loading = false
+            })
+        }
+      }
     },
+    ...mapGetters({
+      getActive: 'search/getActive',
+    }),
+    ...mapMutations({
+      setActive: 'search/setActive',
+    }),
   },
 }
 </script>

@@ -71,8 +71,8 @@ export default {
           })
           .then(({ data }) => {
             this.searchResult = data.vehiculo
-            console.log(this.searchResult)
             this.$store.commit('vehiculo/set', this.searchResult)
+            this.$store.commit('search/setActive', true)
           })
       }
     },
