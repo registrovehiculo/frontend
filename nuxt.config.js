@@ -26,6 +26,7 @@ export default {
   plugins: [
     { src: '~/plugins/vuex', ssr: true },
     { src: '~/plugins/vuelidate', ssr: true },
+    { src: '~/plugins/vue-select', ssr: false },
   ],
   /*
    ** Auto import components

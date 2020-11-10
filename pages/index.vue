@@ -2,7 +2,10 @@
   <section class="section">
     <div class="container">
       <div class="columns is-centered">
-        <div class="column is-4 margin-top-60 has-text-centered">
+        <div
+          class="column is-4 has-text-centered"
+          style="transform: translateY(20%)"
+        >
           <img src="~assets/car.png" alt="car" height="150" width="150" />
           <h2 class="title has-text-centered">Registro vehiculo</h2>
           <form @submit.stop.prevent="login()">

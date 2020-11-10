@@ -3,40 +3,27 @@
     <ColumnOptions :columns="tableColumns" />
     <hr />
     <div class="columns is-centered">
-      <div class="column is-10 has-text-centered">
-        <b-select
+      <div class="column is-7-desktop is-12-mobile has-text-centered">
+        <v-select
           v-model="selectedProvince"
-          placeholder="Provincias"
-          @change="reset"
-        >
-          <option
-            v-for="option in provinces"
-            :key="option.id"
-            :value="option.value"
-          >
-            {{ option.name }}
-          </option>
-        </b-select>
-        {{ selectedProvince }}
+          :options="provinces"
+          :reduce="(name) => name.value"
+          label="name"
+          placeholder="Seleccione la provincia..."
+        />
         <div v-if="selectedProvince" class="margin-top-20">
-          <b-select
+          <v-select
             v-model="selectedAction"
-            placeholder="Acciones"
-            @input="select"
-          >
-            <option
-              v-for="option in actions"
-              :key="option.id"
-              :value="option.id"
-            >
-              {{ option.name }}
-            </option>
-          </b-select>
+            :options="actions"
+            :reduce="(name) => name.id"
+            label="name"
+            placeholder="Acciones..."
+            @input="select()"
+          />
         </div>
       </div>
     </div>
     <div class="margin-top-10"></div>
-    {{ selectedAction }}
     <div v-if="getActive()">
       <StatesTable
         v-if="vehiculo"
@@ -48,11 +35,10 @@
 
     <b
       v-if="selectedAction"
-      class="has-text-centered font-size-2 flex-wrap-center margin-bottom-10"
+      class="has-text-centered font-size-2 flex-wrap-center margin-bottom-10 margin-top-20"
     >
       {{ actions[selectedAction - 1].name }}</b
     >
-    {{ getActive() }}
     <div v-if="selectedAction && !getActive()">
       <StatesTable
         v-if="data"
@@ -65,6 +51,7 @@
 </template>
 
 <script>
+import 'vue-select/dist/vue-select.css'
 // Apollo
 // Artemisa
 import { mapGetters, mapMutations } from 'vuex'
@@ -148,10 +135,12 @@ export default {
       selectedAction: null,
       loading: true,
       data: [],
+      auth: true,
       actions: [
         {
           id: 1,
-          name: 'Contribuyentes que estan en RV que no estan en INFOgesti',
+          name:
+            'Contribuyentes que estan en Registro Vehiculo que no estan en InfoGesti',
         },
         // {
         //   id: 2,
@@ -169,6 +158,11 @@ export default {
       ],
     }
   },
+  head() {
+    return {
+      title: `Registro Vehculo | Home`,
+    }
+  },
   computed: {
     vehiculo() {
       return this.$store.getters['vehiculo/get']
@@ -180,37 +174,32 @@ export default {
     },
     select() {
       // Artemisa
+      this.loading = true
+      this.$store.commit('search/setActive', false)
       if (this.selectedProvince === 'artemisa') {
         if (this.selectedAction === 1) {
-          this.loading = true
-          this.$store.commit('search/setActive', false)
           this.$apollo
             .query({ query: contributorsMissingInOnatArtemisaQuery })
             .then(({ data }) => {
               this.data = data.contributorsMissingInOnatArtemisa
               this.loading = false
-              this.$store.commit('search/set', false)
-              this.actions.id = null
             })
         }
         if (this.selectedAction === 2) {
-          this.loading = true
+          this.$store.commit('search/setActive', false)
           this.$apollo
             .query({ query: contributorsWithDifferentInformationArtemisaQuery })
             .then(({ data }) => {
               this.data = data.contributorsWithDifferentInformationArtemisa
               this.loading = false
-              this.$store.commit('search/set', false)
             })
         }
         if (this.selectedAction === 3) {
-          this.loading = true
           this.$apollo
             .query({ query: contributorsWithEqualsInformationArtemisaQuery })
             .then(({ data }) => {
               this.data = data.contributorsWithEqualsInformationArtemisa
               this.loading = false
-              this.$store.commit('search/set', false)
             })
         }
       }
@@ -683,6 +672,7 @@ export default {
         }
       }
     },
+
     ...mapGetters({
       getActive: 'search/getActive',
     }),
@@ -694,5 +684,5 @@ export default {
 </script>
 <style scoped lang="stylus">
 .select.is-empty select
-  padding-left 5em !important
+    padding-left 5em !important
 </style>
