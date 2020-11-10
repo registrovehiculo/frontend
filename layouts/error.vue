@@ -14,7 +14,7 @@ export default {
   auth: false,
   layout: 'empty',
   // eslint-disable-next-line vue/require-prop-types
-  props: ['error'],
+  props: ['error']
 }
 </script>
 

@@ -11,8 +11,8 @@ export default {
       type: Object,
       default: () => {
         return {}
-      },
-    },
+      }
+    }
   },
   computed: {
     title() {
@@ -20,8 +20,8 @@ export default {
         return `${this.result.vehiculo.datospersona}`
       }
       return ''
-    },
-  },
+    }
+  }
 }
 </script>
 

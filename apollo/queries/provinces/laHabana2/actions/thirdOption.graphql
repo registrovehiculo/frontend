@@ -1,5 +1,5 @@
-query contributorsWithDifferentInformationLasTunas{
-    contributorsWithDifferentInformationLasTunas{
+query contributorsWithEqualsInformationLaHabana2{
+    contributorsWithEqualsInformationLaHabana2{
     municipio
     estadovehiculo
     marcavehiculo

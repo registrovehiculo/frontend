@@ -11,9 +11,9 @@ export default function createApolloClient(ctx) {
     uri: environ.API_URL + 'graphql/',
     headers: token
       ? {
-          authorization: token || null,
+          authorization: token || null
         }
-      : {},
+      : {}
   })
 
   const errorLink = onError(({ networkError, graphQLErrors }) => {
@@ -36,6 +36,6 @@ export default function createApolloClient(ctx) {
   return {
     link: ApolloLink.from([errorLink, httpLink]),
     cache,
-    defaultHttpLink: false,
+    defaultHttpLink: false
   }
 }

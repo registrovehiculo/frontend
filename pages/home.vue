@@ -7,7 +7,7 @@
         <v-select
           v-model="selectedProvince"
           :options="provinces"
-          :reduce="(name) => name.value"
+          :reduce="name => name.value"
           label="name"
           placeholder="Seleccione la provincia..."
         />
@@ -15,10 +15,10 @@
           <v-select
             v-model="selectedAction"
             :options="actions"
-            :reduce="(name) => name.id"
+            :reduce="name => name.id"
+            @input="select()"
             label="name"
             placeholder="Acciones..."
-            @input="select()"
           />
         </div>
       </div>
@@ -87,9 +87,21 @@ import contributorsMissingInOnatIslaDeLaJuventudQuery from '~/apollo/queries/pro
 import contributorsWithDifferentInformationIslaDeLaJuventudQuery from '~/apollo/queries/provinces/islaDeLaJuventud/actions/secondOption.graphql'
 import contributorsWithEqualsInformationIslaDeLaJuventudQuery from '~/apollo/queries/provinces/islaDeLaJuventud/actions/thirdOption.graphql'
 // La Habana
-import contributorsMissingInOnatLaHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/firstOption.graphql'
-import contributorsWithDifferentInformationLaHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/secondOption.graphql'
-import contributorsWithEqualsInformationLaHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/thirdOption.graphql'
+import contributorsMissingInOnatLaHabana1Query from '~/apollo/queries/provinces/laHabana1/actions/firstOption.graphql'
+import contributorsWithDifferentInformationLaHabana1Query from '~/apollo/queries/provinces/laHabana1/actions/secondOption.graphql'
+import contributorsWithEqualsInformationLaHabana1Query from '~/apollo/queries/provinces/laHabana1/actions/thirdOption.graphql'
+// La Habana
+import contributorsMissingInOnatLaHabana2Query from '~/apollo/queries/provinces/laHabana2/actions/firstOption.graphql'
+import contributorsWithDifferentInformationLaHabana2Query from '~/apollo/queries/provinces/laHabana2/actions/secondOption.graphql'
+import contributorsWithEqualsInformationLaHabana2Query from '~/apollo/queries/provinces/laHabana2/actions/thirdOption.graphql'
+// La Habana
+import contributorsMissingInOnatLaHabana3Query from '~/apollo/queries/provinces/laHabana3/actions/firstOption.graphql'
+import contributorsWithDifferentInformationLaHabana3Query from '~/apollo/queries/provinces/laHabana3/actions/secondOption.graphql'
+import contributorsWithEqualsInformationLaHabana3Query from '~/apollo/queries/provinces/laHabana3/actions/thirdOption.graphql'
+// La Habana
+import contributorsMissingInOnatLaHabana4Query from '~/apollo/queries/provinces/laHabana4/actions/firstOption.graphql'
+import contributorsWithDifferentInformationLaHabana4Query from '~/apollo/queries/provinces/laHabana4/actions/secondOption.graphql'
+import contributorsWithEqualsInformationLaHabana4Query from '~/apollo/queries/provinces/laHabana4/actions/thirdOption.graphql'
 // Las Tunas
 import contributorsMissingInOnatLasTunasQuery from '~/apollo/queries/provinces/lasTunas/actions/firstOption.graphql'
 import contributorsWithDifferentInformationLasTunasQuery from '~/apollo/queries/provinces/lasTunas/actions/secondOption.graphql'
@@ -126,9 +138,6 @@ import provinces from '~/static/provinces.json'
 import tableColumns from '~/static/tableColumns.json'
 export default {
   components: { ColumnOptions, StatesTable },
-  asyncData({ req }) {
-    return { provinces, tableColumns }
-  },
   data() {
     return {
       selectedProvince: null,
@@ -140,7 +149,7 @@ export default {
         {
           id: 1,
           name:
-            'Contribuyentes que estan en Registro Vehiculo que no estan en InfoGesti',
+            'Contribuyentes que estan en Registro Vehiculo que no estan en InfoGesti'
         },
         // {
         //   id: 2,
@@ -149,24 +158,27 @@ export default {
         {
           id: 2,
           name:
-            'Contibuyentes que estan en ambos registros con informaciones diferente',
+            'Contibuyentes que estan en ambos registros con informaciones diferente'
         },
         {
           id: 3,
-          name: 'Contibuyentes totalmente coincidentes',
-        },
-      ],
-    }
-  },
-  head() {
-    return {
-      title: `Registro Vehculo | Home`,
+          name: 'Contibuyentes totalmente coincidentes'
+        }
+      ]
     }
   },
   computed: {
     vehiculo() {
       return this.$store.getters['vehiculo/get']
-    },
+    }
+  },
+  asyncData({ req }) {
+    return { provinces, tableColumns }
+  },
+  head() {
+    return {
+      title: `Registro Vehculo | Home`
+    }
   },
   methods: {
     toggle(row) {
@@ -243,7 +255,7 @@ export default {
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationCiegoDeAvilaQuery,
+              query: contributorsWithDifferentInformationCiegoDeAvilaQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithDifferentInformationCiegoDeAvila
@@ -253,7 +265,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationCiegoDeAvilaQuery,
+              query: contributorsWithEqualsInformationCiegoDeAvilaQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithEqualsInformationCiegoDeAvila
@@ -274,7 +286,7 @@ export default {
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationCienfuegosQuery,
+              query: contributorsWithDifferentInformationCienfuegosQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithDifferentInformationCienfuegos
@@ -284,7 +296,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationCienfuegosQuery,
+              query: contributorsWithEqualsInformationCienfuegosQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithEqualsInformationCienfuegos
@@ -305,7 +317,7 @@ export default {
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationGranmaQuery,
+              query: contributorsWithDifferentInformationGranmaQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithDifferentInformationGranma
@@ -315,7 +327,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationGranmaQuery,
+              query: contributorsWithEqualsInformationGranmaQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithEqualsInformationGranma
@@ -337,7 +349,7 @@ export default {
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationGuantanamoQuery,
+              query: contributorsWithDifferentInformationGuantanamoQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithDifferentInformationGuantanamo
@@ -347,7 +359,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationGuantanamoQuery,
+              query: contributorsWithEqualsInformationGuantanamoQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithEqualsInformationGuantanamo
@@ -369,7 +381,7 @@ export default {
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationHolguinQuery,
+              query: contributorsWithDifferentInformationHolguinQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithDifferentInformationHolguin
@@ -379,7 +391,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationHolguinQuery,
+              query: contributorsWithEqualsInformationHolguinQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithEqualsInformationHolguin
@@ -400,7 +412,7 @@ export default {
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationIslaDeLaJuventudQuery,
+              query: contributorsWithDifferentInformationIslaDeLaJuventudQuery
             })
             .then(({ data }) => {
               this.data =
@@ -411,7 +423,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationIslaDeLaJuventudQuery,
+              query: contributorsWithEqualsInformationIslaDeLaJuventudQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithEqualsInformationIslaDeLaJuventud
@@ -420,33 +432,127 @@ export default {
         }
       }
 
-      // La habana
-      else if (this.selectedProvince === 'habana') {
+      // La habana1
+      else if (this.selectedProvince === 'habana1') {
         if (this.selectedAction === 1) {
           this.$apollo
-            .query({ query: contributorsMissingInOnatLaHabanaQuery })
+            .query({ query: contributorsMissingInOnatLaHabana1Query })
             .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatLaHabana
+              this.data = data.contributorsMissingInOnatLaHabana1
               this.loading = false
             })
         }
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationLaHabanaQuery,
+              query: contributorsWithDifferentInformationLaHabana1Query
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithDifferentInformationLaHabana
+              this.data = data.contributorsWithDifferentInformationLaHabana1
               this.loading = false
             })
         }
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationLaHabanaQuery,
+              query: contributorsWithEqualsInformationLaHabana1Query
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationLaHabana
+              this.data = data.contributorsWithEqualsInformationLaHabana1
+              this.loading = false
+            })
+        }
+      }
+      // La habana2
+      else if (this.selectedProvince === 'habana2') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatLaHabana2Query })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatLaHabana2
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({
+              query: contributorsWithDifferentInformationLaHabana2Query
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithDifferentInformationLaHabana2
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({
+              query: contributorsWithEqualsInformationLaHabana2Query
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationLaHabana2
+              this.loading = false
+            })
+        }
+      }
+      // La habana3
+      else if (this.selectedProvince === 'habana3') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatLaHabana3Query })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatLaHabana3
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({
+              query: contributorsWithDifferentInformationLaHabana3Query
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithDifferentInformationLaHabana3
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({
+              query: contributorsWithEqualsInformationLaHabana3Query
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationLaHabana3
+              this.loading = false
+            })
+        }
+      }
+
+      // La habana4
+      else if (this.selectedProvince === 'habana4') {
+        if (this.selectedAction === 1) {
+          this.$apollo
+            .query({ query: contributorsMissingInOnatLaHabana4Query })
+            .then(({ data }) => {
+              this.data = data.contributorsMissingInOnatLaHabana4
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 2) {
+          this.$apollo
+            .query({
+              query: contributorsWithDifferentInformationLaHabana4Query
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithDifferentInformationLaHabana4
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({
+              query: contributorsWithEqualsInformationLaHabana4Query
+            })
+            .then(({ data }) => {
+              this.data = data.contributorsWithEqualsInformationLaHabana4
               this.loading = false
             })
         }
@@ -465,7 +571,7 @@ export default {
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationLasTunasQuery,
+              query: contributorsWithDifferentInformationLasTunasQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithDifferentInformationLasTunas
@@ -475,7 +581,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationLasTunasQuery,
+              query: contributorsWithEqualsInformationLasTunasQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithEqualsInformationLasTunas
@@ -497,7 +603,7 @@ export default {
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationMatanzasQuery,
+              query: contributorsWithDifferentInformationMatanzasQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithDifferentInformationMatanzas
@@ -507,7 +613,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationMatanzasQuery,
+              query: contributorsWithEqualsInformationMatanzasQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithEqualsInformationMatanzas
@@ -529,7 +635,7 @@ export default {
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationMayabequeQuery,
+              query: contributorsWithDifferentInformationMayabequeQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithDifferentInformationMayabeque
@@ -539,7 +645,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationMayabequeQuery,
+              query: contributorsWithEqualsInformationMayabequeQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithEqualsInformationMayabeque
@@ -589,7 +695,7 @@ export default {
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationSantiagoDeCubaQuery,
+              query: contributorsWithDifferentInformationSantiagoDeCubaQuery
             })
             .then(({ data }) => {
               this.data =
@@ -600,7 +706,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationSantiagoDeCubaQuery,
+              query: contributorsWithEqualsInformationSantiagoDeCubaQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithEqualsInformationSantiagoDeCuba
@@ -622,7 +728,7 @@ export default {
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationSanticEspiritudQuery,
+              query: contributorsWithDifferentInformationSanticEspiritudQuery
             })
             .then(({ data }) => {
               this.data =
@@ -633,7 +739,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationSanticEspiritudQuery,
+              query: contributorsWithEqualsInformationSanticEspiritudQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithEqualsInformationSanticEspiritud
@@ -655,7 +761,7 @@ export default {
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationVillaClaraQuery,
+              query: contributorsWithDifferentInformationVillaClaraQuery
             })
             .then(({ data }) => {
               this.data = data.contributorsWithDifferentInformationVillaClara
@@ -674,12 +780,12 @@ export default {
     },
 
     ...mapGetters({
-      getActive: 'search/getActive',
+      getActive: 'search/getActive'
     }),
     ...mapMutations({
-      setActive: 'search/setActive',
-    }),
-  },
+      setActive: 'search/setActive'
+    })
+  }
 }
 </script>
 <style scoped lang="stylus">

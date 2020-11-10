@@ -1,4 +1,4 @@
-export default function (ctx) {
+export default function(ctx) {
   ctx.app.store.commit('loadFromCookie')
   if (ctx.route.path) {
     const url = ctx.app.$cookies.get('auth.redirect')

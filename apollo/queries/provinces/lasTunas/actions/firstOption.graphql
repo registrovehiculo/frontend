@@ -1,5 +1,5 @@
-query contributorsMissingInOnatPinar{
-    contributorsMissingInOnatPinar{
+query contributorsMissingInOnatLasTunas{
+    contributorsMissingInOnatLasTunas{
     municipio
     estadovehiculo
     marcavehiculo

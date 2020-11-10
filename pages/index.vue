@@ -4,7 +4,7 @@
       <div class="columns is-centered">
         <div
           class="column is-4 has-text-centered"
-          style="transform: translateY(20%)"
+          style="transform: translateY(25%)"
         >
           <img src="~assets/car.png" alt="car" height="150" width="150" />
           <h2 class="title has-text-centered">Registro vehiculo</h2>
@@ -31,9 +31,9 @@
             </div>
             <div class="margin-top-20">
               <button
+                :loading="form.loading"
                 type="submit"
                 class="button is-primary is-fullwidth"
-                :loading="form.loading"
               >
                 Entrar
               </button>
@@ -65,19 +65,19 @@ export default {
         password: '',
         error: false,
         message: '',
-        loading: false,
-      },
+        loading: false
+      }
     }
   },
   validations: {
     form: {
       username: {
-        required,
+        required
       },
       password: {
-        required,
-      },
-    },
+        required
+      }
+    }
   },
   beforeCreate() {
     const url = this.$cookies.get('auth.redirect')
@@ -100,8 +100,8 @@ export default {
             mutation: loginMutation,
             variables: {
               username: this.form.username,
-              password: this.form.password,
-            },
+              password: this.form.password
+            }
           })
           .then(({ data }) => {
             const { status, token, user } = data.login
@@ -112,7 +112,7 @@ export default {
                 this.$auth.setStrategy('local').then(() => {
                   this.$store.commit('setUser', {
                     strategy: this.$auth.strategy.name,
-                    user,
+                    user
                   })
                   this.$auth.setToken('local', jwtToken)
                   this.$auth.setUser(user)
@@ -142,8 +142,8 @@ export default {
     },
     ...mapMutations({
       setUser: 'setUser',
-      loadAuth: 'loadFromCookie',
-    }),
-  },
+      loadAuth: 'loadFromCookie'
+    })
+  }
 }
 </script>

@@ -5,7 +5,9 @@
       v-model="input"
       :data="suggestions"
       :loading="loading"
+      @input="search()"
       placeholder="Buscar contribuyente en Registro Vehiculo..."
+      @select="select"
       field="description"
       expanded
       rounded
@@ -15,13 +17,11 @@
       style="width: 100%"
       icon="magnify"
       clearable
-      @input="search()"
-      @select="select"
     >
       <template v-if="!loading" slot-scope="props">
         <SearchResultThumbnail :result="props.option" />
       </template>
-      <template v-if="!loading" slot="empty"> No hay resultados </template>
+      <template slot="empty" v-if="!loading"> No hay resultados </template>
     </b-autocomplete>
   </div>
 </template>
@@ -38,7 +38,7 @@ export default {
       input: null,
       loading: false,
       suggestions: [],
-      searchResult: [],
+      searchResult: []
     }
   },
   methods: {
@@ -49,12 +49,12 @@ export default {
         this.$apollo
           .mutate({
             mutation: searchMutation,
-            variables: { criteria: this.input },
+            variables: { criteria: this.input }
           })
           .then(({ data }) => {
             const { status, vehiculo } = data.search
             if (status === 'ok') {
-              vehiculo.forEach((i) => {
+              vehiculo.forEach(i => {
                 this.suggestions.push({ vehiculo: i })
               })
               this.loading = false
@@ -67,7 +67,7 @@ export default {
         this.$apollo
           .query({
             query: vehiculoQuery,
-            variables: { datospersona: `${option.vehiculo.datospersona}` },
+            variables: { datospersona: `${option.vehiculo.datospersona}` }
           })
           .then(({ data }) => {
             this.searchResult = data.vehiculo
@@ -75,8 +75,8 @@ export default {
             this.$store.commit('search/setActive', true)
           })
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

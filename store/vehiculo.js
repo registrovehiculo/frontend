@@ -1,5 +1,5 @@
 export const state = () => ({
-  vehiculo: null,
+  vehiculo: null
 })
 
 export const mutations = {
@@ -8,13 +8,13 @@ export const mutations = {
   },
   setDatosPersona(state, datospersona) {
     state.vehiculo.datospersona = datospersona
-  },
+  }
 }
 export const getters = {
-  get: (state) => {
+  get: state => {
     return state.vehiculo
   },
-  getDatosPersona: (state) => {
+  getDatosPersona: state => {
     return state.vehiculo.datospersona
-  },
+  }
 }

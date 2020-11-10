@@ -21,8 +21,8 @@ export default {
   props: {
     columns: {
       type: Object,
-      default: null,
-    },
-  },
+      default: null
+    }
+  }
 }
 </script>

@@ -21,7 +21,7 @@
           >
             <a class="navbar-link font-size-3"> {{ getUsername() }} </a>
             <div class="navbar-dropdown">
-              <a class="navbar-item" @click="logout">Salir</a>
+              <a @click="logout" class="navbar-item">Salir</a>
             </div>
           </div>
           <template v-else>
@@ -58,12 +58,12 @@ export default {
     linkify: require('~/services/linkify').linkify,
     ...mapGetters({
       getUser: 'getUser',
-      getUsername: 'getUsername',
+      getUsername: 'getUsername'
     }),
     ...mapMutations({
       loadAuth: 'loadFromCookie',
-      cleanAuth: 'cleanAuth',
-    }),
-  },
+      cleanAuth: 'cleanAuth'
+    })
+  }
 }
 </script>

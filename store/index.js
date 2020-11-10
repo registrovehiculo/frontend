@@ -1,12 +1,12 @@
 export const actions = {
-  nuxtServerInit({ commit }, { req }) {},
+  nuxtServerInit({ commit }, { req }) {}
 }
 export const state = () => ({
   user: {
     username: null,
-    email: null,
+    email: null
   },
-  strategy: null,
+  strategy: null
 })
 
 export const mutations = {
@@ -26,7 +26,7 @@ export const mutations = {
   initUser(state) {
     state.user = {
       username: null,
-      email: null,
+      email: null
     }
   },
   setUser(state, payload) {
@@ -52,15 +52,15 @@ export const mutations = {
   setEmail(state, payload) {
     state.user.email = payload
     this.$cookies.set('auth.user', state.user)
-  },
+  }
 }
 
 export const getters = {
-  getUser: (state) => state.user,
-  getUsername: (state) => {
+  getUser: state => state.user,
+  getUsername: state => {
     if (state.user) {
       return state.user.username
     }
   },
-  getEmail: (state) => state.user.email,
+  getEmail: state => state.user.email
 }
