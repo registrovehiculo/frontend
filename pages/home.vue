@@ -17,6 +17,7 @@
             :options="actions"
             :reduce="name => name.id"
             @input="select()"
+            @change="selectedAction = null"
             label="name"
             placeholder="Acciones..."
           />
@@ -34,12 +35,12 @@
     </div>
 
     <b
-      v-if="selectedAction"
+      v-if="selectedAction && !getActive() && selectedProvince"
       class="has-text-centered font-size-2 flex-wrap-center margin-bottom-10 margin-top-20"
     >
       {{ actions[selectedAction - 1].name }}</b
     >
-    <div v-if="selectedAction && !getActive()">
+    <div v-if="selectedAction && !getActive() && selectedProvince">
       <StatesTable
         v-if="data"
         :data="data"
@@ -144,7 +145,6 @@ export default {
       selectedAction: null,
       loading: true,
       data: [],
-      auth: true,
       actions: [
         {
           id: 1,
@@ -158,7 +158,7 @@ export default {
         {
           id: 2,
           name:
-            'Contibuyentes que estan en ambos registros con informaciones diferente'
+            'Contibuyentes que estan en ambos registros con informaciones diferentes'
         },
         {
           id: 3,
@@ -187,6 +187,7 @@ export default {
     select() {
       // Artemisa
       this.loading = true
+      this.data = []
       this.$store.commit('search/setActive', false)
       if (this.selectedProvince === 'artemisa') {
         if (this.selectedAction === 1) {

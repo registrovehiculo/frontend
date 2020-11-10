@@ -3,7 +3,7 @@
     <div class="container">
       <div class="columns is-centered">
         <div
-          class="column is-4 has-text-centered"
+          class="column is-4 has-text-centered margin-top-20"
           style="transform: translateY(25%)"
         >
           <img src="~assets/car.png" alt="car" height="150" width="150" />
