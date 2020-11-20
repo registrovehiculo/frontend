@@ -1,5 +1,5 @@
-query contributorsWithDifferentInformationCiegoDeAvila{
-    contributorsWithDifferentInformationCiegoDeAvila{
+query contributorsWithDifferentInformationCiego{
+    contributorsWithDifferentInformationCiego{
     municipio
     estadovehiculo
     marcavehiculo

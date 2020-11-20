@@ -249,7 +249,7 @@ export default {
           this.$apollo
             .query({ query: contributorsMissingInOnatCiegoDeAvilaQuery })
             .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatCiegoDeAvila
+              this.data = data.contributorsMissingInOnatCiego
               this.loading = false
             })
         }
@@ -259,7 +259,7 @@ export default {
               query: contributorsWithDifferentInformationCiegoDeAvilaQuery
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithDifferentInformationCiegoDeAvila
+              this.data = data.contributorsWithDifferentInformationCiego
               this.loading = false
             })
         }
@@ -269,7 +269,7 @@ export default {
               query: contributorsWithEqualsInformationCiegoDeAvilaQuery
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationCiegoDeAvila
+              this.data = data.contributorsWithEqualsInformationCiego
               this.loading = false
             })
         }

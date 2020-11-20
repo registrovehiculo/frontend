@@ -9,10 +9,10 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || '',
-      },
+        content: process.env.npm_package_description || ''
+      }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
   /*
    ** Global CSS
@@ -26,7 +26,7 @@ export default {
   plugins: [
     { src: '~/plugins/vuex', ssr: true },
     { src: '~/plugins/vuelidate', ssr: true },
-    { src: '~/plugins/vue-select', ssr: false },
+    { src: '~/plugins/vue-select', ssr: false }
   ],
   /*
    ** Auto import components
@@ -58,20 +58,20 @@ export default {
       {
         imports: [
           { set: '@fortawesome/free-solid-svg-icons', icons: ['fas'] },
-          { set: '@fortawesome/free-brands-svg-icons', icons: ['fab'] },
-        ],
-      },
+          { set: '@fortawesome/free-brands-svg-icons', icons: ['fab'] }
+        ]
+      }
     ],
     [
       'nuxt-compress',
       {
         gzip: {
-          cache: true,
+          cache: true
         },
         brotli: {
-          threshold: 10240,
-        },
-      },
+          threshold: 10240
+        }
+      }
     ],
     // i18n
     [
@@ -79,25 +79,25 @@ export default {
       {
         locales: [
           { code: 'es', iso: 'es' },
-          { code: 'en', iso: 'en' },
+          { code: 'en', iso: 'en' }
         ],
         defaultLocale: 'es',
         strategy: 'no_prefix',
         vueI18nLoader: true,
         seo: false,
         vueI18n: {
-          fallbackLocale: 'es',
-        },
-      },
-    ],
+          fallbackLocale: 'es'
+        }
+      }
+    ]
   ],
   moment: {
     defaultLocale: 'es-do',
-    locales: ['es-do'],
+    locales: ['es-do']
   },
   apollo: {
     cookieAttributes: {
-      expires: 7,
+      expires: 7
     },
     includeNodeModules: true,
     // Note: Setting JWT would repeat the prefix defined in Apollo `tokenType` in `local` strategy
@@ -105,16 +105,16 @@ export default {
     defaultOptions: {
       $query: {
         loadingKey: 'loading',
-        fetchPolicy: 'cache-and-network',
-      },
+        fetchPolicy: 'cache-and-network'
+      }
     },
     clientConfigs: {
-      default: '~/apollo/client.js',
-    },
+      default: '~/apollo/client.js'
+    }
   },
   toast: {
     position: 'bottom-left',
-    duration: 2000,
+    duration: 2000
   },
   /*
    ** Axios module configuration
@@ -122,7 +122,7 @@ export default {
    */
 
   axios: {
-    baseURL: environ.BASE_URL,
+    baseURL: environ.BASE_URL
   },
   auth: {
     redirect: {
@@ -130,23 +130,23 @@ export default {
       logout: '/',
       callback: '/accounts/callback',
       home: false,
-      user: '/profile',
+      user: '/profile'
     },
     strategies: {
       local: {
         endpoints: {
           logout: true,
-          user: false,
+          user: false
         },
         tokenRequired: true,
-        tokenType: 'JWT',
-      },
+        tokenType: 'JWT'
+      }
     },
-    watchLoggedIn: true,
+    watchLoggedIn: true
   },
 
   router: {
-    middleware: ['auth', 'recover-auth'],
+    middleware: ['auth', 'recover-auth']
   },
   content: {},
 
@@ -158,9 +158,9 @@ export default {
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /(node_modules)/,
+          exclude: /(node_modules)/
         })
       }
-    },
-  },
+    }
+  }
 }
