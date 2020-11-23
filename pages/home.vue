@@ -1,5 +1,41 @@
 <template>
   <div class="container">
+    <div class="sidebar-page">
+      <section>
+        <b-sidebar
+          :fullheight="true"
+          :fullwidth="false"
+          :overlay="false"
+          :right="true"
+          :expand-on-hover="true"
+          v-model="open"
+          type="is-light"
+        >
+          <div class="has-text-centered margin-top-30">
+            <img
+              src="~assets/car.png"
+              height="150"
+              width="150"
+              alt="Registro Vehiculo"
+            />
+            <b-menu class="margin-top-10">
+              <vue-excel-xlsx
+                :data="data"
+                :columns="tableColumns"
+                :filename="selectedProvince"
+                :sheetname="selectedProvince"
+              >
+                <b>Excel</b>
+                <font-awesome-icon
+                  :icon="['fas', 'file-excel']"
+                  style="height: 30px; width: 30px"
+                />
+              </vue-excel-xlsx>
+            </b-menu>
+          </div>
+        </b-sidebar>
+      </section>
+    </div>
     <ColumnOptions :columns="tableColumns" />
     <hr />
     <div class="columns is-centered">
@@ -33,13 +69,17 @@
         :loading="false"
       />
     </div>
-
-    <b
-      v-if="selectedAction && !getActive() && selectedProvince"
-      class="has-text-centered font-size-2 flex-wrap-center margin-bottom-10 margin-top-20"
-    >
-      {{ actions[selectedAction - 1].name }}</b
-    >
+    <div v-show="selectedAction && !loading" class="column has-text-centered">
+      <b-button @click="open = true" class="is-primary" rounded
+        >Exportar</b-button
+      >
+      <b
+        v-if="selectedAction && !getActive() && selectedProvince"
+        class="has-text-centered font-size-2 flex-wrap-center margin-bottom-10 margin-top-20"
+      >
+        {{ actions[selectedAction - 1].name }}</b
+      >
+    </div>
     <div v-if="selectedAction && !getActive() && selectedProvince">
       <StatesTable
         v-if="data"
@@ -164,7 +204,15 @@ export default {
           id: 3,
           name: 'Contibuyentes totalmente coincidentes'
         }
-      ]
+      ],
+      expandOnHover: false,
+      mobile: 'reduce',
+      reduce: false,
+      open: false,
+      overlay: true,
+      fullheight: true,
+      fullwidth: false,
+      right: false
     }
   },
   computed: {
