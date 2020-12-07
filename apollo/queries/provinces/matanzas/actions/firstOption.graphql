@@ -1,0 +1,14 @@
+query contributorsMissingInOnatMatanzas{
+    contributorsMissingInOnatMatanzas{
+    municipio
+    estadovehiculo
+    marcavehiculo
+    chapanueva
+    numeromotor
+    numerocarroseria
+    marcamotor
+    numeroidentidad
+    datospersona
+    direccion
+  }
+}

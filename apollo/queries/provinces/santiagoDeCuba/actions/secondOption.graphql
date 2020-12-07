@@ -1,0 +1,14 @@
+query contributorsWithDifferentInformationSantiagoDeCuba{
+    contributorsWithDifferentInformationSantiagoDeCuba{
+    municipio
+    estadovehiculo
+    marcavehiculo
+    chapanueva
+    numeromotor
+    numerocarroseria
+    marcamotor
+    numeroidentidad
+    datospersona
+    direccion
+  }
+}

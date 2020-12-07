@@ -1,0 +1,14 @@
+query contributorsWithDifferentInformationCiego{
+    contributorsWithDifferentInformationCiego{
+    municipio
+    estadovehiculo
+    marcavehiculo
+    chapanueva
+    numeromotor
+    numerocarroseria
+    marcamotor
+    numeroidentidad
+    datospersona
+    direccion
+  }
+}

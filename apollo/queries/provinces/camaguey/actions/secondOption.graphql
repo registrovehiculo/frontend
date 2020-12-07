@@ -1,0 +1,14 @@
+query contributorsWithDifferentInformationCamaguey{
+    contributorsWithDifferentInformationCamaguey{
+    municipio
+    estadovehiculo
+    marcavehiculo
+    chapanueva
+    numeromotor
+    numerocarroseria
+    marcamotor
+    numeroidentidad
+    datospersona
+    direccion
+  }
+}

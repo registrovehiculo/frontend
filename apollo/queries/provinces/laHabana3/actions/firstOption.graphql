@@ -1,0 +1,14 @@
+query contributorsMissingInOnatLaHabana3{
+    contributorsMissingInOnatLaHabana3{
+    municipio
+    estadovehiculo
+    marcavehiculo
+    chapanueva
+    numeromotor
+    numerocarroseria
+    marcamotor
+    numeroidentidad
+    datospersona
+    direccion
+  }
+}

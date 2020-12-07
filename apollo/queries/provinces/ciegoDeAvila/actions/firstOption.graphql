@@ -1,0 +1,14 @@
+query contributorsMissingInOnatCiego{
+    contributorsMissingInOnatCiego{
+    municipio
+    estadovehiculo
+    marcavehiculo
+    chapanueva
+    numeromotor
+    numerocarroseria
+    marcamotor
+    numeroidentidad
+    datospersona
+    direccion
+  }
+}

@@ -1,0 +1,14 @@
+query contributorsWithEqualsInformationLaHabana4{
+    contributorsWithEqualsInformationLaHabana4{
+    municipio
+    estadovehiculo
+    marcavehiculo
+    chapanueva
+    numeromotor
+    numerocarroseria
+    marcamotor
+    numeroidentidad
+    datospersona
+    direccion
+  }
+}
