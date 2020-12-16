@@ -17,8 +17,8 @@
         :visible="column.visible"
       >
         <template
-          slot="searchable"
           v-if="column.searchable && !column.numeric"
+          slot="searchable"
           slot-scope="props"
         >
           <b-input
@@ -39,11 +39,11 @@
 export default {
   props: {
     data: {
-      type: Object,
+      type: Array,
       default: null
     },
     columns: {
-      type: Object,
+      type: Array,
       default: null
     },
     loading: {

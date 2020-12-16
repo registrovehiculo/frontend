@@ -20,7 +20,7 @@
 export default {
   props: {
     columns: {
-      type: Object,
+      type: Array,
       default: null
     }
   }

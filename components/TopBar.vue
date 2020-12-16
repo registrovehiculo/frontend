@@ -21,7 +21,7 @@
           >
             <a class="navbar-link font-size-3"> {{ getUsername() }} </a>
             <div class="navbar-dropdown">
-              <a @click="logout" class="navbar-item">Salir</a>
+              <a class="navbar-item" @click="logout">Salir</a>
             </div>
           </div>
           <template v-else>

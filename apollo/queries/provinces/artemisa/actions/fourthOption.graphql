@@ -1,0 +1,7 @@
+query infogestiArtemisa{
+    infogestiArtemisa{
+    nit
+    nombreCompleto
+    direccionPrincipal
+  }
+}

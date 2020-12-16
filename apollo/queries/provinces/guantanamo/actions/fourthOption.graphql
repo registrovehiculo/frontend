@@ -1,0 +1,7 @@
+query infogestiGuantanamo{
+    infogestiGuantanamo{
+    nit
+    nombreCompleto
+    direccionPrincipal
+  }
+}

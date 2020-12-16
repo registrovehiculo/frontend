@@ -65,7 +65,8 @@ export default {
         password: '',
         error: false,
         message: '',
-        loading: false
+        loadingForm: false,
+        loading: true
       }
     }
   },
@@ -83,12 +84,15 @@ export default {
     const url = this.$cookies.get('auth.redirect')
     if (url && this.$auth.loggedIn) {
       this.$router.replace(url)
+    } else if (this.$auth.loggedIn) {
+      this.$router.replace('/home')
     }
   },
   beforeMount() {
     if (this.$auth.loggedIn) {
       this.loadAuth()
     }
+    this.loading = false
   },
   methods: {
     login() {

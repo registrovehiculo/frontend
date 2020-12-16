@@ -1,0 +1,7 @@
+query infogestiMatanzas{
+    infogestiMatanzas{
+    nit
+    nombreCompleto
+    direccionPrincipal
+  }
+}

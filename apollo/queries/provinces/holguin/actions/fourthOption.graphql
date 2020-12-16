@@ -1,0 +1,7 @@
+query infogestiHolguin{
+    infogestiHolguin{
+    nit
+    nombreCompleto
+    direccionPrincipal
+  }
+}

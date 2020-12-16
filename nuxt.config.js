@@ -14,15 +14,20 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
-  server: {
-    port: 3000, // default: 3000
-    host: '192.168.8.125' // default: localhost
-  },
+  // server: {
+  //   port: 3000, // default: 3000
+  //   host: '192.168.8.125' // default: localhost
+  // },
   /*
    ** Global CSS
    */
   target: 'static',
-  css: ['~/assets/style.styl', '~/assets/custom-bulma.scss'],
+  css: [
+    '~/assets/style.styl',
+    '~/assets/custom-bulma.scss',
+    'bulma-badge/dist/css/bulma-badge.min.css',
+    'bulma-pageloader/dist/css/bulma-pageloader.min.css'
+  ],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
@@ -68,6 +73,72 @@ export default {
       }
     ],
     [
+      'nuxt-rfg-icon',
+      {
+        static: true,
+        staticPath: 'static',
+        masterPicture: 'static/favicon.png',
+        rfg: {
+          masterPicture: 'favicon.png',
+          iconsPath: '/',
+          design: {
+            ios: {
+              pictureAspect: 'noChange',
+              assets: {
+                ios6AndPriorIcons: false,
+                ios7AndLaterIcons: false,
+                precomposedIcons: false,
+                declareOnlyDefautlIcon: true
+              }
+            },
+            desktopBrowser: {},
+            windows: {
+              pictureAspect: 'noChange',
+              backgroundColor: '#0540bf',
+              onConflict: 'overrider',
+              assets: {
+                windows80Ie10Tile: false,
+                windows10Ie11EdgeTiles: {
+                  small: false,
+                  medium: true,
+                  big: false,
+                  rectangle: false
+                }
+              }
+            },
+            androidChrome: {
+              pictureAspect: 'shadow',
+              themeColor: '#ffffff',
+              manifest: {
+                name: 'registro',
+                startUrl: 'registro.onat.gob.cu',
+                display: 'stantalone',
+                orientation: 'notSet',
+                onConflict: 'override',
+                declared: true
+              },
+              assets: {
+                legacyIcon: true,
+                lowResolutionsIcons: false
+              }
+            },
+            safariPinnedTab: {
+              pictureAspect: 'silhouette',
+              themeColor: '#5bbad5'
+            },
+            settings: {
+              compression: 3,
+              scalingAlgorithm: 'Mitchel',
+              errorOnImageTooSmall: false,
+              readmeFile: true,
+              htmlCodeFile: true,
+              usePathAsIs: false
+            }
+          }
+        }
+      }
+    ],
+    [
       'nuxt-compress',
       {
         gzip: {
@@ -109,7 +180,6 @@ export default {
     authenticationType: '',
     defaultOptions: {
       $query: {
-        loadingKey: 'loading',
         fetchPolicy: 'cache-and-network'
       }
     },
@@ -134,7 +204,7 @@ export default {
       login: '/',
       logout: '/',
       callback: '/accounts/callback',
-      home: false,
+      home: '/home',
       user: '/profile'
     },
     strategies: {

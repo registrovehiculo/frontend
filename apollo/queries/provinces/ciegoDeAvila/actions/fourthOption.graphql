@@ -1,0 +1,7 @@
+query infogestiCiego{
+    infogestiCiego{
+    nit
+    nombreCompleto
+    direccionPrincipal
+  }
+}

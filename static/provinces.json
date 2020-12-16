@@ -8,98 +8,77 @@
   {
 
       "id": "2",
-      "name": "La Habana1",
-      "value": "habana1"
-
+      "name": "La Habana",
+      "value": "habana"
   },
-  {
 
+  {
       "id": "3",
-      "name": "La Habana2",
-      "value": "habana2"
-
-  },
-  {
-
-      "id": "4",
-      "name": "La Habana3",
-      "value": "habana3"
-
-  },
-  {
-
-      "id": "5",
-      "name": "La Habana4",
-      "value": "habana4"
-
-  },
-  {
-      "id": "6",
       "name": "Las Tunas",
       "value": "lasTunas"
   },
   {
-      "id": "7",
+      "id": "4",
       "name": "Isla de la Juventud",
       "value": "islaDeLaJuventud"
   },
   {
-    "id": "8",
+    "id": "5",
     "name": "Camagüey",
     "value": "camaguey"
   },
   {
-    "id": "9",
+    "id": "6",
     "name": "Ciego de Avila",
     "value": "ciegoDeAvila"
   },
   {
-    "id": "10",
+    "id": "7",
     "name": "Cienfuegos",
     "value": "cienfuegos"
 },
   {
-    "id": "11",
+    "id": "8",
     "name": "Guantanamo",
     "value": "guantanamo"
 },
   {
-    "id": "12",
+    "id": "9",
     "name": "Holguin",
     "value": "holguin"
 },
   {
-    "id": "13",
+    "id": "10",
     "name": "Matanzas",
     "value": "matanzas"
 },
   {
-      "id": "14",
+      "id": "11",
       "name": "Pinar del Rio",
       "value": "pinarDelRio"
   },
   {
-      "id": "15",
+      "id": "12",
       "name": "Sancti Spiritus",
       "value": "santciSpiritus"
   },
   {
-      "id": "16",
+      "id": "13",
       "name": "Santiago de Cuba",
       "value": "santiagoDeCuba"
   },
   {
-      "id": "17",
+      "id": "14",
       "name": "Villa Clara",
       "value": "villaClara"
   },
   {
-  "id": "18",
+  "id": "15",
   "name": "Granma",
   "value": "granma"
 },
   {
-      "id": "19",
+      "id": "16",
       "name": "Mayabeque",
       "value": "mayabeque"
   }

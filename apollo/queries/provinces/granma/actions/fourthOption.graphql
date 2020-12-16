@@ -1,0 +1,7 @@
+query infogestiGranma{
+    infogestiGranma{
+    nit
+    nombreCompleto
+    direccionPrincipal
+  }
+}

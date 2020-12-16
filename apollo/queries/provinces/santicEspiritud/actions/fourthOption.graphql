@@ -1,0 +1,7 @@
+query infogestiEspiritud{
+    infogestiEspiritud{
+    nit
+    nombreCompleto
+    direccionPrincipal
+  }
+}
