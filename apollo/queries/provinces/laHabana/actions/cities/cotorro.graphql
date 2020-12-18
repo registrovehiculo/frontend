@@ -1,0 +1,8 @@
+query infogestiHabanaCotorro{
+    infogestiHabanaCotorro{
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
+    }
+}

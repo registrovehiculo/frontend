@@ -1,0 +1,8 @@
+query infogestiHabanaDiezDeOctubre{
+    infogestiHabanaDiezDeOctubre{
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
+    }
+}

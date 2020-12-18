@@ -1,0 +1,8 @@
+query infogestiHabanaRegla{
+    infogestiHabanaRegla{
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
+    }
+}

@@ -1,0 +1,8 @@
+query infogestiHabanaArroyoNaranjo{
+    infogestiHabanaArroyoNaranjo{
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
+    }
+}

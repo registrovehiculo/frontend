@@ -1,0 +1,8 @@
+query infogestiHabanaBoyeros{
+    infogestiHabanaBoyeros{
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
+    }
+}

@@ -1,0 +1,8 @@
+query infogestiHabanaMarianao{
+    infogestiHabanaMarianao{
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
+    }
+}

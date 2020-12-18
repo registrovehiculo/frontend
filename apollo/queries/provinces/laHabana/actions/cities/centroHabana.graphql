@@ -1,0 +1,8 @@
+query infogestiHabanaCentroHabana{
+    infogestiHabanaCerro{
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
+    }
+}

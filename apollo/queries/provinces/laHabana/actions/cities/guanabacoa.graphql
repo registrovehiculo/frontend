@@ -1,0 +1,8 @@
+query infogestiHabanaGuanabacoa{
+    infogestiHabanaGuanabacoa{
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
+    }
+}

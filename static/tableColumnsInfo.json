@@ -6,6 +6,12 @@
           "searchable": true,
           "visible": true
         },
+    {
+          "field": "unidad",
+          "label": "Unidad",
+          "searchable": true,
+          "visible": true
+        },
         {
           "field": "nombreCompleto",
           "label": "Nombre Completo",

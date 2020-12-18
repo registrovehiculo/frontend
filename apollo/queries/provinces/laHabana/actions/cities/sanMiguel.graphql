@@ -1,0 +1,8 @@
+query infogestiHabanaSanMiguel{
+    infogestiHabanaSanMiguel{
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
+    }
+}

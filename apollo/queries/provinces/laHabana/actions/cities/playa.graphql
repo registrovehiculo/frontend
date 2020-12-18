@@ -1,0 +1,8 @@
+query infogestiHabanaPlaya{
+    infogestiHabanaPlaya{
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
+    }
+}

@@ -1,1 +1,8 @@
-
+query infogestiHabanaHabanaVieja{
+    infogestiHabanaHabanaVieja{
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
+    }
+}

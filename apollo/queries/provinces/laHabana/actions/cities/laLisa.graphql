@@ -1,0 +1,8 @@
+query infogestiHabanaLaLisa{
+    infogestiHabanaLaLisa{
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
+    }
+}

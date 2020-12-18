@@ -1,0 +1,80 @@
+[
+  {
+
+      "id": "1",
+      "name": "Arroyo Naranjo",
+      "value": "arroyoNaranjo"
+    },
+  {
+
+      "id": "2",
+      "name": "Boyeros",
+      "value": "boyeros"
+  },
+
+  {
+      "id": "3",
+      "name": "Centro Habana",
+      "value": "centroHabana"
+  },
+  {
+      "id": "4",
+      "name": "Cerro",
+      "value": "cerro"
+  },
+  {
+    "id": "5",
+    "name": "Cotorro",
+    "value": "cotorro"
+  },
+  {
+    "id": "6",
+    "name": "Diez de Octubre",
+    "value": "diezDeOctubre"
+  },
+  {
+    "id": "7",
+    "name": "Guanabacoe",
+    "value": "guanabacoa"
+},
+  {
+    "id": "8",
+    "name": "Habana del Este",
+    "value": "habanaDelEste"
+},
+  {
+    "id": "9",
+    "name": "Habana Vieja",
+    "value": "habanaVieja"
+},
+  {
+    "id": "10",
+    "name": "La Lisa",
+    "value": "laLisa"
+},
+  {
+      "id": "11",
+      "name": "Marianao",
+      "value": "marianao"
+  },
+  {
+      "id": "12",
+      "name": "Playa",
+      "value": "playa"
+  },
+  {
+      "id": "13",
+      "name": "Plaza",
+      "value": "plaza"
+  },
+  {
+      "id": "14",
+      "name": "Regla",
+      "value": "regla"
+  },
+  {
+  "id": "15",
+  "name": "San Miguel",
+  "value": "sanMiguel"
+}
+]
