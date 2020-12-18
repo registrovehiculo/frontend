@@ -36,7 +36,8 @@ export default {
     { src: '~/plugins/vuex', ssr: true },
     { src: '~/plugins/vuelidate', ssr: true },
     { src: '~/plugins/vue-select', ssr: false },
-    { src: '~/plugins/vue-excel-xlsx', ssr: false }
+    { src: '~/plugins/vue-excel-xlsx', ssr: false },
+    { src: '~/plugins/vue-json-excel', ssr: false }
   ],
   /*
    ** Auto import components

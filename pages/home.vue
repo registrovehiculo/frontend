@@ -24,12 +24,24 @@
                 :columns="tableColumns"
                 :filename="selectedProvince"
                 :sheetname="selectedProvince"
+                class="documentStyle"
               >
                 <b>Excel</b>
                 <font-awesome-icon
                   :icon="['fas', 'file-excel']"
                   style="height: 30px; width: 30px; color: green"
                 />
+                <div class="level">
+                  <div class="level-right">
+                    <font-awesome-icon
+                      :icon="['fas', 'file-excel']"
+                      style="height: 35px; width: 35px; color: green"
+                    />
+                    <div class="level-left padding-right-10">
+                      <b style="font-size: 0.9rem">Documento Excel</b>
+                    </div>
+                  </div>
+                </div>
               </vue-excel-xlsx>
             </b-menu>
           </div>
@@ -926,4 +938,13 @@ export default {
 <style scoped lang="stylus">
 .select.is-empty select
     padding-left 5em !important
+.documentStyle
+  background-color white
+  border none
+  height 4rem
+  padding 1rem
+.documentStyle:hover
+  background-color rgba(0,0,0,0.04)
+  cursor pointer
+  border-radius 12px
 </style>
