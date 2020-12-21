@@ -60,19 +60,6 @@
             @change="selectedAction = null"
           />
         </div>
-        <div
-          v-if="selectedProvince === 'habana' && selectedAction === 4"
-          class="margin-top-20"
-        >
-          <v-select
-            v-model="selectedActionHabana"
-            :options="cities"
-            :reduce="name => name.id"
-            label="name"
-            placeholder="Municipios..."
-            @change="selectedActionHabana = null"
-          />
-        </div>
       </div>
     </div>
     <div class="margin-top-10"></div>
@@ -90,11 +77,6 @@
           v-if="selectedProvince && selectedAction"
           class="is-primary"
           rounded
-          :disabled="
-            selectedProvince === 'habana' &&
-              selectedAction === 4 &&
-              selectedActionHabana === null
-          "
           @click="select()"
           >Buscar</b-button
         >
@@ -194,22 +176,7 @@ import infogestiIslaQuery from '~/apollo/queries/provinces/islaDeLaJuventud/acti
 import contributorsMissingInOnatLaHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/firstOption.graphql'
 import contributorsWithDifferentInformationLaHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/secondOption.graphql'
 import contributorsWithEqualsInformationLaHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/thirdOption.graphql'
-// import infogestiHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/fourthOption.graphql'
-import infogestiHabanaArroyoNaranjoQuery from '~/apollo/queries/provinces/laHabana/actions/cities/arroyoNaranjo.graphql'
-import infogestiHabanaBoyerosQuery from '~/apollo/queries/provinces/laHabana/actions/cities/boyeros.graphql'
-import infogestiHabanaCentroHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/cities/centroHabana.graphql'
-import infogestiHabanaCerroQuery from '~/apollo/queries/provinces/laHabana/actions/cities/cerro.graphql'
-import infogestiHabanaCotorroQuery from '~/apollo/queries/provinces/laHabana/actions/cities/cotorro.graphql'
-import infogestiHabanaDiezDeOctubreQuery from '~/apollo/queries/provinces/laHabana/actions/cities/diezDeOctubre.graphql'
-import infogestiHabanaGuanabacoaQuery from '~/apollo/queries/provinces/laHabana/actions/cities/guanabacoa.graphql'
-import infogestiHabanaHabanaDelEsteQuery from '~/apollo/queries/provinces/laHabana/actions/cities/habanaDelEste.graphql'
-import infogestiHabanaHabanaViejaQuery from '~/apollo/queries/provinces/laHabana/actions/cities/habanaVieja.graphql'
-import infogestiHabanaLaLisaQuery from '~/apollo/queries/provinces/laHabana/actions/cities/laLisa.graphql'
-import infogestiHabanaMarianaoQuery from '~/apollo/queries/provinces/laHabana/actions/cities/marianao.graphql'
-import infogestiHabanaPlayaQuery from '~/apollo/queries/provinces/laHabana/actions/cities/playa.graphql'
-import infogestiHabanaPlazaQuery from '~/apollo/queries/provinces/laHabana/actions/cities/plaza.graphql'
-import infogestiHabanaReglaQuery from '~/apollo/queries/provinces/laHabana/actions/cities/regla.graphql'
-import infogestiHabanaSanMiguelQuery from '~/apollo/queries/provinces/laHabana/actions/cities/sanMiguel.graphql'
+import infogestiHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/fourthOption.graphql'
 // Las Tunas
 import contributorsMissingInOnatLasTunasQuery from '~/apollo/queries/provinces/lasTunas/actions/firstOption.graphql'
 import contributorsWithDifferentInformationLasTunasQuery from '~/apollo/queries/provinces/lasTunas/actions/secondOption.graphql'
@@ -250,13 +217,12 @@ import ColumnOptions from '~/components/ColumnOptions'
 import StatesTable from '~/components/StatesTable'
 // Json loading
 import provinces from '~/static/provinces.json'
-import cities from '~/static/cities.json'
 import tableColumns from '~/static/tableColumns.json'
 import tableColumnsInfo from '~/static/tableColumnsInfo.json'
 export default {
   components: { ColumnOptions, StatesTable },
   asyncData({ req }) {
-    return { provinces, tableColumns, tableColumnsInfo, cities }
+    return { provinces, tableColumns, tableColumnsInfo }
   },
   data() {
     return {
@@ -671,156 +637,14 @@ export default {
             })
         }
         if (this.selectedAction === 4) {
-          if (this.selectedActionHabana === '1') {
-            this.$apollo
-              .query({
-                query: infogestiHabanaArroyoNaranjoQuery
-              })
-              .then(({ data }) => {
-                this.data = data.infogestiHabanaArroyoNaranjo
-                this.loading = false
-              })
-          }
-          if (this.selectedActionHabana === '2') {
-            this.$apollo
-              .query({
-                query: infogestiHabanaBoyerosQuery
-              })
-              .then(({ data }) => {
-                this.data = data.infogestiHabanaBoyeros
-                this.loading = false
-              })
-          }
-          if (this.selectedActionHabana === '3') {
-            this.$apollo
-              .query({
-                query: infogestiHabanaCentroHabanaQuery
-              })
-              .then(({ data }) => {
-                this.data = data.infogestiHabanaCentroHabana
-                this.loading = false
-              })
-          }
-          if (this.selectedActionHabana === '4') {
-            this.$apollo
-              .query({
-                query: infogestiHabanaCerroQuery
-              })
-              .then(({ data }) => {
-                this.data = data.infogestiHabanaCerroQuery
-                this.loading = false
-              })
-          }
-          if (this.selectedActionHabana === '5') {
-            this.$apollo
-              .query({
-                query: infogestiHabanaCotorroQuery
-              })
-              .then(({ data }) => {
-                this.data = data.infogestiHabanaCotorro
-                this.loading = false
-              })
-          }
-          if (this.selectedActionHabana === '6') {
-            this.$apollo
-              .query({
-                query: infogestiHabanaDiezDeOctubreQuery
-              })
-              .then(({ data }) => {
-                this.data = data.infogestiHabanaDiezDeOctubre
-                this.loading = false
-              })
-          }
-          if (this.selectedActionHabana === '7') {
-            this.$apollo
-              .query({
-                query: infogestiHabanaGuanabacoaQuery
-              })
-              .then(({ data }) => {
-                this.data = data.infogestiHabanaGuanabacoa
-                this.loading = false
-              })
-          }
-          if (this.selectedActionHabana === '8') {
-            this.$apollo
-              .query({
-                query: infogestiHabanaHabanaDelEsteQuery
-              })
-              .then(({ data }) => {
-                this.data = data.infogestiHabanaHabanaDelEste
-                this.loading = false
-              })
-          }
-          if (this.selectedActionHabana === '9') {
-            this.$apollo
-              .query({
-                query: infogestiHabanaHabanaViejaQuery
-              })
-              .then(({ data }) => {
-                this.data = data.infogestiHabanaHabanaVieja
-                this.loading = false
-              })
-          }
-          if (this.selectedActionHabana === '10') {
-            this.$apollo
-              .query({
-                query: infogestiHabanaLaLisaQuery
-              })
-              .then(({ data }) => {
-                this.data = data.infogestiHabanaLaLisa
-                this.loading = false
-              })
-          }
-          if (this.selectedActionHabana === '11') {
-            this.$apollo
-              .query({
-                query: infogestiHabanaMarianaoQuery
-              })
-              .then(({ data }) => {
-                this.data = data.infogestiHabanaMarianao
-                this.loading = false
-              })
-          }
-          if (this.selectedActionHabana === '12') {
-            this.$apollo
-              .query({
-                query: infogestiHabanaPlayaQuery
-              })
-              .then(({ data }) => {
-                this.data = data.infogestiHabanaPlaya
-                this.loading = false
-              })
-          }
-          if (this.selectedActionHabana === '13') {
-            this.$apollo
-              .query({
-                query: infogestiHabanaPlazaQuery
-              })
-              .then(({ data }) => {
-                this.data = data.infogestiHabanaPlaza
-                this.loading = false
-              })
-          }
-          if (this.selectedActionHabana === '14') {
-            this.$apollo
-              .query({
-                query: infogestiHabanaReglaQuery
-              })
-              .then(({ data }) => {
-                this.data = data.infogestiHabanaRegla
-                this.loading = false
-              })
-          }
-          if (this.selectedActionHabana === '15') {
-            this.$apollo
-              .query({
-                query: infogestiHabanaSanMiguelQuery
-              })
-              .then(({ data }) => {
-                this.data = data.infogestiHabanaSanMiguel
-                this.loading = false
-              })
-          }
+          this.$apollo
+            .query({
+              query: infogestiHabanaQuery
+            })
+            .then(({ data }) => {
+              this.data = data.infogestiHabana
+              this.loading = false
+            })
         }
       }
 
