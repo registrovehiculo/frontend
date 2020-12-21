@@ -1,0 +1,21 @@
+[
+
+        {
+          "field": "nit",
+          "label": "NIT",
+          "searchable": true,
+          "visible": true
+        },
+        {
+          "field": "nombreCompleto",
+          "label": "Nombre Completo",
+          "searchable": true,
+          "visible": true
+        },
+  {
+          "field": "direccionPrincipal",
+          "label": "Direccion Principal",
+          "searchable": true,
+          "visible": true
+        }
+]

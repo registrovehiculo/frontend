@@ -1,0 +1,9 @@
+query contributorsWithDifferentInformationLasTunasInfogesti{
+    contributorsWithDifferentInformationLasTunasInfogesti{
+    id
+    nit
+    unidad
+    nombreCompleto
+    direccionPrincipal
+  }
+}

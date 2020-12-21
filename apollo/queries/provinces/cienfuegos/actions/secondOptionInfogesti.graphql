@@ -1,0 +1,9 @@
+query contributorsWithDifferentInformationCienfuegosInfogesti{
+    contributorsWithDifferentInformationCienfuegosInfogesti{
+    id
+    nit
+    unidad
+    nombreCompleto
+    direccionPrincipal
+  }
+}

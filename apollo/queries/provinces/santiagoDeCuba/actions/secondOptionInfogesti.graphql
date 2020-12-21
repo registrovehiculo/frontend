@@ -1,0 +1,9 @@
+query contributorsWithDifferentInformationSantiagoDeCubaInfogesti{
+    contributorsWithDifferentInformationSantiagoDeCubaInfogesti{
+    id
+    nit
+    unidad
+    nombreCompleto
+    direccionPrincipal
+  }
+}

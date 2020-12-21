@@ -1,0 +1,9 @@
+query contributorsWithDifferentInformationArtemisaInfogesti{
+    contributorsWithDifferentInformationArtemisaInfogesti{
+    id
+    nit
+    unidad
+    nombreCompleto
+    direccionPrincipal
+  }
+}

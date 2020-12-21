@@ -1,0 +1,9 @@
+query contributorsWithDifferentInformationGranmaInfogesti{
+    contributorsWithDifferentInformationGranmaInfogesti{
+    id
+    nit
+    unidad
+    nombreCompleto
+    direccionPrincipal
+  }
+}

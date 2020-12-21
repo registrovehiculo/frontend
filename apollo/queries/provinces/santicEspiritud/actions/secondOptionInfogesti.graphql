@@ -1,0 +1,9 @@
+query contributorsWithDifferentInformationSanticEspiritudInfogesti{
+    contributorsWithDifferentInformationSanticEspiritudInfogesti{
+    id
+    nit
+    unidad
+    nombreCompleto
+    direccionPrincipal
+  }
+}

@@ -5,6 +5,7 @@ $black: #000000;
 $primary-invert: findColorInvert($primary);
 $twitter: #4099FF;
 $twitter-invert:  findColorInvert($twitter);
+$table-sticky-header-height: 700px;
 $colors: (
     "white": ($white, $black),
     "black": ($black, $white),

@@ -1,0 +1,9 @@
+query contributorsWithDifferentInformationMatanzasInfogesti{
+    contributorsWithDifferentInformationMatanzasInfogesti{
+    id
+    nit
+    unidad
+    nombreCompleto
+    direccionPrincipal
+  }
+}

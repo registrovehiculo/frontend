@@ -1,6 +1,6 @@
 export default {
-  BASE_URL: 'http://localhost:3000/',
-  API_URL: 'http://localhost:8000/api/',
-  BACKEND_URL: 'http://localhost:8000/',
-  WEBSOCKET_URL: 'ws://localhost/ws'
+  BASE_URL: 'http://192.168.8.125:3000/',
+  API_URL: 'http://192.168.8.125:8000/api/',
+  BACKEND_URL: 'http://192.168.8.125:8000/',
+  WEBSOCKET_URL: 'ws://192.168.8.125/ws'
 }

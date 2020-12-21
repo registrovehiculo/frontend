@@ -1,0 +1,9 @@
+query contributorsWithDifferentInformationCiegoInfogesti{
+    contributorsWithDifferentInformationCiegoInfogesti{
+    id
+    nit
+    unidad
+    nombreCompleto
+    direccionPrincipal
+  }
+}

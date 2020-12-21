@@ -1,0 +1,9 @@
+query contributorsWithDifferentInformationCamagueyInfogesti{
+    contributorsWithDifferentInformationCamagueyInfogesti{
+    id
+    nit
+    unidad
+    nombreCompleto
+    direccionPrincipal
+  }
+}

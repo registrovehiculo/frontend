@@ -1,0 +1,9 @@
+query contributorsWithDifferentInformationIslaDeLaJuventudInfogesti{
+    contributorsWithDifferentInformationIslaDeLaJuventudInfogesti{
+    id
+    nit
+    unidad
+    nombreCompleto
+    direccionPrincipal
+  }
+}

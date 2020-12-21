@@ -1,0 +1,9 @@
+query contributorsWithDifferentInformationMayabequeInfogesti{
+    contributorsWithDifferentInformationMayabequeInfogesti{
+    id
+    nit
+    unidad
+    nombreCompleto
+    direccionPrincipal
+  }
+}

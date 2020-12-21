@@ -1,0 +1,9 @@
+query contributorsWithDifferentInformationLaHabanaInfogesti{
+    contributorsWithDifferentInformationLaHabanaInfogesti{
+    id
+    nit
+    unidad
+    nombreCompleto
+    direccionPrincipal
+  }
+}

@@ -1,0 +1,9 @@
+query contributorsWithDifferentInformationPinarInfogesti{
+    contributorsWithDifferentInformationPinarInfogesti{
+    id
+    nit
+    unidad
+    nombreCompleto
+    direccionPrincipal
+  }
+}

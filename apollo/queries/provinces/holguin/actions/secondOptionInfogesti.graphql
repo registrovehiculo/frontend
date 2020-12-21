@@ -1,0 +1,9 @@
+query contributorsWithDifferentInformationHolguinInfogesti{
+    contributorsWithDifferentInformationHolguinInfogesti{
+    id
+    nit
+    unidad
+    nombreCompleto
+    direccionPrincipal
+  }
+}

@@ -1,0 +1,9 @@
+query contributorsWithDifferentInformationVillaClaraInfogesti{
+    contributorsWithDifferentInformationVillaClaraInfogesti{
+    id
+    nit
+    unidad
+    nombreCompleto
+    direccionPrincipal
+  }
+}

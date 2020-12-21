@@ -1,0 +1,9 @@
+query contributorsWithDifferentInformationGuantanamoInfogesti{
+    contributorsWithDifferentInformationGuantanamoInfogesti{
+    id
+    nit
+    unidad
+    nombreCompleto
+    direccionPrincipal
+  }
+}
