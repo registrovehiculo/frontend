@@ -1,6 +1,7 @@
 query infogestiArtemisa{
     infogestiArtemisa{
     nit
+    unidad
     nombreCompleto
     direccionPrincipal
   }

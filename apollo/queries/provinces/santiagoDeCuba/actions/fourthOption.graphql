@@ -1,7 +1,8 @@
 query infogestiSantiago{
     infogestiSantiago{
-    nit
-    nombreCompleto
-    direccionPrincipal
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
   }
 }

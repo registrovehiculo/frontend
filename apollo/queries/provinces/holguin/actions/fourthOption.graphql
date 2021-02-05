@@ -1,7 +1,8 @@
 query infogestiHolguin{
     infogestiHolguin{
-    nit
-    nombreCompleto
-    direccionPrincipal
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
   }
 }

@@ -1,7 +1,8 @@
 query infogestiCiego{
     infogestiCiego{
-    nit
-    nombreCompleto
-    direccionPrincipal
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
   }
 }

@@ -1,7 +1,8 @@
 query infogestiCienfuegos{
     infogestiCienfuegos{
-    nit
-    nombreCompleto
-    direccionPrincipal
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
   }
 }

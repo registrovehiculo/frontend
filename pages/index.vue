@@ -80,20 +80,19 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    const url = this.$cookies.get('auth.redirect')
-    if (url && this.$auth.loggedIn) {
-      this.$router.replace(url)
-    } else if (this.$auth.loggedIn) {
-      this.$router.replace('/home')
-    }
-  },
-  beforeMount() {
-    if (this.$auth.loggedIn) {
-      this.loadAuth()
-    }
-    this.loading = false
-  },
+  // beforeCreate() {
+  //   const url = this.$cookies.get('auth.redirect')
+  //   if (url && this.$auth.loggedIn) {
+  //     this.$router.replace(url)
+  //   }
+  // },
+  // beforeMount() {
+  //   if (this.$auth.loggedIn) {
+  //     this.loadAuth()
+  //     this.$router.replace('/home')
+  //   }
+  //   this.loading = false
+  // },
   methods: {
     login() {
       this.$v.form.$touch()

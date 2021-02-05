@@ -1,7 +1,8 @@
 query infogestiCamaguey{
     infogestiCamaguey{
-    nit
-    nombreCompleto
-    direccionPrincipal
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
   }
 }

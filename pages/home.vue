@@ -37,7 +37,7 @@
         </b-sidebar>
       </section>
     </div>
-    <ColumnOptions :columns="tableColumns" />
+    <!--ColumnOptions :columns="tableColumns" /-->
     <hr />
     <div class="columns is-centered">
       <div class="column is-7-desktop is-12-mobile has-text-centered">
@@ -63,14 +63,6 @@
       </div>
     </div>
     <div class="margin-top-10"></div>
-    <div v-if="getActive()">
-      <StatesTable
-        v-if="vehiculo"
-        :data="vehiculo"
-        :columns="tableColumns"
-        :loading="false"
-      />
-    </div>
     <div v-show="selectedAction" class="column has-text-centered">
       <div>
         <b-button
@@ -89,11 +81,19 @@
         >
       </div>
       <b
-        v-if="selectedAction && !getActive() && selectedProvince"
+        v-if="selectedAction && !getActive() && selectedProvince && selected"
         class="has-text-centered font-size-2 flex-wrap-center margin-bottom-10 margin-top-20"
       >
         {{ actions[selectedAction - 1].name + ' de ' + selectedProvince }}</b
       >
+    </div>
+    <div v-if="getActive()">
+      <StatesTable
+        v-if="vehiculo"
+        :data="vehiculo"
+        :columns="tableColumns"
+        :loading="false"
+      />
     </div>
     <div
       v-if="
@@ -129,7 +129,6 @@
         :loading="loading"
         :checked-rows.sync="True"
         checkable
-        :checkbox-position="left"
         class="column"
       />
       <StatesTable
@@ -259,7 +258,7 @@ import contributorsWithDifferentInformationVillaClaraInfogestiQuery from '~/apol
 import contributorsWithEqualsInformationVillaClaraQuery from '~/apollo/queries/provinces/villaClara/actions/thirdOption.graphql'
 import infogestiVillaQuery from '~/apollo/queries/provinces/villaClara/actions/fourthOption.graphql'
 // Components
-import ColumnOptions from '~/components/ColumnOptions'
+// import ColumnOptions from '~/components/ColumnOptions'
 import StatesTable from '~/components/StatesTable'
 // Json loading
 import provinces from '~/static/provinces.json'
@@ -268,7 +267,7 @@ import differentInfo from '~/static/differentInfo.json'
 import tableColumns from '~/static/tableColumns.json'
 import tableColumnsInfo from '~/static/tableColumnsInfo.json'
 export default {
-  components: { ColumnOptions, StatesTable },
+  components: { StatesTable },
   asyncData({ req }) {
     return {
       provinces,

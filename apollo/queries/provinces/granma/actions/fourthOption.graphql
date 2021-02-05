@@ -1,7 +1,8 @@
 query infogestiGranma{
     infogestiGranma{
-    nit
-    nombreCompleto
-    direccionPrincipal
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
   }
 }

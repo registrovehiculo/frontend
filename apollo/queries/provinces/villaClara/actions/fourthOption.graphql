@@ -1,7 +1,8 @@
 query infogestiVilla{
     infogestiVilla{
-    nit
-    nombreCompleto
-    direccionPrincipal
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
   }
 }

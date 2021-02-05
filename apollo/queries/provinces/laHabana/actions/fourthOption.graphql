@@ -1,7 +1,8 @@
 query infogestiHabana{
     infogestiHabana{
-    nit
-    nombreCompleto
-    direccionPrincipal
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
   }
 }

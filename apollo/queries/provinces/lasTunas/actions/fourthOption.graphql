@@ -1,7 +1,8 @@
 query infogestiTunas{
     infogestiTunas{
-    nit
-    nombreCompleto
-    direccionPrincipal
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
   }
 }

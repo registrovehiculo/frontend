@@ -1,7 +1,8 @@
 query infogestiEspiritud{
     infogestiEspiritud{
-    nit
-    nombreCompleto
-    direccionPrincipal
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
   }
 }

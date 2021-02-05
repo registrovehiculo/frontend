@@ -1,7 +1,8 @@
 query infogestiIsla{
     infogestiIsla{
-    nit
-    nombreCompleto
-    direccionPrincipal
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
   }
 }

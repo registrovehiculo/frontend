@@ -1,7 +1,8 @@
 query infogestiMatanzas{
     infogestiMatanzas{
-    nit
-    nombreCompleto
-    direccionPrincipal
+        nit
+        unidad
+        nombreCompleto
+        direccionPrincipal
   }
 }
