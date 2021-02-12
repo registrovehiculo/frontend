@@ -1,0 +1,8 @@
+query cities($stateId: Int!) {
+    cities(stateId: $stateId) {
+        id
+        name
+        latitude
+        longitude
+    }
+}

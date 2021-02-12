@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="padding-right-30 padding-left-30">
     <div class="sidebar-page">
       <section>
         <b-sidebar
@@ -40,119 +40,184 @@
     <!--ColumnOptions :columns="tableColumns" /-->
     <hr />
     <div class="columns is-centered">
-      <div class="column is-7-desktop is-12-mobile has-text-centered">
-        <v-select
-          v-model="selectedProvince"
-          :options="provinces"
-          :reduce="name => name.value"
-          label="name"
-          placeholder="Seleccione la provincia..."
-          class="pointerable"
-        />
-        <div v-if="selectedProvince" class="margin-top-20">
-          <v-select
-            v-model="selectedAction"
-            :options="actions"
-            :reduce="name => name.id"
-            label="name"
-            placeholder="Acciones..."
-            @input="clean()"
-            @change="selectedAction = null"
+      <div class="column is-2-desktop margin-top-50">
+        <form>
+          <b-field>
+            <b-select
+              v-model="address.form.country.code"
+              placeholder="Pais"
+              expanded
+              @input="selectCountry"
+            >
+              <option
+                v-for="option in countries"
+                :key="option.code"
+                :value="option.code"
+              >
+                {{ option.nameEs }}
+              </option>
+            </b-select>
+          </b-field>
+          <b-field>
+            <b-select
+              v-model="address.form.state"
+              placeholder="Provincia"
+              expanded
+              dropdown-position="bottom"
+              @input="selectState"
+            >
+              <option
+                v-for="option in states"
+                :key="option.id"
+                :value="option.id"
+              >
+                {{ option.name }}
+              </option>
+            </b-select>
+          </b-field>
+          <b-field>
+            <b-select
+              v-model="address.form.city"
+              placeholder="Ciudad"
+              expanded
+              dropdown-position="bottom"
+              @input="selectCity"
+            >
+              <option
+                v-for="option in cities"
+                :key="option.id"
+                :value="option.id"
+              >
+                {{ option.name }}
+              </option>
+            </b-select>
+          </b-field>
+        </form>
+      </div>
+      <div class="column is-10-desktop has-text-centered">
+        <span
+          v-if="states && address.form.state"
+          style="font-size: 35px; margin-left: -10%"
+        >
+          <b
+            >{{ states[address.form.state - 1].name
+            }}<span v-if="cityById">{{ ' (' + cityById.name + ')' }}</span></b
+          >
+        </span>
+        <div class="column has-text-right margin-top-20 margin-bottom-10">
+          <b-field style="padding-left: 20%">
+            <b-select
+              v-model="selectedAction"
+              dropdown-position="bottom"
+              placeholder="Acciones..."
+            >
+              <option
+                v-for="option in actions"
+                :key="option.id"
+                :value="option.id"
+              >
+                {{ option.name }}
+              </option>
+            </b-select>
+            <b-button
+              class="is-black margin-left-20"
+              rounded
+              :disabled="
+                !address.form.country ||
+                  !address.form.state ||
+                  !address.form.city ||
+                  !selectedAction
+              "
+              @click="select()"
+              >Buscar</b-button
+            >
+            <b-button
+              class="is-black margin-left-10"
+              rounded
+              :disabled="loading && !data"
+              @click="open = true"
+              >Exportar</b-button
+            >
+            <b
+              v-if="
+                selectedAction && !getActive() && selectedProvince && selected
+              "
+              class="has-text-centered font-size-2 flex-wrap-center margin-bottom-10 margin-top-20"
+            >
+              {{
+                actions[selectedAction - 1].name + ' de ' + selectedProvince
+              }}</b
+            >
+          </b-field>
+        </div>
+        <div v-if="getActive()">
+          <StatesTable
+            v-if="vehiculo"
+            :data="vehiculo"
+            :columns="tableColumns"
+            :loading="false"
+          />
+        </div>
+        <div
+          v-if="
+            selectedAction &&
+              !getActive() &&
+              selectedProvince &&
+              selectedAction !== 4 &&
+              selectedAction !== 2
+          "
+        >
+          <StatesTable
+            v-if="data"
+            :data="data"
+            :columns="tableColumns"
+            :loading="loading"
+          />
+        </div>
+
+        <div
+          v-if="
+            selectedAction &&
+              !getActive() &&
+              selectedProvince &&
+              selectedAction !== 4 &&
+              selectedAction === 2
+          "
+          class="row is-flex"
+        >
+          <StatesTable
+            v-if="data"
+            :data="data"
+            :columns="different"
+            :loading="loading"
+            :checked-rows.sync="True"
+            checkable
+            class="column"
+          />
+          <StatesTable
+            v-if="data_1"
+            :data="data_1"
+            :columns="differentInfo"
+            :loading="loading"
+            class="column"
+          />
+        </div>
+        <div
+          v-if="
+            selectedAction &&
+              !getActive() &&
+              selectedProvince &&
+              selectedAction === 4
+          "
+        >
+          <StatesTable
+            v-if="data"
+            :data="data"
+            :columns="tableColumnsInfo"
+            :loading="loading"
           />
         </div>
       </div>
-    </div>
-    <div class="margin-top-10"></div>
-    <div v-show="selectedAction" class="column has-text-centered">
-      <div>
-        <b-button
-          v-if="selectedProvince && selectedAction"
-          class="is-primary"
-          rounded
-          @click="select()"
-          >Buscar</b-button
-        >
-        <b-button
-          v-if="!loading && data"
-          class="is-primary"
-          rounded
-          @click="open = true"
-          >Exportar</b-button
-        >
-      </div>
-      <b
-        v-if="selectedAction && !getActive() && selectedProvince && selected"
-        class="has-text-centered font-size-2 flex-wrap-center margin-bottom-10 margin-top-20"
-      >
-        {{ actions[selectedAction - 1].name + ' de ' + selectedProvince }}</b
-      >
-    </div>
-    <div v-if="getActive()">
-      <StatesTable
-        v-if="vehiculo"
-        :data="vehiculo"
-        :columns="tableColumns"
-        :loading="false"
-      />
-    </div>
-    <div
-      v-if="
-        selectedAction &&
-          !getActive() &&
-          selectedProvince &&
-          selectedAction !== 4 &&
-          selectedAction !== 2
-      "
-    >
-      <StatesTable
-        v-if="data"
-        :data="data"
-        :columns="tableColumns"
-        :loading="loading"
-      />
-    </div>
-
-    <div
-      v-if="
-        selectedAction &&
-          !getActive() &&
-          selectedProvince &&
-          selectedAction !== 4 &&
-          selectedAction === 2
-      "
-      class="row is-flex"
-    >
-      <StatesTable
-        v-if="data"
-        :data="data"
-        :columns="different"
-        :loading="loading"
-        :checked-rows.sync="True"
-        checkable
-        class="column"
-      />
-      <StatesTable
-        v-if="data_1"
-        :data="data_1"
-        :columns="differentInfo"
-        :loading="loading"
-        class="column"
-      />
-    </div>
-    <div
-      v-if="
-        selectedAction &&
-          !getActive() &&
-          selectedProvince &&
-          selectedAction === 4
-      "
-    >
-      <StatesTable
-        v-if="data"
-        :data="data"
-        :columns="tableColumnsInfo"
-        :loading="loading"
-      />
     </div>
   </div>
 </template>
@@ -257,6 +322,10 @@ import contributorsWithDifferentInformationVillaClaraQuery from '~/apollo/querie
 import contributorsWithDifferentInformationVillaClaraInfogestiQuery from '~/apollo/queries/provinces/villaClara/actions/secondOptionInfogesti.graphql'
 import contributorsWithEqualsInformationVillaClaraQuery from '~/apollo/queries/provinces/villaClara/actions/thirdOption.graphql'
 import infogestiVillaQuery from '~/apollo/queries/provinces/villaClara/actions/fourthOption.graphql'
+import statesQuery from '~/apollo/queries/addresses/states.graphql'
+import countriesQuery from '~/apollo/queries/addresses/countries.graphql'
+import citiesQuery from '~/apollo/queries/addresses/cities.graphql'
+import citiesByIdQuery from '~/apollo/queries/addresses/cityById.graphql'
 // Components
 // import ColumnOptions from '~/components/ColumnOptions'
 import StatesTable from '~/components/StatesTable'
@@ -279,8 +348,23 @@ export default {
   },
   data() {
     return {
-      selectedProvince: null,
+      address: {
+        form: {
+          id: null,
+          city: null,
+          state: null,
+          country: {
+            code: null,
+            nameEs: null
+          }
+        }
+      },
       selectedAction: null,
+      countries: [],
+      cities: [],
+      states: [],
+      cityById: null,
+      selectedProvince: null,
       loading: true,
       data: null,
       data_1: null,
@@ -315,6 +399,12 @@ export default {
       selected: false
     }
   },
+  apollo: {
+    countries: {
+      prefetch: true,
+      query: countriesQuery
+    }
+  },
   head() {
     return {
       title: `Registro Vehculo | Home`
@@ -332,11 +422,60 @@ export default {
     clean() {
       this.data = null
     },
+    async selectCountry(option, stateId, cityId) {
+      await this.$apollo
+        .query({
+          query: statesQuery,
+          variables: {
+            countryId: option
+          }
+        })
+        .then(({ data }) => {
+          this.states = data.states
+          this.cities = []
+          if (stateId === undefined) {
+            this.address.form.state = null
+          } else {
+            this.address.form.state = stateId
+          }
+          if (cityId === undefined) {
+            this.address.form.city = null
+          } else {
+            this.selectState(stateId, cityId)
+          }
+        })
+    },
+    selectState(option, cityId) {
+      this.$apollo
+        .query({
+          query: citiesQuery,
+          variables: {
+            stateId: option
+          }
+        })
+        .then(({ data }) => {
+          this.cities = data.cities
+          if (cityId === undefined) {
+            this.address.form.city = null
+          } else {
+            this.address.form.city = cityId
+          }
+        })
+    },
+    selectCity(option) {
+      this.$apollo
+        .query({
+          query: citiesByIdQuery,
+          variables: {
+            cityId: option
+          }
+        })
+        .then(({ data }) => (this.cityById = data.citiesById))
+    },
     select() {
       // Artemisa
-      this.selected = true
       this.loading = true
-      this.data = []
+      this.data = null
       this.$store.commit('search/setActive', false)
       if (this.selectedProvince === 'artemisa') {
         if (this.selectedAction === 1) {

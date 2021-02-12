@@ -3,8 +3,8 @@
     <div class="container">
       <div class="columns is-centered">
         <div
-          class="column is-4 has-text-centered margin-top-20"
-          style="transform: translateY(25%)"
+          class="column is-5 has-text-centered margin-top-20"
+          style="transform: translateY(27%)"
         >
           <img src="~assets/car.png" alt="car" height="150" width="150" />
           <h2 class="title has-text-centered">Registro vehiculo</h2>
@@ -15,6 +15,7 @@
                   v-model="$v.form.username.$model"
                   name="username"
                   placeholder="Usuario"
+                  rounded
                 ></b-input>
               </b-field>
             </div>
@@ -26,17 +27,14 @@
                   name="password"
                   password-reveal
                   placeholder="Contraseña"
+                  rounded
                 ></b-input>
               </b-field>
             </div>
             <div class="margin-top-20">
-              <button
-                :loading="form.loading"
-                type="submit"
-                class="button is-primary is-fullwidth"
-              >
+              <b-button class="is-black is-fullwidth" rounded @click="login">
                 Entrar
-              </button>
+              </b-button>
             </div>
             <div class="margin-top-10 has-text-centered">
               <p v-show="form.error" class="font-size-2">{{ form.message }}</p>
@@ -66,7 +64,7 @@ export default {
         error: false,
         message: '',
         loadingForm: false,
-        loading: true
+        loading: false
       }
     }
   },
