@@ -1,8 +1,6 @@
-query contributorsWithEqualsInformationIslaDeLaJuventud{
-    contributorsWithEqualsInformationIslaDeLaJuventud{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsWithEqualsInformationIslaDeLaJuventud($cityName: String!){
+    contributorsWithEqualsInformationIslaDeLaJuventud(cityName: $cityName){
+    dpa
     chapanueva
     numeromotor
     numerocarroseria

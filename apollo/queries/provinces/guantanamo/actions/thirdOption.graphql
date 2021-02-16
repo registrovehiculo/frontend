@@ -1,8 +1,6 @@
-query contributorsWithEqualsInformationGuantanamo{
-    contributorsWithEqualsInformationGuantanamo{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsWithEqualsInformationGuantanamo($cityName: String!){
+    contributorsWithEqualsInformationGuantanamo(cityName: $cityName){
+        dpa
     chapanueva
     numeromotor
     numerocarroseria

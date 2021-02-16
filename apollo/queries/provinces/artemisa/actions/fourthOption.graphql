@@ -1,5 +1,6 @@
-query infogestiArtemisa{
-    infogestiArtemisa{
+query infogestiArtemisa($cityName: String!){
+    infogestiArtemisa(cityName: $cityName){
+        id
     nit
     unidad
     nombreCompleto

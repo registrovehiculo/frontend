@@ -1,5 +1,5 @@
-query contributorsWithDifferentInformationHolguinInfogesti{
-    contributorsWithDifferentInformationHolguinInfogesti{
+query contributorsWithDifferentInformationHolguinInfogesti($cityName: String!){
+    contributorsWithDifferentInformationHolguinInfogesti(cityName: $cityName){
     id
     nit
     unidad

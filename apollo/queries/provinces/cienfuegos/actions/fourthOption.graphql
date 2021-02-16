@@ -1,5 +1,6 @@
-query infogestiCienfuegos{
-    infogestiCienfuegos{
+query infogestiCienfuegos($cityName: String!){
+    infogestiCienfuegos(cityName: $cityName){
+        id
         nit
         unidad
         nombreCompleto

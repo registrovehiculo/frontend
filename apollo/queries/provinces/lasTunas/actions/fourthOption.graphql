@@ -1,5 +1,6 @@
-query infogestiTunas{
-    infogestiTunas{
+query infogestiTunas($cityName: String!){
+    infogestiTunas(cityName: $cityName){
+        id
         nit
         unidad
         nombreCompleto

@@ -1,8 +1,6 @@
-query contributorsWithDifferentInformationVillaClara{
-    contributorsWithDifferentInformationVillaClara{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsWithDifferentInformationVillaClara($cityName: String!){
+    contributorsWithDifferentInformationVillaClara(cityName: $cityName){
+    dpa
     chapanueva
     numeromotor
     numerocarroseria

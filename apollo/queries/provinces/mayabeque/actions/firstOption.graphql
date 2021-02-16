@@ -1,8 +1,6 @@
-query contributorsMissingInOnatMayabeque{
-    contributorsMissingInOnatMayabeque{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsMissingInOnatMayabeque($cityName: String!){
+    contributorsMissingInOnatMayabeque(cityName: $cityName){
+    dpa
     chapanueva
     numeromotor
     numerocarroseria

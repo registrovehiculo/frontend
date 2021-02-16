@@ -1,8 +1,6 @@
-query contributorsWithDifferentInformationCiego{
-    contributorsWithDifferentInformationCiego{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsWithDifferentInformationCiego($cityName: String!){
+    contributorsWithDifferentInformationCiego(cityName: $cityName){
+        dpa
     chapanueva
     numeromotor
     numerocarroseria

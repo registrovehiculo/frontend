@@ -1,5 +1,5 @@
-query contributorsWithDifferentInformationGuantanamoInfogesti{
-    contributorsWithDifferentInformationGuantanamoInfogesti{
+query contributorsWithDifferentInformationGuantanamoInfogesti($cityName: String!){
+    contributorsWithDifferentInformationGuantanamoInfogesti(cityName: $cityName){
     id
     nit
     unidad

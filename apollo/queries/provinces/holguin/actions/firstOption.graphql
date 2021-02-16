@@ -1,8 +1,6 @@
-query contributorsMissingInOnatHolguin{
-    contributorsMissingInOnatHolguin{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsMissingInOnatHolguin($cityName: String!){
+    contributorsMissingInOnatHolguin(cityName: $cityName){
+        dpa
     chapanueva
     numeromotor
     numerocarroseria

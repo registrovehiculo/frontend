@@ -1,8 +1,6 @@
-query contributorsWithEqualsInformationSantiagoDeCuba{
-    contributorsWithEqualsInformationSantiagoDeCuba{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsWithEqualsInformationSantiagoDeCuba($cityName: String!){
+    contributorsWithEqualsInformationSantiagoDeCuba(cityName: $cityName){
+    dpa
     chapanueva
     numeromotor
     numerocarroseria

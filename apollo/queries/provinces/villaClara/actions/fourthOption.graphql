@@ -1,5 +1,6 @@
-query infogestiVilla{
-    infogestiVilla{
+query infogestiVilla($cityName: String!){
+    infogestiVilla(cityName: $cityName){
+        id
         nit
         unidad
         nombreCompleto

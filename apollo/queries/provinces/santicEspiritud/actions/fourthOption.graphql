@@ -1,5 +1,6 @@
-query infogestiEspiritud{
-    infogestiEspiritud{
+query infogestiEspiritud($cityName: String!){
+    infogestiEspiritud(cityName: $cityName){
+        id
         nit
         unidad
         nombreCompleto

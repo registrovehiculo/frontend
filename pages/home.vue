@@ -20,10 +20,53 @@
             />
             <b-menu class="margin-top-10">
               <vue-excel-xlsx
-                :data="data"
+                v-if="data_1"
+                :data="data_1"
                 :columns="tableColumns"
-                :filename="selectedProvince"
-                :sheetname="selectedProvince"
+                :filename="selectedProvince + ' (' + cityById.name + ')'"
+                :sheetname="selectedProvince + ' (' + cityById.name + ')'"
+                class="documentStyle"
+              >
+                <b>Documento excel</b>
+                <font-awesome-icon
+                  :icon="['fas', 'file-excel']"
+                  style="height: 30px; width: 30px; color: green"
+                />
+              </vue-excel-xlsx>
+              <vue-excel-xlsx
+                v-if="data_2"
+                :data="data_2"
+                :columns="tableColumns"
+                :filename="selectedProvince + ' (' + cityById.name + ')'"
+                :sheetname="selectedProvince + ' (' + cityById.name + ')'"
+                class="documentStyle"
+              >
+                <b>Documento excel</b>
+                <font-awesome-icon
+                  :icon="['fas', 'file-excel']"
+                  style="height: 30px; width: 30px; color: green"
+                />
+              </vue-excel-xlsx>
+              <vue-excel-xlsx
+                v-if="data_3"
+                :data="data_3"
+                :columns="tableColumns"
+                :filename="selectedProvince + ' (' + cityById.name + ')'"
+                :sheetname="selectedProvince + ' (' + cityById.name + ')'"
+                class="documentStyle"
+              >
+                <b>Documento excel</b>
+                <font-awesome-icon
+                  :icon="['fas', 'file-excel']"
+                  style="height: 30px; width: 30px; color: green"
+                />
+              </vue-excel-xlsx>
+              <vue-excel-xlsx
+                v-if="data_4"
+                :data="data_4"
+                :columns="tableColumns"
+                :filename="selectedProvince + ' (' + cityById.name + ')'"
+                :sheetname="selectedProvince + ' (' + cityById.name + ')'"
                 class="documentStyle"
               >
                 <b>Documento excel</b>
@@ -39,9 +82,9 @@
     </div>
     <!--ColumnOptions :columns="tableColumns" /-->
     <hr />
-    <div class="columns is-centered">
-      <div class="column is-2-desktop margin-top-50">
-        <form>
+    <div class="row is-flex has-text-centered">
+      <div class="column is-2-desktop is-offset-1">
+        <form class="has-text-right">
           <b-field>
             <b-select
               v-model="address.form.country.code"
@@ -94,18 +137,15 @@
           </b-field>
         </form>
       </div>
-      <div class="column is-10-desktop has-text-centered">
-        <span
-          v-if="states && address.form.state"
-          style="font-size: 35px; margin-left: -10%"
-        >
+      <div class="column is-5 has-text-centered">
+        <span v-if="states && address.form.state" style="font-size: 35px">
           <b
             >{{ states[address.form.state - 1].name
             }}<span v-if="cityById">{{ ' (' + cityById.name + ')' }}</span></b
           >
         </span>
-        <div class="column has-text-right margin-top-20 margin-bottom-10">
-          <b-field style="padding-left: 20%">
+        <div class="column has-text-right" style="margin-top:2.5rem">
+          <b-field>
             <b-select
               v-model="selectedAction"
               dropdown-position="bottom"
@@ -134,7 +174,7 @@
             <b-button
               class="is-black margin-left-10"
               rounded
-              :disabled="loading && !data"
+              :disabled="loading || (!data_1 && !data_2 && !data_3 && !data_4)"
               @click="open = true"
               >Exportar</b-button
             >
@@ -150,6 +190,20 @@
             >
           </b-field>
         </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-7 margin-top-30">
+        <b-skeleton
+          size="is-large"
+          :active="loading"
+          widt="80%"
+          :count="10"
+        ></b-skeleton>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div v-if="!loading" class="flex-wrap-center column is-10">
         <div v-if="getActive()">
           <StatesTable
             v-if="vehiculo"
@@ -158,63 +212,46 @@
             :loading="false"
           />
         </div>
-        <div
-          v-if="
-            selectedAction &&
-              !getActive() &&
-              selectedProvince &&
-              selectedAction !== 4 &&
-              selectedAction !== 2
-          "
-        >
+        <div v-if="selectedAction === 1 && !getActive()">
           <StatesTable
-            v-if="data"
-            :data="data"
+            v-if="data_1"
+            :data="data_1"
+            :columns="tableColumns"
+            :loading="loading"
+          />
+        </div>
+        <div v-if="selectedAction === 3 && !getActive()">
+          <StatesTable
+            v-if="data_3"
+            :data="data_3"
             :columns="tableColumns"
             :loading="loading"
           />
         </div>
 
         <div
-          v-if="
-            selectedAction &&
-              !getActive() &&
-              selectedProvince &&
-              selectedAction !== 4 &&
-              selectedAction === 2
-          "
+          v-if="selectedAction === 2 && data_2 && data_2a && !getActive()"
           class="row is-flex"
         >
           <StatesTable
-            v-if="data"
-            :data="data"
+            v-if="data_2"
+            :data="data_2"
             :columns="different"
-            :loading="loading"
-            :checked-rows.sync="True"
             checkable
             class="column"
           />
           <StatesTable
-            v-if="data_1"
-            :data="data_1"
+            v-if="data_2a"
+            :data="data_2a"
             :columns="differentInfo"
-            :loading="loading"
             class="column"
           />
         </div>
-        <div
-          v-if="
-            selectedAction &&
-              !getActive() &&
-              selectedProvince &&
-              selectedAction === 4
-          "
-        >
+        <div v-if="!getActive() && selectedAction === 4">
           <StatesTable
-            v-if="data"
-            :data="data"
+            v-if="data_4"
+            :data="data_4"
             :columns="tableColumnsInfo"
-            :loading="loading"
           />
         </div>
       </div>
@@ -365,9 +402,12 @@ export default {
       states: [],
       cityById: null,
       selectedProvince: null,
-      loading: true,
-      data: null,
+      loading: false,
       data_1: null,
+      data_2: null,
+      data_2a: null,
+      data_3: null,
+      data_4: null,
       actions: [
         {
           id: 1,
@@ -392,6 +432,7 @@ export default {
       mobile: 'reduce',
       reduce: false,
       open: false,
+      a: '',
       overlay: true,
       fullheight: true,
       fullwidth: false,
@@ -463,6 +504,7 @@ export default {
         })
     },
     selectCity(option) {
+      this.a = option
       this.$apollo
         .query({
           query: citiesByIdQuery,
@@ -474,120 +516,156 @@ export default {
     },
     select() {
       // Artemisa
+      this.selectedProvince = this.states[this.address.form.state - 1].name
       this.loading = true
-      this.data = null
+      this.data_1 = null
+      this.data_2 = null
+      this.data_2a = null
+      this.data_3 = null
+      this.data_4 = null
       this.$store.commit('search/setActive', false)
-      if (this.selectedProvince === 'artemisa') {
+      if (this.selectedProvince === 'Artemisa') {
         if (this.selectedAction === 1) {
           this.$apollo
-            .query({ query: contributorsMissingInOnatArtemisaQuery })
+            .query({
+              query: contributorsMissingInOnatArtemisaQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatArtemisa
+              this.data_1 = data.contributorsMissingInOnatArtemisa
               this.loading = false
             })
         }
         if (this.selectedAction === 2) {
           this.$store.commit('search/setActive', false)
           this.$apollo
-            .query({ query: contributorsWithDifferentInformationArtemisaQuery })
+            .query({
+              query: contributorsWithDifferentInformationArtemisaQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsWithDifferentInformationArtemisa
+              this.data_2 = data.contributorsWithDifferentInformationArtemisa
             })
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationArtemisaInfogestiQuery
+              query: contributorsWithDifferentInformationArtemisaInfogestiQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data_1 =
+              this.data_2a =
                 data.contributorsWithDifferentInformationArtemisaInfogesti
               this.loading = false
             })
         }
         if (this.selectedAction === 3) {
           this.$apollo
-            .query({ query: contributorsWithEqualsInformationArtemisaQuery })
+            .query({
+              query: contributorsWithEqualsInformationArtemisaQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationArtemisa
+              this.data_3 = data.contributorsWithEqualsInformationArtemisa
               this.loading = false
             })
         }
         if (this.selectedAction === 4) {
           this.$apollo
-            .query({ query: infogestiArtemisaQuery })
+            .query({
+              query: infogestiArtemisaQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.infogestiArtemisa
+              this.data_4 = data.infogestiArtemisa
               this.loading = false
             })
         }
       }
       // Camaguey
-      else if (this.selectedProvince === 'camaguey') {
+      else if (this.selectedProvince === 'Camagüey') {
         if (this.selectedAction === 1) {
           this.$apollo
-            .query({ query: contributorsMissingInOnatCamagueyQuery })
+            .query({
+              query: contributorsMissingInOnatCamagueyQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatCamaguey
+              this.data_1 = data.contributorsMissingInOnatCamaguey
               this.loading = false
             })
         }
         if (this.selectedAction === 2) {
           this.$apollo
-            .query({ query: contributorsWithDifferentInformationCamagueyQuery })
+            .query({
+              query: contributorsWithDifferentInformationCamagueyQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsWithDifferentInformationCamaguey
+              this.data_2 = data.contributorsWithDifferentInformationCamaguey
             })
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationCamagueyInfogestiQuery
+              query: contributorsWithDifferentInformationCamagueyInfogestiQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data_1 =
+              this.data_2a =
                 data.contributorsWithDifferentInformationCamagueyInfogesti
               this.loading = false
             })
         }
         if (this.selectedAction === 3) {
           this.$apollo
-            .query({ query: contributorsWithEqualsInformationCamagueyQuery })
+            .query({
+              query: contributorsWithEqualsInformationCamagueyQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationCamaguey
+              this.data_3 = data.contributorsWithEqualsInformationCamaguey
               this.loading = false
             })
         }
         if (this.selectedAction === 4) {
           this.$apollo
-            .query({ query: infogestiCamagueyQuery })
+            .query({
+              query: infogestiCamagueyQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.infogestiCamaguey
+              this.data_4 = data.infogestiCamaguey
               this.loading = false
             })
         }
       }
       // Ciego De Avila
-      else if (this.selectedProvince === 'ciegoDeAvila') {
+      else if (this.selectedProvince === 'Ciego de Avila') {
         if (this.selectedAction === 1) {
           this.$apollo
-            .query({ query: contributorsMissingInOnatCiegoDeAvilaQuery })
+            .query({
+              query: contributorsMissingInOnatCiegoDeAvilaQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatCiego
+              this.data_1 = data.contributorsMissingInOnatCiego
               this.loading = false
             })
         }
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationCiegoDeAvilaQuery
+              query: contributorsWithDifferentInformationCiegoDeAvilaQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithDifferentInformationCiego
+              this.data_2 = data.contributorsWithDifferentInformationCiego
               this.loading = false
             })
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationCiegoInfogestiQuery
+              query: contributorsWithDifferentInformationCiegoInfogestiQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data_1 =
+              this.data_2a =
                 data.contributorsWithDifferentInformationCiegoInfogesti
               this.loading = false
             })
@@ -595,49 +673,56 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationCiegoDeAvilaQuery
+              query: contributorsWithEqualsInformationCiegoDeAvilaQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationCiego
+              this.data_3 = data.contributorsWithEqualsInformationCiego
               this.loading = false
             })
         }
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiCiegoQuery
+              query: infogestiCiegoQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.infogestiCiego
+              this.data_4 = data.infogestiCiego
               this.loading = false
             })
         }
       }
       // Cienfuegos
-      else if (this.selectedProvince === 'cienfuegos') {
+      else if (this.selectedProvince === 'Cienfuegos') {
         if (this.selectedAction === 1) {
           this.$apollo
-            .query({ query: contributorsMissingInOnatCienfuegosQuery })
+            .query({
+              query: contributorsMissingInOnatCienfuegosQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatCienfuegos
+              this.data_1 = data.contributorsMissingInOnatCienfuegos
               this.loading = false
             })
         }
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationCienfuegosQuery
+              query: contributorsWithDifferentInformationCienfuegosQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithDifferentInformationCienfuegos
+              this.data_2 = data.contributorsWithDifferentInformationCienfuegos
               this.loading = false
             })
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationCienfuegosInfogestiQuery
+              query: contributorsWithDifferentInformationCienfuegosInfogestiQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data_1 =
+              this.data_2a =
                 data.contributorsWithDifferentInformationCienfuegosInfogesti
               this.loading = false
             })
@@ -645,49 +730,56 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationCienfuegosQuery
+              query: contributorsWithEqualsInformationCienfuegosQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationCienfuegos
+              this.data_3 = data.contributorsWithEqualsInformationCienfuegos
               this.loading = false
             })
         }
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiCienfuegosQuery
+              query: infogestiCienfuegosQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.infogestiCienfuegos
+              this.data_4 = data.infogestiCienfuegos
               this.loading = false
             })
         }
       }
       // Granma
-      else if (this.selectedProvince === 'granma') {
+      else if (this.selectedProvince === 'Granma') {
         if (this.selectedAction === 1) {
           this.$apollo
-            .query({ query: contributorsMissingInOnatGranmaQuery })
+            .query({
+              query: contributorsMissingInOnatGranmaQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatGranma
+              this.data_1 = data.contributorsMissingInOnatGranma
               this.loading = false
             })
         }
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationGranmaQuery
+              query: contributorsWithDifferentInformationGranmaQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithDifferentInformationGranma
+              this.data_2 = data.contributorsWithDifferentInformationGranma
               this.loading = false
             })
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationGranmaInfogestiQuery
+              query: contributorsWithDifferentInformationGranmaInfogestiQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data_1 =
+              this.data_2a =
                 data.contributorsWithDifferentInformationGranmaInfogesti
               this.loading = false
             })
@@ -695,50 +787,57 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationGranmaQuery
+              query: contributorsWithEqualsInformationGranmaQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationGranma
+              this.data_3 = data.contributorsWithEqualsInformationGranma
               this.loading = false
             })
         }
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiGranmaQuery
+              query: infogestiGranmaQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.infogestiGranma
+              this.data_4 = data.infogestiGranma
               this.loading = false
             })
         }
       }
 
       // Guantanamo
-      else if (this.selectedProvince === 'guantanamo') {
+      else if (this.selectedProvince === 'Guantanamo') {
         if (this.selectedAction === 1) {
           this.$apollo
-            .query({ query: contributorsMissingInOnatGuantanamoQuery })
+            .query({
+              query: contributorsMissingInOnatGuantanamoQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatGuantanamo
+              this.data_1 = data.contributorsMissingInOnatGuantanamo
               this.loading = false
             })
         }
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationGuantanamoQuery
+              query: contributorsWithDifferentInformationGuantanamoQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithDifferentInformationGuantanamo
+              this.data_2 = data.contributorsWithDifferentInformationGuantanamo
               this.loading = false
             })
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationGuantanamoInfogestiQuery
+              query: contributorsWithDifferentInformationGuantanamoInfogestiQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data_1 =
+              this.data_2a =
                 data.contributorsWithDifferentInformationGuantanamoInfogesti
               this.loading = false
             })
@@ -746,50 +845,57 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationGuantanamoQuery
+              query: contributorsWithEqualsInformationGuantanamoQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationGuantanamo
+              this.data_3 = data.contributorsWithEqualsInformationGuantanamo
               this.loading = false
             })
         }
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiGuantanamoQuery
+              query: infogestiGuantanamoQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.infogestiGuantanamo
+              this.data_4 = data.infogestiGuantanamo
               this.loading = false
             })
         }
       }
 
       // Holguin
-      else if (this.selectedProvince === 'holguin') {
+      else if (this.selectedProvince === 'Holguin') {
         if (this.selectedAction === 1) {
           this.$apollo
-            .query({ query: contributorsMissingInOnatHolguinQuery })
+            .query({
+              query: contributorsMissingInOnatHolguinQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatHolguin
+              this.data_1 = data.contributorsMissingInOnatHolguin
               this.loading = false
             })
         }
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationHolguinQuery
+              query: contributorsWithDifferentInformationHolguinQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithDifferentInformationHolguin
+              this.data_2 = data.contributorsWithDifferentInformationHolguin
               this.loading = false
             })
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationHolguinInfogestiQuery
+              query: contributorsWithDifferentInformationHolguinInfogestiQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data_1 =
+              this.data_2a =
                 data.contributorsWithDifferentInformationHolguinInfogesti
               this.loading = false
             })
@@ -797,50 +903,57 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationHolguinQuery
+              query: contributorsWithEqualsInformationHolguinQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationHolguin
+              this.data_3 = data.contributorsWithEqualsInformationHolguin
               this.loading = false
             })
         }
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiHolguinQuery
+              query: infogestiHolguinQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.infogestiHolguin
+              this.data_4 = data.infogestiHolguin
               this.loading = false
             })
         }
       }
       // Isla de la juventud
-      else if (this.selectedProvince === 'islaDeLaJuventud') {
+      else if (this.selectedProvince === 'Isla de la Juventud') {
         if (this.selectedAction === 1) {
           this.$apollo
-            .query({ query: contributorsMissingInOnatIslaDeLaJuventudQuery })
+            .query({
+              query: contributorsMissingInOnatIslaDeLaJuventudQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatIslaDeLaJuventud
+              this.data_1 = data.contributorsMissingInOnatIslaDeLaJuventud
               this.loading = false
             })
         }
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationIslaDeLaJuventudQuery
+              query: contributorsWithDifferentInformationIslaDeLaJuventudQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data =
+              this.data_2 =
                 data.contributorsWithDifferentInformationIslaDeLaJuventud
               this.loading = false
             })
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationIslaDeLaJuventudInfogestiQuery
+              query: contributorsWithDifferentInformationIslaDeLaJuventudInfogestiQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data_1 =
+              this.data_2a =
                 data.contributorsWithDifferentInformationIslaDeLaJuventudInfogesti
               this.loading = false
             })
@@ -848,51 +961,59 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationIslaDeLaJuventudQuery
+              query: contributorsWithEqualsInformationIslaDeLaJuventudQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationIslaDeLaJuventud
+              this.data_3 =
+                data.contributorsWithEqualsInformationIslaDeLaJuventud
               this.loading = false
             })
         }
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiIslaQuery
+              query: infogestiIslaQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.infogestiIslaQuery
+              this.data_4 = data.infogestiIslaQuery
               this.loading = false
             })
         }
       }
 
       // La habana
-      else if (this.selectedProvince === 'habana') {
+      else if (this.selectedProvince === 'La Habana') {
         console.log(1)
         if (this.selectedAction === 1) {
           this.$apollo
-            .query({ query: contributorsMissingInOnatLaHabanaQuery })
+            .query({
+              query: contributorsMissingInOnatLaHabanaQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatLaHabana
+              this.data_1 = data.contributorsMissingInOnatLaHabana
               this.loading = false
             })
         }
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationLaHabanaQuery
+              query: contributorsWithDifferentInformationLaHabanaQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithDifferentInformationLaHabana
+              this.data_2 = data.contributorsWithDifferentInformationLaHabana
               this.loading = false
             })
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationLaHabanaInfogestiQuery
+              query: contributorsWithDifferentInformationLaHabanaInfogestiQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data_1 =
+              this.data_2a =
                 data.contributorsWithDifferentInformationLaHabanaInfogesti
               this.loading = false
             })
@@ -900,50 +1021,57 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationLaHabanaQuery
+              query: contributorsWithEqualsInformationLaHabanaQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationLaHabana
+              this.data_3 = data.contributorsWithEqualsInformationLaHabana
               this.loading = false
             })
         }
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiHabanaQuery
+              query: infogestiHabanaQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.infogestiHabana
+              this.data_4 = data.infogestiHabana
               this.loading = false
             })
         }
       }
 
       // Las Tunas
-      else if (this.selectedProvince === 'lasTunas') {
+      else if (this.selectedProvince === 'Las Tunas') {
         if (this.selectedAction === 1) {
           this.$apollo
-            .query({ query: contributorsMissingInOnatLasTunasQuery })
+            .query({
+              query: contributorsMissingInOnatLasTunasQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatLasTunas
+              this.data_1 = data.contributorsMissingInOnatLasTunas
               this.loading = false
             })
         }
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationLasTunasQuery
+              query: contributorsWithDifferentInformationLasTunasQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithDifferentInformationLasTunas
+              this.data_2 = data.contributorsWithDifferentInformationLasTunas
               this.loading = false
             })
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationLasTunasInfogestiQuery
+              query: contributorsWithDifferentInformationLasTunasInfogestiQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data_1 =
+              this.data_2a =
                 data.contributorsWithDifferentInformationLasTunasInfogesti
               this.loading = false
             })
@@ -951,101 +1079,115 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationLasTunasQuery
+              query: contributorsWithEqualsInformationLasTunasQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationLasTunas
+              this.data_3 = data.contributorsWithEqualsInformationLasTunas
               this.loading = false
             })
         }
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiTunasQuery
+              query: infogestiTunasQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.infogestiTunas
+              this.data_4 = data.infogestiTunas
               this.loading = false
             })
         }
       }
 
       // Matanzas
-      else if (this.selectedProvince === 'matanzas') {
+      else if (this.selectedProvince === 'Matanzas') {
         if (this.selectedAction === 1) {
           this.$apollo
-            .query({ query: contributorsMissingInOnatMatanzasQuery })
+            .query({
+              query: contributorsMissingInOnatMatanzasQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatMatanzas
+              this.data_1 = data.contributorsMissingInOnatMatanzas
               this.loading = false
             })
         }
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationMatanzasQuery
+              query: contributorsWithDifferentInformationMatanzasQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithDifferentInformationMatanzas
+              this.data_2 = data.contributorsWithDifferentInformationMatanzas
               this.loading = false
             })
         }
-        if (this.selectedAction === 3) {
-          this.$apollo
-            .query({
-              query: contributorsWithEqualsInformationMatanzasQuery
-            })
-            .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationMatanzas
-              this.loading = false
-            })
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationMatanzasInfogestiQuery
-            })
-            .then(({ data }) => {
-              this.data_1 =
-                data.contributorsWithDifferentInformationMatanzasInfogesti
-              this.loading = false
-            })
-        }
+        this.$apollo
+          .query({
+            query: contributorsWithDifferentInformationMatanzasInfogestiQuery,
+            variables: { cityName: this.cityById.name }
+          })
+          .then(({ data }) => {
+            this.data_2a =
+              data.contributorsWithDifferentInformationMatanzasInfogesti
+            this.loading = false
+          })
+      }
+      if (this.selectedAction === 3) {
+        this.$apollo
+          .query({
+            query: contributorsWithEqualsInformationMatanzasQuery,
+            variables: { cityName: this.cityById.name }
+          })
+          .then(({ data }) => {
+            this.data_3 = data.contributorsWithEqualsInformationMatanzas
+            this.loading = false
+          })
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiMatanzasQuery
+              query: infogestiMatanzasQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.infogestiMatanzas
+              this.data_4 = data.infogestiMatanzas
               this.loading = false
             })
         }
       }
 
       // Mayabeque
-      else if (this.selectedProvince === 'mayabeque') {
+      else if (this.selectedProvince === 'Mayabeque') {
         if (this.selectedAction === 1) {
           this.$apollo
-            .query({ query: contributorsMissingInOnatMayabequeQuery })
+            .query({
+              query: contributorsMissingInOnatMayabequeQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatMayabeque
+              this.data_1 = data.contributorsMissingInOnatMayabeque
               this.loading = false
             })
         }
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationMayabequeQuery
+              query: contributorsWithDifferentInformationMayabequeQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithDifferentInformationMayabeque
+              this.data_2 = data.contributorsWithDifferentInformationMayabeque
               this.loading = false
             })
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationMayabequeInfogestiQuery
+              query: contributorsWithDifferentInformationMayabequeInfogestiQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data_1 =
+              this.data_2a =
                 data.contributorsWithDifferentInformationMayabequeInfogesti
               this.loading = false
             })
@@ -1053,96 +1195,116 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationMayabequeQuery
+              query: contributorsWithEqualsInformationMayabequeQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationMayabeque
+              this.data_3 = data.contributorsWithEqualsInformationMayabeque
               this.loading = false
             })
         }
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiMayabequeQuery
+              query: infogestiMayabequeQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.infogestiMayabeque
+              this.data_4 = data.infogestiMayabeque
               this.loading = false
             })
         }
       }
 
       // Pinar del Rio
-      else if (this.selectedProvince === 'pinarDelRio') {
+      else if (this.selectedProvince === 'Pinar del Rio') {
         if (this.selectedAction === 1) {
           this.$apollo
-            .query({ query: contributorsMissingInOnatPinarQuery })
+            .query({
+              query: contributorsMissingInOnatPinarQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatPinar
+              this.data_1 = data.contributorsMissingInOnatPinar
               this.loading = false
             })
         }
         if (this.selectedAction === 2) {
           this.$apollo
-            .query({ query: contributorsWithDifferentInformationPinarQuery })
+            .query({
+              query: contributorsWithDifferentInformationPinarQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsWithDifferentInformationPinar
+              this.data_2 = data.contributorsWithDifferentInformationPinar
               this.loading = false
             })
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationPinarInfogestiQuery
+              query: contributorsWithDifferentInformationPinarInfogestiQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data_1 =
+              this.data_2a =
                 data.contributorsWithDifferentInformationPinarInfogesti
               this.loading = false
             })
         }
         if (this.selectedAction === 3) {
           this.$apollo
-            .query({ query: contributorsWithEqualsInformationPinarQuery })
+            .query({
+              query: contributorsWithEqualsInformationPinarQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationPinar
+              this.data_3 = data.contributorsWithEqualsInformationPinar
               this.loading = false
             })
         }
         if (this.selectedAction === 4) {
           this.$apollo
-            .query({ query: infogestiPinarQuery })
+            .query({
+              query: infogestiPinarQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.infogestiPinar
+              this.data_4 = data.infogestiPinar
               this.loading = false
             })
         }
       }
 
       // Santiago de Cuba
-      else if (this.selectedProvince === 'santiagoDeCuba') {
+      else if (this.selectedProvince === 'Santiago de Cuba') {
         if (this.selectedAction === 1) {
           this.$apollo
-            .query({ query: contributorsMissingInOnatSantiagoDeCubaQuery })
+            .query({
+              query: contributorsMissingInOnatSantiagoDeCubaQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatSantiagoDeCuba
+              this.data_1 = data.contributorsMissingInOnatSantiagoDeCuba
               this.loading = false
             })
         }
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationSantiagoDeCubaQuery
+              query: contributorsWithDifferentInformationSantiagoDeCubaQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data =
+              this.data_2 =
                 data.contributorsWithDifferentInformationSantiagoDeCuba
               this.loading = false
             })
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationSantiagoDeCubaInfogestiQuery
+              query: contributorsWithDifferentInformationSantiagoDeCubaInfogestiQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data_1 =
+              this.data_2a =
                 data.contributorsWithDifferentInformationSantiagoDeCubaInfogesti
               this.loading = false
             })
@@ -1150,51 +1312,58 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationSantiagoDeCubaQuery
+              query: contributorsWithEqualsInformationSantiagoDeCubaQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationSantiagoDeCuba
+              this.data_3 = data.contributorsWithEqualsInformationSantiagoDeCuba
               this.loading = false
             })
         }
-        if (this.selectedAction === 3) {
+        if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiSantiagoQuery
+              query: infogestiSantiagoQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.infogestiSantiago
+              this.data_4 = data.infogestiSantiago
               this.loading = false
             })
         }
       }
 
       // Santic Espiritud
-      else if (this.selectedProvince === 'santciSpiritus') {
+      else if (this.selectedProvince === 'Sancti Spiritus') {
         if (this.selectedAction === 1) {
           this.$apollo
-            .query({ query: contributorsMissingInOnatSanticEspiritudQuery })
+            .query({
+              query: contributorsMissingInOnatSanticEspiritudQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatSanticEspiritud
+              this.data_1 = data.contributorsMissingInOnatSanticEspiritud
               this.loading = false
             })
         }
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationSanticEspiritudQuery
+              query: contributorsWithDifferentInformationSanticEspiritudQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data =
+              this.data_2 =
                 data.contributorsWithDifferentInformationSanticEspiritud
               this.loading = false
             })
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationSanticEspiritudInfogestiQuery
+              query: contributorsWithDifferentInformationSanticEspiritudInfogestiQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data_1 =
+              this.data_2a =
                 data.contributorsWithDifferentInformationSanticEspiritudInfogesti
               this.loading = false
             })
@@ -1202,67 +1371,81 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationSanticEspiritudQuery
+              query: contributorsWithEqualsInformationSanticEspiritudQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationSanticEspiritud
+              this.data_3 =
+                data.contributorsWithEqualsInformationSanticEspiritud
               this.loading = false
             })
         }
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiEspiritudQuery
+              query: infogestiEspiritudQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.infogestiEspiritud
+              this.data_4 = data.infogestiEspiritud
               this.loading = false
             })
         }
       }
 
       // Villa Clara
-      else if (this.selectedProvince === 'villaClara') {
+      else if (this.selectedProvince === 'Villa Clara') {
         if (this.selectedAction === 1) {
           this.$apollo
-            .query({ query: contributorsMissingInOnatVillaClaraQuery })
+            .query({
+              query: contributorsMissingInOnatVillaClaraQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsMissingInOnatVillaClara
+              this.data_1 = data.contributorsMissingInOnatVillaClara
               this.loading = false
             })
         }
         if (this.selectedAction === 2) {
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationVillaClaraQuery
+              query: contributorsWithDifferentInformationVillaClaraQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data = data.contributorsWithDifferentInformationVillaClara
+              this.data_2 = data.contributorsWithDifferentInformationVillaClara
               this.loading = false
             })
           this.$apollo
             .query({
-              query: contributorsWithDifferentInformationVillaClaraInfogestiQuery
+              query: contributorsWithDifferentInformationVillaClaraInfogestiQuery,
+              variables: { cityName: this.cityById.name }
             })
             .then(({ data }) => {
-              this.data_1 =
+              this.data_2a =
                 data.contributorsWithDifferentInformationVillaClaraInfogesti
               this.loading = false
             })
         }
         if (this.selectedAction === 3) {
           this.$apollo
-            .query({ query: contributorsWithEqualsInformationVillaClaraQuery })
+            .query({
+              query: contributorsWithEqualsInformationVillaClaraQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.contributorsWithEqualsInformationVillaClara
+              this.data_3 = data.contributorsWithEqualsInformationVillaClara
               this.loading = false
             })
         }
         if (this.selectedAction === 4) {
           this.$apollo
-            .query({ query: infogestiVillaQuery })
+            .query({
+              query: infogestiVillaQuery,
+              variables: { cityName: this.cityById.name }
+            })
             .then(({ data }) => {
-              this.data = data.infogestiVilla
+              this.data_4 = data.infogestiVilla
               this.loading = false
             })
         }

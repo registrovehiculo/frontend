@@ -1,5 +1,6 @@
-query infogestiMatanzas{
-    infogestiMatanzas{
+query infogestiMatanzas($cityName: String!){
+    infogestiMatanzas(cityName: $cityName){
+        id
         nit
         unidad
         nombreCompleto

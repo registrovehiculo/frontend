@@ -1,5 +1,5 @@
-query contributorsWithDifferentInformationCiegoInfogesti{
-    contributorsWithDifferentInformationCiegoInfogesti{
+query contributorsWithDifferentInformationCiegoInfogesti($cityName: String!){
+    contributorsWithDifferentInformationCiegoInfogesti(cityName: $cityName){
     id
     nit
     unidad

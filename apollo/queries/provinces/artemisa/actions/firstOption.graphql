@@ -1,8 +1,6 @@
-query contributorsMissingInOnatArtemisa{
-    contributorsMissingInOnatArtemisa{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsMissingInOnatArtemisa($cityName: String!){
+    contributorsMissingInOnatArtemisa(cityName: $cityName){
+        dpa
     chapanueva
     numeromotor
     numerocarroseria

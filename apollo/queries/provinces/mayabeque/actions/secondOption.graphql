@@ -1,8 +1,6 @@
-query contributorsWithDifferentInformationMayabeque{
-    contributorsWithDifferentInformationMayabeque{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsWithDifferentInformationMayabeque($cityName: String!){
+    contributorsWithDifferentInformationMayabeque(cityName: $cityName){
+    dpa
     chapanueva
     numeromotor
     numerocarroseria

@@ -1,5 +1,5 @@
-query contributorsWithDifferentInformationCamagueyInfogesti{
-    contributorsWithDifferentInformationCamagueyInfogesti{
+query contributorsWithDifferentInformationCamagueyInfogesti($cityName: String!){
+    contributorsWithDifferentInformationCamagueyInfogesti(cityName: $cityName){
     id
     nit
     unidad

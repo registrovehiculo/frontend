@@ -1,8 +1,6 @@
-query contributorsWithEqualsInformationCienfuegos{
-    contributorsWithEqualsInformationCienfuegos{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsWithEqualsInformationCienfuegos($cityName: String!){
+    contributorsWithEqualsInformationCienfuegos(cityName: $cityName){
+        dpa
     chapanueva
     numeromotor
     numerocarroseria

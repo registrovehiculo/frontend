@@ -1,45 +1,58 @@
 <template>
-  <section class="section">
-    <div class="container">
-      <div class="columns is-centered">
-        <div
-          class="column is-5 has-text-centered margin-top-20"
-          style="transform: translateY(27%)"
-        >
-          <img src="~assets/car.png" alt="car" height="150" width="150" />
-          <h2 class="title has-text-centered">Registro vehiculo</h2>
-          <form @submit.stop.prevent="login()">
-            <div class="margin-top-10">
-              <b-field>
-                <b-input
-                  v-model="$v.form.username.$model"
-                  name="username"
-                  placeholder="Usuario"
-                  rounded
-                ></b-input>
-              </b-field>
+  <section>
+    <div class="hero is-fullheight">
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns is-centered is-variable is-8">
+            <div class="column has-text-centered is-6 flex-wrap-center">
+              <img
+                src="~assets/car.png"
+                alt="car"
+                height="150"
+                width="150"
+                style="margin-top: -100px"
+              />
+              <h2 class="title has-text-centered">Registro vehiculo</h2>
+              <form @submit.stop.prevent="login()">
+                <div class="margin-top-10">
+                  <b-field>
+                    <b-input
+                      v-model="$v.form.username.$model"
+                      name="username"
+                      placeholder="Usuario"
+                      rounded
+                    ></b-input>
+                  </b-field>
+                </div>
+                <div class="margin-top-10">
+                  <b-field>
+                    <b-input
+                      v-model="$v.form.password.$model"
+                      type="password"
+                      name="password"
+                      password-reveal
+                      placeholder="Contraseña"
+                      rounded
+                    ></b-input>
+                  </b-field>
+                </div>
+                <div class="margin-top-20">
+                  <b-button
+                    class="is-black is-fullwidth"
+                    rounded
+                    @click="login"
+                  >
+                    Entrar
+                  </b-button>
+                </div>
+                <div class="margin-top-10 has-text-centered">
+                  <p v-show="form.error" class="font-size-2">
+                    {{ form.message }}
+                  </p>
+                </div>
+              </form>
             </div>
-            <div class="margin-top-10">
-              <b-field>
-                <b-input
-                  v-model="$v.form.password.$model"
-                  type="password"
-                  name="password"
-                  password-reveal
-                  placeholder="Contraseña"
-                  rounded
-                ></b-input>
-              </b-field>
-            </div>
-            <div class="margin-top-20">
-              <b-button class="is-black is-fullwidth" rounded @click="login">
-                Entrar
-              </b-button>
-            </div>
-            <div class="margin-top-10 has-text-centered">
-              <p v-show="form.error" class="font-size-2">{{ form.message }}</p>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
@@ -78,18 +91,19 @@ export default {
       }
     }
   },
-  // beforeCreate() {
-  //   const url = this.$cookies.get('auth.redirect')
-  //   if (url && this.$auth.loggedIn) {
-  //     this.$router.replace(url)
-  //   }
-  // },
+  beforeCreate() {
+    const url = this.$cookies.get('auth.redirect')
+    if (url && this.$auth.loggedIn) {
+      this.$router.replace(url)
+    } else {
+      this.$router.replace('/home')
+    }
+  },
   // beforeMount() {
   //   if (this.$auth.loggedIn) {
   //     this.loadAuth()
   //     this.$router.replace('/home')
   //   }
-  //   this.loading = false
   // },
   methods: {
     login() {

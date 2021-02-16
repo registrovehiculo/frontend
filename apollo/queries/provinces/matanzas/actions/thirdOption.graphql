@@ -1,8 +1,6 @@
-query contributorsWithEqualsInformationMatanzas{
-    contributorsWithEqualsInformationMatanzas{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsWithEqualsInformationMatanzas($cityName: String!){
+    contributorsWithEqualsInformationMatanzas(cityName: $cityName){
+    dpa
     chapanueva
     numeromotor
     numerocarroseria

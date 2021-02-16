@@ -7,6 +7,10 @@
 
 .media
   display unset !important
+.b-skeleton.is-large > .b-skeleton-item
+    line-height: 1.9rem !important
+    margin-top 0.7rem !important
+    margin-bottom 0.7rem !important
 
 .media + .media
   border-top unset !important
@@ -14,8 +18,11 @@
   padding-top unset !important
 .button
   border unset !important
+  border none !important
+  box-shadow unset !important
+  font-weight 700 !important
 .button:not([disabled]):hover
-  background #bf001e !important
+  background #d60000 !important
   transition background 250ms
 
 .input::placeholder, .select::placeholder, autocomplete::placeholder,

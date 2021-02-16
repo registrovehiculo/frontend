@@ -1,8 +1,6 @@
-query contributorsWithEqualsInformationHolguin{
-    contributorsWithEqualsInformationHolguin{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsWithEqualsInformationHolguin($cityName: String!){
+    contributorsWithEqualsInformationHolguin(cityName: $cityName){
+        dpa
     chapanueva
     numeromotor
     numerocarroseria

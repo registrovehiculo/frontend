@@ -1,8 +1,6 @@
-query contributorsWithDifferentInformationCamaguey{
-    contributorsWithDifferentInformationCamaguey{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsWithDifferentInformationCamaguey($cityName: String!){
+    contributorsWithDifferentInformationCamaguey(cityName: $cityName){
+        dpa
     chapanueva
     numeromotor
     numerocarroseria

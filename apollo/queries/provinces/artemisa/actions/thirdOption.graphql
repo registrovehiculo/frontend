@@ -1,9 +1,7 @@
-query contributorsWithEqualsInformationArtemisa{
-    contributorsWithEqualsInformationArtemisa{
-    municipio
-    estadovehiculo
-    marcavehiculo
-    chapanueva
+query contributorsWithEqualsInformationArtemisa($cityName: String!){
+    contributorsWithEqualsInformationArtemisa(cityName: $cityName){
+        dpa
+        chapanueva
     numeromotor
     numerocarroseria
     marcamotor

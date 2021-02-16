@@ -1,8 +1,6 @@
-query contributorsWithEqualsInformationPinar{
-    contributorsWithEqualsInformationPinar{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsWithEqualsInformationPinar($cityName: String!){
+    contributorsWithEqualsInformationPinar(cityName: $cityName){
+    dpa
     chapanueva
     numeromotor
     numerocarroseria

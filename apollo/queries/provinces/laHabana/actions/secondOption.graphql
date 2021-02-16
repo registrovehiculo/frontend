@@ -1,8 +1,6 @@
-query contributorsWithDifferentInformationLaHabana{
-    contributorsWithDifferentInformationLaHabana{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsWithDifferentInformationLaHabana($cityName: String!){
+    contributorsWithDifferentInformationLaHabana(cityName: $cityName){
+    dpa
     chapanueva
     numeromotor
     numerocarroseria

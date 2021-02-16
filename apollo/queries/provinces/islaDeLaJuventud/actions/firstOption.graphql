@@ -1,8 +1,6 @@
-query contributorsMissingInOnatIslaDeLaJuventud{
-    contributorsMissingInOnatIslaDeLaJuventud{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsMissingInOnatIslaDeLaJuventud($cityName: String!){
+    contributorsMissingInOnatIslaDeLaJuventud(cityName: $cityName){
+        dpa
     chapanueva
     numeromotor
     numerocarroseria

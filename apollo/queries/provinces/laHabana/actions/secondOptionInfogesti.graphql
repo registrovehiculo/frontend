@@ -1,5 +1,5 @@
-query contributorsWithDifferentInformationLaHabanaInfogesti{
-    contributorsWithDifferentInformationLaHabanaInfogesti{
+query contributorsWithDifferentInformationLaHabanaInfogesti($cityName: String!){
+    contributorsWithDifferentInformationLaHabanaInfogesti(cityName: $cityName){
     id
     nit
     unidad

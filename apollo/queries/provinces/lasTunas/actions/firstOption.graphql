@@ -1,8 +1,6 @@
-query contributorsMissingInOnatLasTunas{
-    contributorsMissingInOnatLasTunas{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsMissingInOnatLasTunas($cityName: String!){
+    contributorsMissingInOnatLasTunas(cityName: $cityName){
+    dpa
     chapanueva
     numeromotor
     numerocarroseria

@@ -1,8 +1,6 @@
-query contributorsMissingInOnatSantiagoDeCuba{
-    contributorsMissingInOnatSantiagoDeCuba{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsMissingInOnatSantiagoDeCuba($cityName: String!){
+    contributorsMissingInOnatSantiagoDeCuba(cityName: $cityName){
+    dpa
     chapanueva
     numeromotor
     numerocarroseria

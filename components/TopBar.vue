@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav
-      class="navbar header is-primary padding-right-20 padding-left-20"
+      class="navbar header is-black padding-right-20 padding-left-20"
       role="navigation"
       aria-label="main navigation"
     >

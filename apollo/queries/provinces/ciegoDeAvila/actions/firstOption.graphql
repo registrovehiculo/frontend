@@ -1,8 +1,6 @@
-query contributorsMissingInOnatCiego{
-    contributorsMissingInOnatCiego{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsMissingInOnatCiego($cityName: String!){
+    contributorsMissingInOnatCiego(cityName: $cityName){
+        dpa
     chapanueva
     numeromotor
     numerocarroseria

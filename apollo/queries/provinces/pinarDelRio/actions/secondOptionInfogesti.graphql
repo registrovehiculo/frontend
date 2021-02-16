@@ -1,5 +1,5 @@
-query contributorsWithDifferentInformationPinarInfogesti{
-    contributorsWithDifferentInformationPinarInfogesti{
+query contributorsWithDifferentInformationPinarInfogesti($cityName: String!){
+    contributorsWithDifferentInformationPinarInfogesti(cityName: $cityName){
     id
     nit
     unidad

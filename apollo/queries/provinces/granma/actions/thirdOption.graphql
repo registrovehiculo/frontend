@@ -1,8 +1,6 @@
-query contributorsWithEqualsInformationGranma{
-    contributorsWithEqualsInformationGranma{
-    municipio
-    estadovehiculo
-    marcavehiculo
+query contributorsWithEqualsInformationGranma($cityName: String!){
+    contributorsWithEqualsInformationGranma(cityName: $cityName){
+        dpa
     chapanueva
     numeromotor
     numerocarroseria

@@ -1,5 +1,6 @@
-query infogestiCamaguey{
-    infogestiCamaguey{
+query infogestiCamaguey($cityName: String!){
+    infogestiCamaguey(cityName: $cityName){
+        id
         nit
         unidad
         nombreCompleto

@@ -1,20 +1,7 @@
 [
-
         {
-          "field": "municipio",
-          "label": "Municipio",
-          "searchable": true,
-          "visible": true
-        },
-        {
-          "field": "estadovehiculo",
-          "label": "Estado Vehiculo",
-          "searchable": true,
-          "visible": true
-        },
-        {
-          "field": "marcavehiculo",
-          "label": "Marca Vehiculo",
+          "field": "dpa",
+          "label": "DPA",
           "searchable": true,
           "visible": true
         },
