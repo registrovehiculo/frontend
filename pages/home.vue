@@ -82,8 +82,8 @@
     </div>
     <!--ColumnOptions :columns="tableColumns" /-->
     <hr />
-    <div class="row is-flex has-text-centered">
-      <div class="column is-2-desktop is-offset-1">
+    <div class="row is-flex-desktop has-text-centered">
+      <div class="column is-2-desktop is-12-tablet is-offset-1-desktop">
         <form class="has-text-right">
           <b-field>
             <b-select
@@ -137,19 +137,25 @@
           </b-field>
         </form>
       </div>
-      <div class="column is-5 has-text-centered">
+      <div
+        class="column is-6-desktop is-12-tablet has-text-centered margin-left-20"
+      >
         <span v-if="states && address.form.state" style="font-size: 35px">
           <b
             >{{ states[address.form.state - 1].name
             }}<span v-if="cityById">{{ ' (' + cityById.name + ')' }}</span></b
           >
         </span>
-        <div class="column has-text-right" style="margin-top:2.5rem">
+        <div
+          class="column is-hidden-tablet-only is-hidden-mobile margin-left-20"
+          style="margin-top:2.5rem"
+        >
           <b-field>
             <b-select
               v-model="selectedAction"
               dropdown-position="bottom"
               placeholder="Acciones..."
+              expanded
             >
               <option
                 v-for="option in actions"
@@ -178,18 +184,54 @@
               @click="open = true"
               >Exportar</b-button
             >
-            <b
-              v-if="
-                selectedAction && !getActive() && selectedProvince && selected
-              "
-              class="has-text-centered font-size-2 flex-wrap-center margin-bottom-10 margin-top-20"
-            >
-              {{
-                actions[selectedAction - 1].name + ' de ' + selectedProvince
-              }}</b
-            >
           </b-field>
         </div>
+      </div>
+      <div class="is-hidden-table is-hidden-desktop bottom-bar">
+        <div class="columns is-mobile">
+          <div class="column is-6">
+            <b-button
+              class="is-black is-fullwidth is-small"
+              rounded
+              :disabled="
+                !address.form.country ||
+                  !address.form.state ||
+                  !address.form.city ||
+                  !selectedAction
+              "
+              @click="select()"
+              >Buscar</b-button
+            >
+          </div>
+          <div class="column is-6-mobile">
+            <b-button
+              class="is-black is-fullwidth is-small"
+              rounded
+              :disabled="loading || (!data_1 && !data_2 && !data_3 && !data_4)"
+              @click="open = true"
+              >Exportar</b-button
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-hidden-desktop">
+        <b-field>
+          <b-select
+            v-model="selectedAction"
+            dropdown-position="bottom"
+            placeholder="Acciones..."
+            expanded
+          >
+            <option
+              v-for="option in actions"
+              :key="option.id"
+              :value="option.id"
+            >
+              {{ option.name }}
+            </option>
+          </b-select>
+        </b-field>
       </div>
     </div>
     <div class="columns is-centered">
@@ -1473,4 +1515,11 @@ export default {
   background-color rgba(0,0,0,0.04)
   cursor pointer
   border-radius 12px
+.bottom-bar
+  border-top #f5f5f5 solid 1pt
+  position fixed
+  bottom 0
+  width 87%
+  background #ffffff
+  z-index 1
 </style>

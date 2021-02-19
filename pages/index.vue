@@ -96,7 +96,7 @@ export default {
     if (url && this.$auth.loggedIn) {
       this.$router.replace(url)
     } else {
-      this.$router.replace('/home')
+      // this.$router.replace('/home')
     }
   },
   // beforeMount() {

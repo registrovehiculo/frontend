@@ -9,9 +9,18 @@
         <nuxt-link class="navbar-item" to="/home">
           <img src="~assets/car.png" alt="car" height="10" />
         </nuxt-link>
+        <Searcher
+          style="width: 100%"
+          class="margin-top-10 is-hidden-tablet is-hidden-desktop"
+        />
+        <a
+          class="navbar-item is-hidden-tablet is-hidden-desktop"
+          @click="logout"
+          >Salir</a
+        >
       </div>
-      <div class="navbar-menu">
-        <div style="margin-top: 0.75rem; width: 25%" class="margin-left-10">
+      <div class="navbar-menu is-hidden-mobile">
+        <div style="margin-top: 0.75rem; width: 30%" class="margin-left-10">
           <Searcher />
         </div>
         <div class="navbar-end">
@@ -24,12 +33,6 @@
               <a class="navbar-item" @click="logout">Salir</a>
             </div>
           </div>
-          <template v-else>
-            <nuxt-link class="navbar-item" to="/register"
-              >Registrarse</nuxt-link
-            >
-            <nuxt-link class="navbar-item" to="/login">Entrar</nuxt-link>
-          </template>
         </div>
       </div>
     </nav>
