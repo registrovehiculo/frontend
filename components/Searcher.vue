@@ -80,4 +80,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="stylus">
+.control.has-icons-left .input.is-small ~ .icon, .control.has-icons-left .select.is-small ~ .icon, .control.has-icons-right .input.is-small ~ .icon, .control.has-icons-right .select.is-small ~ .icon {
+    font-size: 1rem !important
+}
+</style>
