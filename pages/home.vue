@@ -1172,28 +1172,28 @@ export default {
               this.data_2 = data.contributorsWithDifferentInformationMatanzas
               this.loading = false
             })
+          this.$apollo
+            .query({
+              query: contributorsWithDifferentInformationMatanzasInfogestiQuery,
+              variables: { cityName: this.cityById.name }
+            })
+            .then(({ data }) => {
+              this.data_2a =
+                data.contributorsWithDifferentInformationMatanzasInfogesti
+              this.loading = false
+            })
         }
-        this.$apollo
-          .query({
-            query: contributorsWithDifferentInformationMatanzasInfogestiQuery,
-            variables: { cityName: this.cityById.name }
-          })
-          .then(({ data }) => {
-            this.data_2a =
-              data.contributorsWithDifferentInformationMatanzasInfogesti
-            this.loading = false
-          })
-      }
-      if (this.selectedAction === 3) {
-        this.$apollo
-          .query({
-            query: contributorsWithEqualsInformationMatanzasQuery,
-            variables: { cityName: this.cityById.name }
-          })
-          .then(({ data }) => {
-            this.data_3 = data.contributorsWithEqualsInformationMatanzas
-            this.loading = false
-          })
+        if (this.selectedAction === 3) {
+          this.$apollo
+            .query({
+              query: contributorsWithEqualsInformationMatanzasQuery,
+              variables: { cityName: this.cityById.name }
+            })
+            .then(({ data }) => {
+              this.data_3 = data.contributorsWithEqualsInformationMatanzas
+              this.loading = false
+            })
+        }
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
