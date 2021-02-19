@@ -4,9 +4,9 @@
     :data="data"
     :loading="loading"
     :paginated="true"
-    :per-page="10"
+    :per-page="15"
     :narrowed="true"
-    :hoverable="true"
+    hoverable
     :draggable="true"
   >
     <template v-for="(column, index) in columns">

@@ -275,19 +275,26 @@
           v-if="selectedAction === 2 && data_2 && data_2a && !getActive()"
           class="row is-flex"
         >
-          <StatesTable
-            v-if="data_2"
-            :data="data_2"
-            :columns="different"
-            checkable
-            class="column"
-          />
-          <StatesTable
-            v-if="data_2a"
-            :data="data_2a"
-            :columns="differentInfo"
-            class="column"
-          />
+          <div class="column has-text-centered">
+            <b class="font-size-2" style="color: #d60000">{{
+              'Registro Vehiculo'
+            }}</b>
+            <StatesTable
+              v-if="data_2"
+              :data="data_2"
+              :columns="different"
+              checkable
+            />
+          </div>
+
+          <div class="column has-text-centered">
+            <b class="font-size-2" style="color: #d60000">{{ 'InfoGesti' }}</b>
+            <StatesTable
+              v-if="data_2a"
+              :data="data_2a"
+              :columns="differentInfo"
+            />
+          </div>
         </div>
         <div v-if="!getActive() && selectedAction === 4">
           <StatesTable
