@@ -63,17 +63,19 @@ export default {
       }
     },
     select(option) {
-      if (option.vehiculo) {
-        this.$apollo
-          .query({
-            query: vehiculoQuery,
-            variables: { datospersona: `${option.vehiculo.datospersona}` }
-          })
-          .then(({ data }) => {
-            this.searchResult = data.vehiculo
-            this.$store.commit('vehiculo/set', this.searchResult)
-            this.$store.commit('search/setActive', true)
-          })
+      if (option) {
+        if (option.vehiculo) {
+          this.$apollo
+            .query({
+              query: vehiculoQuery,
+              variables: { datospersona: `${option.vehiculo.datospersona}` }
+            })
+            .then(({ data }) => {
+              this.searchResult = data.vehiculo
+              this.$store.commit('vehiculo/set', this.searchResult)
+              this.$store.commit('search/setActive', true)
+            })
+        }
       }
     }
   }
