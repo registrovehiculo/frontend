@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="$auth.loggedIn">
     <nav
       class="navbar header is-black padding-right-20 padding-left-20"
       role="navigation"
@@ -30,7 +30,7 @@
           >
             <a class="navbar-link font-size-3"> {{ getUsername() }} </a>
             <div class="navbar-dropdown">
-              <a class="navbar-item" @click="logout">Salir</a>
+              <a class="navbar-item" @click="logout()">Salir</a>
             </div>
           </div>
         </div>
@@ -57,6 +57,7 @@ export default {
       await this.$auth.logout().then(() => {
         this.cleanAuth()
       })
+      this.$router.replace('/')
     },
     linkify: require('~/services/linkify').linkify,
     ...mapGetters({
