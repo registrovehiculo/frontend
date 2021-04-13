@@ -1,0 +1,45 @@
+[
+
+        {
+          "field": "provinceNumber",
+          "label": "Provincia",
+          "searchable": true,
+          "visible": true
+        },
+        {
+          "field": "idNumber",
+          "label": "Numero de identidad",
+          "searchable": true,
+          "visible": true
+        },
+        {
+          "field": "ownerName",
+          "label": "Propietario",
+          "searchable": true,
+          "visible": true
+        },
+        {
+          "field": "registryNumber",
+          "label": "Numero de registro",
+          "searchable": true,
+          "visible": true
+        },
+        {
+          "field": "shipmentName",
+          "label": "Embarcacion",
+          "searchable": true,
+          "visible": true
+        },
+        {
+          "field": "captaincyProvince",
+          "label": "Capitania",
+          "searchable": true,
+          "visible": true
+        },
+        {
+          "field": "baseName",
+          "label": "Basificacion",
+          "searchable": true,
+          "visible": true
+        }
+  ]

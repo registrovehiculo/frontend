@@ -25,7 +25,7 @@
                 Embarcaci&oacute;n
               </h2>
               <h2 v-else class="title has-text-centered">
-                Registro vehiculo
+                Transporte
               </h2>
               <form @submit.stop.prevent="login()">
                 <div class="margin-top-10">
@@ -52,7 +52,11 @@
                 </div>
                 <div class="margin-top-20">
                   <b-button
-                    class="is-black is-fullwidth"
+                    :class="
+                      getSystem
+                        ? 'is-black is-fullwidth changeColorB'
+                        : 'is-black is-fullwidth changeColorR'
+                    "
                     rounded
                     @click="login"
                   >
@@ -81,7 +85,7 @@ import loginMutation from '~/apollo/mutations/auth/login.graphql'
 // Components
 export default {
   layout: 'empty',
-  auth: 'true',
+  auth: true,
   data() {
     return {
       form: {
@@ -150,6 +154,7 @@ export default {
                   })
                   this.$auth.setToken('local', jwtToken)
                   this.$auth.setUser(user)
+                  console.log(user)
 
                   // Save auth data in cookies
                   this.$cookies.set('auth.user', user)
@@ -157,8 +162,10 @@ export default {
                   const cookie = this.$cookies.get('auth.redirect')
                   if (cookie) {
                     this.$cookies.set('auth.redirect', null)
+                    // window.location.href = cookie
                     this.$router.replace(cookie)
                   } else {
+                    // window.location.href = '/'
                     this.$router.replace('/')
                   }
                 })
@@ -181,3 +188,12 @@ export default {
   }
 }
 </script>
+<style lang="stylus" scoped>
+.changeColorR:not([disabled]):hover
+  background #d60000 !important
+  transition background 300ms
+
+.changeColorB:not([disabled]):hover
+  background #0855f5 !important
+  transition background 300ms
+</style>

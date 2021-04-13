@@ -1,0 +1,12 @@
+query ownerWithMoreThanOneShipment{
+  ownerWithMoreThanOneShipment{
+    id
+    provinceNumber
+    idNumber
+    ownerName
+    registryNumber
+    shipmentName
+    captaincyProvince
+    baseName
+  }
+}

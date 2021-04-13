@@ -1,0 +1,11 @@
+query registeredOwnersMoreThanOne{
+  registeredOwnersMoreThanOne{
+    provinceNumber
+    idNumber
+    ownerName
+    registryNumber
+    shipmentName
+    captaincyProvince
+    baseName
+  }
+}

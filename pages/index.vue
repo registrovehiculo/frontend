@@ -1,16 +1,29 @@
 <template>
   <div>
-    <HomePage v-if="$auth.loggedIn" />
-    <WelcomePage v-else />
+    <div v-if="!getSystem">
+      <HomePageTransporte v-if="$auth.loggedIn" />
+      <WelcomePage v-else />
+    </div>
+    <div v-else>
+      <HomePageEmbarcacion v-if="$auth.loggedIn" />
+      <WelcomePage v-else />
+    </div>
   </div>
 </template>
 
 <script>
 // Components
-import HomePage from '~/components/HomePage'
+import HomePageTransporte from '~/components/HomePageTransporte'
+import HomePageEmbarcacion from '~/components/HomePageEmbarcacion'
 import WelcomePage from '~/components/WelcomePage'
 export default {
-  components: { HomePage, WelcomePage }
+  components: { HomePageTransporte, WelcomePage, HomePageEmbarcacion },
+  auth: false,
+  computed: {
+    getSystem() {
+      return this.$store.getters['system/getActive']
+    }
+  }
 }
 </script>
 <style lang="stylus" scoped></style>

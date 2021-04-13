@@ -1,0 +1,12 @@
+query ownerWithDifferentNameEqualId{
+  ownerWithDifferentNameEqualId{
+    id
+    provinceNumber
+    idNumber
+    ownerName
+    registryNumber
+    shipmentName
+    captaincyProvince
+    baseName
+  }
+}

@@ -1,0 +1,12 @@
+query shipment{
+  shipment{
+    id
+    provinceNumber
+    idNumber
+    ownerName
+    registryNumber
+    shipmentName
+    captaincyProvince
+    baseName
+  }
+}

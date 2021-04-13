@@ -450,6 +450,7 @@ export default {
       cities: [],
       states: [],
       cityById: null,
+      tableColumns,
       selectedProvince: null,
       loading: false,
       data_1: null,

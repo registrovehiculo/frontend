@@ -21,7 +21,6 @@ export default {
   /*
    ** Global CSS
    */
-  target: 'static',
   css: [
     '~/assets/style.styl',
     '~/assets/custom-bulma.scss',
@@ -46,7 +45,6 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: ['@nuxtjs/color-mode'],
 
   /*
    ** Nuxt.js modules
@@ -60,9 +58,9 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
     '@nuxtjs/apollo',
+    '@nuxtjs/toast',
     '@nuxtjs/pwa',
-    '@nuxt/content',
-    '@nuxtjs/moment',
+    '@nuxtjs/manifest',
     // Font awesome
     [
       'nuxt-fontawesome',
@@ -202,10 +200,10 @@ export default {
   },
   auth: {
     redirect: {
-      // login: '/login',
-      // logout: '/',
-      // callback: '/accounts/callback',
-      // home: '/home',
+      login: '/login',
+      logout: '/',
+      callback: '/accounts/callback',
+      home: false
       // user: '/profile'
     },
     strategies: {
