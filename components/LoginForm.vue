@@ -29,7 +29,7 @@
               </h2>
               <form @submit.stop.prevent="login()">
                 <div class="margin-top-10">
-                  <b-field>
+                  <b-field :type="getSystem ? 'is-warning' : ''">
                     <b-input
                       v-model="$v.form.username.$model"
                       name="username"
@@ -39,10 +39,10 @@
                   </b-field>
                 </div>
                 <div class="margin-top-10">
-                  <b-field>
+                  <b-field :type="getSystem ? 'is-warning' : ''">
                     <b-input
                       v-model="$v.form.password.$model"
-                      type="password"
+                      type="password is-warning"
                       name="password"
                       password-reveal
                       placeholder="Contraseña"

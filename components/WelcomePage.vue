@@ -1,55 +1,44 @@
 <template>
-  <section class="hero is-fullheight">
-    <div class="hero-body background">
-      <div class="container">
-        <div>
-          <div v-show="!$auth.loggedIn" class="columns is-centered">
-            <!-- info -->
-            <div class="column is-8-desktop">
-              <!--img
-                src="~/static/database.png"
-                width="400"
-                height="400"
-                alt=""
-              /-->
-            </div>
-
-            <div
-              class="column is-5-desktop is-offset-1-desktop"
-              style="padding: 60pt;"
-            >
-              <p class="has-text-centered">
-                <img src="~/static/database.png" width="150pt" />
-              </p>
-              <p
-                class="has-text-centered"
-                style="font-weight: bold; font-size: 40px"
-              >
-                Registro
-              </p>
-              <b-button
-                type="is-black"
-                rounded
-                class="is-fullwidth margin-top-10 changeColorR"
-                @click="loginTransporte()"
-              >
-                Transporte
-              </b-button>
-              <b-button
-                type="is-black"
-                rounded
-                class="is-fullwidth margin-top-10 changeColorB"
-                style="margin-top: 15px"
-                @click="loginEmbarcacion()"
-              >
-                Embarcacion
-              </b-button>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="columns is-centered">
+    <div class="column hero is-fullheight has-text-centered">
+      <img
+        src="~/static/fondo1.jpg"
+        alt=""
+        style="width: 60%; height: 97%; z-index: -1; position: absolute"
+      />
+      <p>
+        <!--img src="~/static/fondo3.png" width="150pt" style="z-index: 1" /-->
+      </p>
     </div>
-  </section>
+    <div
+      class="column is-4-desktop margin-right-30"
+      style="padding: 90px; margin-top: 10%"
+    >
+      <p class="has-text-centered">
+        <img src="~/static/database.png" width="150pt" />
+      </p>
+      <p class="has-text-centered" style="font-weight: bold; font-size: 40px">
+        Registro
+      </p>
+      <b-button
+        type="is-black"
+        rounded
+        class="is-fullwidth margin-top-10 changeColorR"
+        @click="loginTransporte()"
+      >
+        Transporte
+      </b-button>
+      <b-button
+        type="is-black"
+        rounded
+        class="is-fullwidth margin-top-10 changeColorB"
+        style="margin-top: 15px"
+        @click="loginEmbarcacion()"
+      >
+        Embarcacion
+      </b-button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -96,10 +85,4 @@ export default {
 .changeColorB:not([disabled]):hover
   background #0855f5 !important
   transition background 300ms
-
-.background
-  /*background-image: url('')*/
-  background-repeat: no-repeat
-  background-size: 1000px 880px
-  padding-top 10px
 </style>
