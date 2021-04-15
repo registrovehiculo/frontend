@@ -4,7 +4,7 @@
       <div class="columns is-centered">
         <div class="level margin-top-40">
           <div class="level-left">
-            <b-field>
+            <b-field type="is-warning">
               <b-select
                 v-model="selectedAction"
                 dropdown-position="bottom"
@@ -27,6 +27,7 @@
               rounded
               :disabled="selectedAction === null"
               :loading="loading"
+              class="changeColorB"
               @click="search()"
               >Buscar</b-button
             >
@@ -41,6 +42,7 @@
         <div class="column has-text-centered margin-top-20">
           <b-checkbox
             v-model="checkbox"
+            type="is-warning"
             @input="registeredOnatMoreThanOneShipment"
           >
             {{ 'Comparar con la base de datos de la onat' }}
@@ -52,7 +54,11 @@
         class="columns is-centered"
       >
         <div class="column has-text-centered margin-top-20">
-          <b-checkbox v-model="checkbox2" @input="registeredOnatOneShipment">
+          <b-checkbox
+            v-model="checkbox2"
+            type="is-warning"
+            @input="registeredOnatOneShipment"
+          >
             {{ 'Comparar con la base de datos de la onat' }}
           </b-checkbox>
         </div>
@@ -174,9 +180,9 @@
 
 <script>
 import ownerWithMoreThanOneShipmentQuery from '~/apollo/queries/ownerWithMoreThanOneShipment.graphql'
-// import registeredOwnersMoreThanOneQuery from '~/apollo/queries/registeredOwnersMoreThanOne.graphql'
+import registeredOwnersMoreThanOneQuery from '~/apollo/queries/registeredOwnersMoreThanOne.graphql'
 import ownerWithOneShipmentQuery from '~/apollo/queries/ownerWithOneShipment.graphql'
-// import registeredOwnersOneQuery from '~/apollo/queries/registeredOwnersOne.graphql'
+import registeredOwnersOneQuery from '~/apollo/queries/registeredOwnersOne.graphql'
 import ownerWithDifferentNameEqualIdQuery from '~/apollo/queries/ownerWithDifferentNameEqualId.graphql'
 import shipmentQuery from '~/apollo/queries/shipment.graphql'
 import InformationTable from '~/components/InformationTable'
@@ -213,6 +219,8 @@ export default {
       option4: [],
       tableColumnsEmbarcacion,
       tableColumnsOnatEmbarcacion,
+      registeredOne,
+      notRegisteredOne,
       radio: null,
       visible: false,
       visible1: false,
@@ -220,8 +228,6 @@ export default {
       visible3: false,
       registered: null,
       notRegistered: null,
-      notRegisteredOne: null,
-      registeredOne: null,
       registeredOwners: [],
       asd: [],
       founded: false,
@@ -246,15 +252,20 @@ export default {
       ]
     }
   },
+  head() {
+    return {
+      title: `Embarcacion | Home`
+    }
+  },
   beforeMount() {
-    // this.$apollo
-    //   .query({ query: registeredOwnersMoreThanOneQuery })
-    //   .then(data => {
-    //     this.registeredOwnersMoreThanOne = data.data.registeredOwnersMoreThanOne
-    //   })
-    // this.$apollo.query({ query: registeredOwnersOneQuery }).then(data => {
-    //   this.registeredOwnersOne = data.data.registeredOwnersOne
-    // })
+    this.$apollo
+      .query({ query: registeredOwnersMoreThanOneQuery })
+      .then(data => {
+        this.registeredOwnersMoreThanOne = data.data.registeredOwnersMoreThanOne
+      })
+    this.$apollo.query({ query: registeredOwnersOneQuery }).then(data => {
+      this.registeredOwnersOne = data.data.registeredOwnersOne
+    })
   },
   methods: {
     search() {
@@ -391,6 +402,9 @@ export default {
 @keyframes spinner {
   to {transform: rotate(360deg);}
 }
+.changeColorB:not([disabled]):hover
+  background #0855f5 !important
+  transition background 300ms
 .documentStyle
   background black
   border none
@@ -404,18 +418,18 @@ export default {
   transition background 250ms
   cursor pointer
 .spinner:before {
-  content: '';
-  box-sizing: border-box;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 40px;
-  height: 40px;
-  margin-top: -10px;
-  margin-left: -10px;
-  border-radius: 50%;
-  border: 2px solid #ccc;
-  border-top-color: #0855f5;
-  animation: spinner .6s linear infinite;
+  content: ''
+  box-sizing: border-box
+  position: absolute
+  top: 50%
+  left: 50%
+  width: 40px
+  height: 40px
+  margin-top: -10px
+  margin-left: -10px
+  border-radius: 50%
+  border: 2px solid #ccc
+  border-top-color: #0855f5
+  animation: spinner .6s linear infinite
 }
 </style>

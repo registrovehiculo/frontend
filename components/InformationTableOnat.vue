@@ -4,7 +4,7 @@
     :data="data"
     :loading="loading"
     :paginated="true"
-    :per-page="15"
+    :per-page="16"
     :narrowed="true"
     :hoverable="true"
     :draggable="true"

@@ -1,8 +1,10 @@
 @import "~bulma/sass/utilities/_all";
 $primary: #d60000;
+$warning: #0855f5;
 $white: #ffffff;
 $black: #000000;
 $primary-invert: findColorInvert($primary);
+$warning-invert: findColorInvert($warning);
 $twitter: #4099FF;
 $twitter-invert:  findColorInvert($twitter);
 $table-sticky-header-height: 700px;

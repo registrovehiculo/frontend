@@ -37,7 +37,13 @@
             class="navbar-item has-dropdown is-hoverable"
           >
             <a class="navbar-link font-size-3"> {{ getUsername() }} </a>
-            <div class="navbar-dropdown">
+            <div
+              :class="
+                name === 'Transporte'
+                  ? 'navbar-dropdown navbar-blue'
+                  : 'navbar-dropdown navbar-red'
+              "
+            >
               <a class="navbar-item" @click="changeSystem()">{{
                 'Cambiar a ' + name
               }}</a>
@@ -57,6 +63,11 @@ import { mapGetters, mapMutations } from 'vuex'
 import Searcher from '~/components/Searcher'
 export default {
   components: { Searcher },
+  data() {
+    return {
+      name: null
+    }
+  },
   computed: {
     getSystem() {
       return this.$store.getters['system/getActive']
@@ -72,11 +83,6 @@ export default {
       this.name = 'Transporte'
     } else {
       this.name = 'Embarcacion'
-    }
-  },
-  data() {
-    return {
-      name: null
     }
   },
   methods: {
@@ -108,3 +114,11 @@ export default {
   }
 }
 </script>
+<style lang="stylus" scoped>
+.navbar-blue
+  a.navbar-item:hover
+    color: #0855f5
+.navbar-red
+  a.navbar-item:hover
+    color: #d60000
+</style>

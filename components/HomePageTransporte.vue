@@ -168,6 +168,7 @@
             <b-button
               class="is-black margin-left-20"
               rounded
+              :loading="loading"
               :disabled="
                 !address.form.country ||
                   !address.form.state ||
@@ -451,6 +452,10 @@ export default {
       states: [],
       cityById: null,
       tableColumns,
+      provinces,
+      tableColumnsInfo,
+      different,
+      differentInfo,
       selectedProvince: null,
       loading: false,
       data_1: null,
@@ -498,7 +503,7 @@ export default {
   },
   head() {
     return {
-      title: `Registro Vehculo | Home`
+      title: `Transporte | Home`
     }
   },
   computed: {
