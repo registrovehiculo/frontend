@@ -6,10 +6,8 @@
         alt=""
         style="width: 60%; height: 97%; z-index: -1; position: absolute"
       />
-      <p>
-        <!--img src="~/static/fondo3.png" width="150pt" style="z-index: 1" /-->
-      </p>
     </div>
+
     <div
       class="column is-4-desktop margin-right-30"
       style="padding: 90px; margin-top: 10%"

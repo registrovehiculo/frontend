@@ -39,10 +39,12 @@
                   </b-field>
                 </div>
                 <div class="margin-top-10">
-                  <b-field :type="getSystem ? 'is-warning' : ''">
+                  <b-field
+                    :type="getSystem ? 'is-warning password' : 'password'"
+                  >
                     <b-input
                       v-model="$v.form.password.$model"
-                      type="password is-warning"
+                      type="password"
                       name="password"
                       password-reveal
                       placeholder="Contraseña"
