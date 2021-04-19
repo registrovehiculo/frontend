@@ -45,10 +45,10 @@ export default {
   layout: 'empty',
   auth: false,
   beforeCreate() {
-    const url = this.$cookies.get('auth.redirect')
-    if (url && this.$auth.loggedIn) {
-      this.$router.replace(url)
-    }
+    // const url = this.$cookies.get('auth.redirect')
+    // if (url && this.$auth.loggedIn) {
+    //   this.$router.replace(url)
+    // }
   },
   // beforeMount() {
   //   if (this.$auth.loggedIn) {
