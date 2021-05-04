@@ -1,9 +1,0 @@
-query contributorsWithDifferentInformationCamagueyInfogesti($cityName: String!){
-    contributorsWithDifferentInformationCamagueyInfogesti(cityName: $cityName){
-    id
-    nit
-    unidad
-    nombreCompleto
-    direccionPrincipal
-  }
-}

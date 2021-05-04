@@ -1,9 +1,0 @@
-query contributorsWithDifferentInformationArtemisaInfogesti($cityName: String!){
-    contributorsWithDifferentInformationArtemisaInfogesti(cityName: $cityName){
-    id
-    nit
-    unidad
-    nombreCompleto
-    direccionPrincipal
-  }
-}

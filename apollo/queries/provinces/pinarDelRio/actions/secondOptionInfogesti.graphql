@@ -1,9 +1,0 @@
-query contributorsWithDifferentInformationPinarInfogesti($cityName: String!){
-    contributorsWithDifferentInformationPinarInfogesti(cityName: $cityName){
-    id
-    nit
-    unidad
-    nombreCompleto
-    direccionPrincipal
-  }
-}

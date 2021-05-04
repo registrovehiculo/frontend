@@ -1,0 +1,12 @@
+query contributorsWithDifferentInformationSanticEspiritudName($cityName: String!){
+    contributorsWithDifferentInformationSanticEspiritudName(cityName: $cityName){
+    dpa
+    chapanueva
+    numeromotor
+    numerocarroseria
+    marcamotor
+    numeroidentidad
+    datospersona
+    direccion
+  }
+}

@@ -1,9 +1,0 @@
-query contributorsWithDifferentInformationCienfuegosInfogesti($cityName: String!){
-    contributorsWithDifferentInformationCienfuegosInfogesti(cityName: $cityName){
-    id
-    nit
-    unidad
-    nombreCompleto
-    direccionPrincipal
-  }
-}

@@ -1,9 +1,0 @@
-query contributorsWithDifferentInformationMayabequeInfogesti($cityName: String!){
-    contributorsWithDifferentInformationMayabequeInfogesti(cityName: $cityName){
-    id
-    nit
-    unidad
-    nombreCompleto
-    direccionPrincipal
-  }
-}

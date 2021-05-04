@@ -1,9 +1,0 @@
-query contributorsWithDifferentInformationIslaDeLaJuventudInfogesti($cityName: String!){
-    contributorsWithDifferentInformationIslaDeLaJuventudInfogesti(cityName: $cityName){
-    id
-    nit
-    unidad
-    nombreCompleto
-    direccionPrincipal
-  }
-}

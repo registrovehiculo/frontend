@@ -1,9 +1,0 @@
-query contributorsWithDifferentInformationVillaClaraInfogesti($cityName: String!){
-    contributorsWithDifferentInformationVillaClaraInfogesti(cityName: $cityName){
-    id
-    nit
-    unidad
-    nombreCompleto
-    direccionPrincipal
-  }
-}

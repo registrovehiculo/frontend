@@ -1,0 +1,12 @@
+query contributorsWithDifferentInformationHolguinName($cityName: String!){
+    contributorsWithDifferentInformationHolguinName(cityName: $cityName){
+        dpa
+    chapanueva
+    numeromotor
+    numerocarroseria
+    marcamotor
+    numeroidentidad
+    datospersona
+    direccion
+  }
+}

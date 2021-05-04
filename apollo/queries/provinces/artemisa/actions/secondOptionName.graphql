@@ -1,0 +1,12 @@
+query contributorsWithDifferentInformationArtemisaName($cityName: String!){
+    contributorsWithDifferentInformationArtemisaName(cityName: $cityName){
+        dpa
+    chapanueva
+    numeromotor
+    numerocarroseria
+    marcamotor
+    numeroidentidad
+    datospersona
+    direccion
+  }
+}

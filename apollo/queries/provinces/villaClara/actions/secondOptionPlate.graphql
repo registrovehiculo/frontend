@@ -1,0 +1,12 @@
+query contributorsWithDifferentInformationVillaClaraPlate($cityName: String!){
+    contributorsWithDifferentInformationVillaClaraPlate(cityName: $cityName){
+        dpa
+    chapanueva
+    numeromotor
+    numerocarroseria
+    marcamotor
+    numeroidentidad
+    datospersona
+    direccion
+  }
+}

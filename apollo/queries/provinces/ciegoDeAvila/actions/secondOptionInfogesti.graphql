@@ -1,9 +1,0 @@
-query contributorsWithDifferentInformationCiegoInfogesti($cityName: String!){
-    contributorsWithDifferentInformationCiegoInfogesti(cityName: $cityName){
-    id
-    nit
-    unidad
-    nombreCompleto
-    direccionPrincipal
-  }
-}

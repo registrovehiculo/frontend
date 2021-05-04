@@ -1,9 +1,0 @@
-query contributorsWithDifferentInformationGranmaInfogesti($cityName: String!){
-    contributorsWithDifferentInformationGranmaInfogesti(cityName: $cityName){
-    id
-    nit
-    unidad
-    nombreCompleto
-    direccionPrincipal
-  }
-}

@@ -1,9 +1,0 @@
-query contributorsWithDifferentInformationHolguinInfogesti($cityName: String!){
-    contributorsWithDifferentInformationHolguinInfogesti(cityName: $cityName){
-    id
-    nit
-    unidad
-    nombreCompleto
-    direccionPrincipal
-  }
-}

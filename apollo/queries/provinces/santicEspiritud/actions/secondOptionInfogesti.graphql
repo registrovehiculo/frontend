@@ -1,9 +1,0 @@
-query contributorsWithDifferentInformationSanticEspiritudInfogesti($cityName: String!){
-    contributorsWithDifferentInformationSanticEspiritudInfogesti(cityName: $cityName){
-    id
-    nit
-    unidad
-    nombreCompleto
-    direccionPrincipal
-  }
-}

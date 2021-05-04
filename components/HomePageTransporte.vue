@@ -166,26 +166,45 @@
               </option>
             </b-select>
             <b-button
-              class="is-black margin-left-20"
+              class="is-black margin-left-20 changeColorR"
               rounded
               :loading="loading"
               :disabled="
                 !address.form.country ||
                   !address.form.state ||
                   !address.form.city ||
-                  !selectedAction
+                  !selectedAction ||
+                  (!radio && selectedAction === 2)
               "
               @click="select()"
               >Buscar</b-button
             >
             <b-button
-              class="is-black margin-left-10"
+              class="is-black margin-left-10 changeColorR"
               rounded
               :disabled="loading || (!data_1 && !data_2 && !data_3 && !data_4)"
               @click="open = true"
               >Exportar</b-button
             >
           </b-field>
+          <div v-show="selectedAction === 2" class="margin-top-30">
+            <b-radio
+              v-model="radio"
+              name="differentPlates"
+              native-value="plates"
+              @input="select()"
+            >
+              Chapas distintas
+            </b-radio>
+            <b-radio
+              v-model="radio"
+              name="differentNames"
+              native-value="names"
+              @input="select()"
+            >
+              Nombres distintos
+            </b-radio>
+          </div>
         </div>
       </div>
       <div class="is-hidden-table is-hidden-desktop bottom-bar">
@@ -272,30 +291,13 @@
           />
         </div>
 
-        <div
-          v-if="selectedAction === 2 && data_2 && data_2a && !getActive()"
-          class="row is-flex"
-        >
-          <div class="column has-text-centered">
-            <b class="font-size-2" style="color: #d60000">{{
-              'Registro Vehiculo'
-            }}</b>
-            <StatesTable
-              v-if="data_2"
-              :data="data_2"
-              :columns="different"
-              checkable
-            />
-          </div>
-
-          <div class="column has-text-centered">
-            <b class="font-size-2" style="color: #d60000">{{ 'InfoGesti' }}</b>
-            <StatesTable
-              v-if="data_2a"
-              :data="data_2a"
-              :columns="differentInfo"
-            />
-          </div>
+        <div v-if="selectedAction === 2 && !getActive()">
+          <StatesTable
+            v-if="data_2"
+            :data="data_2"
+            :columns="tableColumns"
+            checkable
+          />
         </div>
         <div v-if="!getActive() && selectedAction === 4">
           <StatesTable
@@ -315,98 +317,98 @@ import 'vue-select/dist/vue-select.css'
 // Artemisa
 import { mapGetters, mapMutations } from 'vuex'
 import contributorsMissingInOnatArtemisaQuery from '~/apollo/queries/provinces/artemisa/actions/firstOption.graphql'
-import contributorsWithDifferentInformationArtemisaQuery from '~/apollo/queries/provinces/artemisa/actions/secondOption.graphql'
-import contributorsWithDifferentInformationArtemisaInfogestiQuery from '~/apollo/queries/provinces/artemisa/actions/secondOptionInfogesti.graphql'
+import artemisaDifferentNameQuery from '~/apollo/queries/provinces/artemisa/actions/secondOptionName.graphql'
+import artemisaDifferentPlateQuery from '~/apollo/queries/provinces/artemisa/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationArtemisaQuery from '~/apollo/queries/provinces/artemisa/actions/thirdOption.graphql'
 import infogestiArtemisaQuery from '~/apollo/queries/provinces/artemisa/actions/fourthOption.graphql'
 // Camaguey
 import contributorsMissingInOnatCamagueyQuery from '~/apollo/queries/provinces/camaguey/actions/firstOption.graphql'
-import contributorsWithDifferentInformationCamagueyQuery from '~/apollo/queries/provinces/camaguey/actions/secondOption.graphql'
-import contributorsWithDifferentInformationCamagueyInfogestiQuery from '~/apollo/queries/provinces/camaguey/actions/secondOptionInfogesti.graphql'
+import camagueyDifferentNameQuery from '~/apollo/queries/provinces/camaguey/actions/secondOptionName.graphql'
+import camagueyDifferentPlateQuery from '~/apollo/queries/provinces/camaguey/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationCamagueyQuery from '~/apollo/queries/provinces/camaguey/actions/thirdOption.graphql'
 import infogestiCamagueyQuery from '~/apollo/queries/provinces/camaguey/actions/fourthOption.graphql'
 // Ciego de Avila
 import contributorsMissingInOnatCiegoDeAvilaQuery from '~/apollo/queries/provinces/ciegoDeAvila/actions/firstOption.graphql'
-import contributorsWithDifferentInformationCiegoDeAvilaQuery from '~/apollo/queries/provinces/ciegoDeAvila/actions/secondOption.graphql'
-import contributorsWithDifferentInformationCiegoInfogestiQuery from '~/apollo/queries/provinces/ciegoDeAvila/actions/secondOptionInfogesti.graphql'
+import ciegoDifferentNameQuery from '~/apollo/queries/provinces/ciegoDeAvila/actions/secondOptionName.graphql'
+import ciegoDifferentPlateQuery from '~/apollo/queries/provinces/ciegoDeAvila/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationCiegoDeAvilaQuery from '~/apollo/queries/provinces/ciegoDeAvila/actions/thirdOption.graphql'
 import infogestiCiegoQuery from '~/apollo/queries/provinces/ciegoDeAvila/actions/fourthOption.graphql'
 // Cienfuegos
 import contributorsMissingInOnatCienfuegosQuery from '~/apollo/queries/provinces/cienfuegos/actions/firstOption.graphql'
-import contributorsWithDifferentInformationCienfuegosQuery from '~/apollo/queries/provinces/cienfuegos/actions/secondOption.graphql'
-import contributorsWithDifferentInformationCienfuegosInfogestiQuery from '~/apollo/queries/provinces/cienfuegos/actions/secondOptionInfogesti.graphql'
+import cienfuegosDifferentNameQuery from '~/apollo/queries/provinces/cienfuegos/actions/secondOptionName.graphql'
+import cienfuegosDifferentPlateQuery from '~/apollo/queries/provinces/cienfuegos/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationCienfuegosQuery from '~/apollo/queries/provinces/cienfuegos/actions/thirdOption.graphql'
 import infogestiCienfuegosQuery from '~/apollo/queries/provinces/cienfuegos/actions/fourthOption.graphql'
 // Granma
 import contributorsMissingInOnatGranmaQuery from '~/apollo/queries/provinces/granma/actions/firstOption.graphql'
-import contributorsWithDifferentInformationGranmaQuery from '~/apollo/queries/provinces/granma/actions/secondOption.graphql'
-import contributorsWithDifferentInformationGranmaInfogestiQuery from '~/apollo/queries/provinces/granma/actions/secondOptionInfogesti.graphql'
+import granmaDifferentNameQuery from '~/apollo/queries/provinces/granma/actions/secondOptionName.graphql'
+import granmaDifferentPlateQuery from '~/apollo/queries/provinces/granma/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationGranmaQuery from '~/apollo/queries/provinces/granma/actions/thirdOption.graphql'
 import infogestiGranmaQuery from '~/apollo/queries/provinces/granma/actions/fourthOption.graphql'
 // Guantanamo
 import contributorsMissingInOnatGuantanamoQuery from '~/apollo/queries/provinces/guantanamo/actions/firstOption.graphql'
-import contributorsWithDifferentInformationGuantanamoQuery from '~/apollo/queries/provinces/guantanamo/actions/secondOption.graphql'
-import contributorsWithDifferentInformationGuantanamoInfogestiQuery from '~/apollo/queries/provinces/guantanamo/actions/secondOptionInfogesti.graphql'
+import guantanamoDifferentNameQuery from '~/apollo/queries/provinces/guantanamo/actions/secondOptionName.graphql'
+import guantanamoDifferentPlateQuery from '~/apollo/queries/provinces/guantanamo/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationGuantanamoQuery from '~/apollo/queries/provinces/guantanamo/actions/thirdOption.graphql'
 import infogestiGuantanamoQuery from '~/apollo/queries/provinces/guantanamo/actions/fourthOption.graphql'
 // Holguin
 import contributorsMissingInOnatHolguinQuery from '~/apollo/queries/provinces/holguin/actions/firstOption.graphql'
-import contributorsWithDifferentInformationHolguinQuery from '~/apollo/queries/provinces/holguin/actions/secondOption.graphql'
-import contributorsWithDifferentInformationHolguinInfogestiQuery from '~/apollo/queries/provinces/holguin/actions/secondOptionInfogesti.graphql'
+import holguinDifferentNameQuery from '~/apollo/queries/provinces/holguin/actions/secondOptionName.graphql'
+import holguinDifferentPlateQuery from '~/apollo/queries/provinces/holguin/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationHolguinQuery from '~/apollo/queries/provinces/holguin/actions/thirdOption.graphql'
 import infogestiHolguinQuery from '~/apollo/queries/provinces/holguin/actions/fourthOption.graphql'
 // Isla de la juventud
 import contributorsMissingInOnatIslaDeLaJuventudQuery from '~/apollo/queries/provinces/islaDeLaJuventud/actions/firstOption.graphql'
-import contributorsWithDifferentInformationIslaDeLaJuventudQuery from '~/apollo/queries/provinces/islaDeLaJuventud/actions/secondOption.graphql'
-import contributorsWithDifferentInformationIslaDeLaJuventudInfogestiQuery from '~/apollo/queries/provinces/islaDeLaJuventud/actions/secondOptionInfogesti.graphql'
+import islaDifferentNameQuery from '~/apollo/queries/provinces/islaDeLaJuventud/actions/secondOptionName.graphql'
+import islaDifferentPlateQuery from '~/apollo/queries/provinces/islaDeLaJuventud/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationIslaDeLaJuventudQuery from '~/apollo/queries/provinces/islaDeLaJuventud/actions/thirdOption.graphql'
 import infogestiIslaQuery from '~/apollo/queries/provinces/islaDeLaJuventud/actions/fourthOption.graphql'
 // La Habana
 import contributorsMissingInOnatLaHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/firstOption.graphql'
-import contributorsWithDifferentInformationLaHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/secondOption.graphql'
-import contributorsWithDifferentInformationLaHabanaInfogestiQuery from '~/apollo/queries/provinces/laHabana/actions/secondOptionInfogesti.graphql'
+import contributorsWithDifferentInformationLaHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/secondOptionName.graphql'
+import contributorsWithDifferentInformationLaHabanaInfogestiQuery from '~/apollo/queries/provinces/laHabana/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationLaHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/thirdOption.graphql'
 import infogestiHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/fourthOption.graphql'
 // Las Tunas
 import contributorsMissingInOnatLasTunasQuery from '~/apollo/queries/provinces/lasTunas/actions/firstOption.graphql'
-import contributorsWithDifferentInformationLasTunasQuery from '~/apollo/queries/provinces/lasTunas/actions/secondOption.graphql'
-import contributorsWithDifferentInformationLasTunasInfogestiQuery from '~/apollo/queries/provinces/lasTunas/actions/secondOptionInfogesti.graphql'
+import lasTunasDifferentNameQuery from '~/apollo/queries/provinces/lasTunas/actions/secondOptionName.graphql'
+import lasTunasDifferentPlateQuery from '~/apollo/queries/provinces/lasTunas/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationLasTunasQuery from '~/apollo/queries/provinces/lasTunas/actions/thirdOption.graphql'
 import infogestiTunasQuery from '~/apollo/queries/provinces/lasTunas/actions/fourthOption.graphql'
 // Matanzas
 import contributorsMissingInOnatMatanzasQuery from '~/apollo/queries/provinces/matanzas/actions/firstOption.graphql'
-import contributorsWithDifferentInformationMatanzasQuery from '~/apollo/queries/provinces/matanzas/actions/secondOption.graphql'
-import contributorsWithDifferentInformationMatanzasInfogestiQuery from '~/apollo/queries/provinces/matanzas/actions/secondOptionInfogesti.graphql'
+import matanzasDifferentNameQuery from '~/apollo/queries/provinces/matanzas/actions/secondOptionName.graphql'
+import matanzasDifferentPlateQuery from '~/apollo/queries/provinces/matanzas/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationMatanzasQuery from '~/apollo/queries/provinces/matanzas/actions/thirdOption.graphql'
 import infogestiMatanzasQuery from '~/apollo/queries/provinces/matanzas/actions/fourthOption.graphql'
 // Mayabeque
 import contributorsMissingInOnatMayabequeQuery from '~/apollo/queries/provinces/mayabeque/actions/firstOption.graphql'
-import contributorsWithDifferentInformationMayabequeQuery from '~/apollo/queries/provinces/mayabeque/actions/secondOption.graphql'
-import contributorsWithDifferentInformationMayabequeInfogestiQuery from '~/apollo/queries/provinces/mayabeque/actions/secondOptionInfogesti.graphql'
+import mayabequeDifferentNameQuery from '~/apollo/queries/provinces/mayabeque/actions/secondOptionName.graphql'
+import mayabequeDifferentPlateQuery from '~/apollo/queries/provinces/mayabeque/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationMayabequeQuery from '~/apollo/queries/provinces/mayabeque/actions/thirdOption.graphql'
 import infogestiMayabequeQuery from '~/apollo/queries/provinces/mayabeque/actions/fourthOption.graphql'
 // Pinar del Rio
 import contributorsMissingInOnatPinarQuery from '~/apollo/queries/provinces/pinarDelRio/actions/firstOption.graphql'
-import contributorsWithDifferentInformationPinarQuery from '~/apollo/queries/provinces/pinarDelRio/actions/secondOption.graphql'
-import contributorsWithDifferentInformationPinarInfogestiQuery from '~/apollo/queries/provinces/pinarDelRio/actions/secondOptionInfogesti.graphql'
+import pinarDifferentNameQuery from '~/apollo/queries/provinces/pinarDelRio/actions/secondOptionName.graphql'
+import pinarDifferentPlateQuery from '~/apollo/queries/provinces/pinarDelRio/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationPinarQuery from '~/apollo/queries/provinces/pinarDelRio/actions/thirdOption.graphql'
 import infogestiPinarQuery from '~/apollo/queries/provinces/pinarDelRio/actions/fourthOption.graphql'
 // Santiago de Cuba
 import contributorsMissingInOnatSantiagoDeCubaQuery from '~/apollo/queries/provinces/santiagoDeCuba/actions/firstOption.graphql'
-import contributorsWithDifferentInformationSantiagoDeCubaQuery from '~/apollo/queries/provinces/santiagoDeCuba/actions/secondOption.graphql'
-import contributorsWithDifferentInformationSantiagoDeCubaInfogestiQuery from '~/apollo/queries/provinces/santiagoDeCuba/actions/secondOptionInfogesti.graphql'
+import santiagoDifferentNameQuery from '~/apollo/queries/provinces/santiagoDeCuba/actions/secondOptionName.graphql'
+import santiagoDifferentPlateQuery from '~/apollo/queries/provinces/santiagoDeCuba/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationSantiagoDeCubaQuery from '~/apollo/queries/provinces/santiagoDeCuba/actions/thirdOption.graphql'
 import infogestiSantiagoQuery from '~/apollo/queries/provinces/santiagoDeCuba/actions/fourthOption.graphql'
 // Santic Espiritud
 import contributorsMissingInOnatSanticEspiritudQuery from '~/apollo/queries/provinces/santicEspiritud/actions/firstOption.graphql'
-import contributorsWithDifferentInformationSanticEspiritudQuery from '~/apollo/queries/provinces/santicEspiritud/actions/secondOption.graphql'
-import contributorsWithDifferentInformationSanticEspiritudInfogestiQuery from '~/apollo/queries/provinces/santicEspiritud/actions/secondOptionInfogesti.graphql'
+import santicEspiritudDifferentNameQuery from '~/apollo/queries/provinces/santicEspiritud/actions/secondOptionName.graphql'
+import santicEspiritudDifferentPlateQuery from '~/apollo/queries/provinces/santicEspiritud/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationSanticEspiritudQuery from '~/apollo/queries/provinces/santicEspiritud/actions/thirdOption.graphql'
 import infogestiEspiritudQuery from '~/apollo/queries/provinces/santicEspiritud/actions/fourthOption.graphql'
 // Villa Clara
 import contributorsMissingInOnatVillaClaraQuery from '~/apollo/queries/provinces/villaClara/actions/firstOption.graphql'
-import contributorsWithDifferentInformationVillaClaraQuery from '~/apollo/queries/provinces/villaClara/actions/secondOption.graphql'
-import contributorsWithDifferentInformationVillaClaraInfogestiQuery from '~/apollo/queries/provinces/villaClara/actions/secondOptionInfogesti.graphql'
+import VillaClaraDifferentNameQuery from '~/apollo/queries/provinces/villaClara/actions/secondOptionName.graphql'
+import VillaClaraDifferentPlateQuery from '~/apollo/queries/provinces/villaClara/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationVillaClaraQuery from '~/apollo/queries/provinces/villaClara/actions/thirdOption.graphql'
 import infogestiVillaQuery from '~/apollo/queries/provinces/villaClara/actions/fourthOption.graphql'
 import statesQuery from '~/apollo/queries/addresses/states.graphql'
@@ -447,6 +449,7 @@ export default {
         }
       },
       selectedAction: null,
+      radio: null,
       countries: [],
       cities: [],
       states: [],
@@ -575,7 +578,6 @@ export default {
       this.loading = true
       this.data_1 = null
       this.data_2 = null
-      this.data_2a = null
       this.data_3 = null
       this.data_4 = null
       this.$store.commit('search/setActive', false)
@@ -593,24 +595,29 @@ export default {
         }
         if (this.selectedAction === 2) {
           this.$store.commit('search/setActive', false)
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationArtemisaQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2 = data.contributorsWithDifferentInformationArtemisa
-            })
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationArtemisaInfogestiQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2a =
-                data.contributorsWithDifferentInformationArtemisaInfogesti
-              this.loading = false
-            })
+          if (this.radio === 'names') {
+            this.$apollo
+              .query({
+                query: artemisaDifferentNameQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationArtemisaName
+                this.loading = false
+              })
+          } else {
+            this.$apollo
+              .query({
+                query: artemisaDifferentPlateQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationArtemisaPlate
+                this.loading = false
+              })
+          }
         }
         if (this.selectedAction === 3) {
           this.$apollo
@@ -649,24 +656,29 @@ export default {
             })
         }
         if (this.selectedAction === 2) {
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationCamagueyQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2 = data.contributorsWithDifferentInformationCamaguey
-            })
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationCamagueyInfogestiQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2a =
-                data.contributorsWithDifferentInformationCamagueyInfogesti
-              this.loading = false
-            })
+          if (this.radio === 'names') {
+            this.$apollo
+              .query({
+                query: camagueyDifferentNameQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationCamagueyName
+                this.loading = false
+              })
+          } else {
+            this.$apollo
+              .query({
+                query: camagueyDifferentPlateQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationCamagueyPlate
+                this.loading = false
+              })
+          }
         }
         if (this.selectedAction === 3) {
           this.$apollo
@@ -705,25 +717,28 @@ export default {
             })
         }
         if (this.selectedAction === 2) {
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationCiegoDeAvilaQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2 = data.contributorsWithDifferentInformationCiego
-              this.loading = false
-            })
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationCiegoInfogestiQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2a =
-                data.contributorsWithDifferentInformationCiegoInfogesti
-              this.loading = false
-            })
+          if (this.radio === 'names') {
+            this.$apollo
+              .query({
+                query: ciegoDifferentNameQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 = data.contributorsWithDifferentInformationCiegoName
+                this.loading = false
+              })
+          } else {
+            this.$apollo
+              .query({
+                query: ciegoDifferentPlateQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationCiegoPlate
+                this.loading = false
+              })
+          }
         }
         if (this.selectedAction === 3) {
           this.$apollo
@@ -762,25 +777,29 @@ export default {
             })
         }
         if (this.selectedAction === 2) {
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationCienfuegosQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2 = data.contributorsWithDifferentInformationCienfuegos
-              this.loading = false
-            })
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationCienfuegosInfogestiQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2a =
-                data.contributorsWithDifferentInformationCienfuegosInfogesti
-              this.loading = false
-            })
+          if (this.radio === 'names') {
+            this.$apollo
+              .query({
+                query: cienfuegosDifferentNameQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationCienfuegosName
+                this.loading = false
+              })
+          } else {
+            this.$apollo
+              .query({
+                query: cienfuegosDifferentPlateQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationCienfuegosPlate
+                this.loading = false
+              })
+          }
         }
         if (this.selectedAction === 3) {
           this.$apollo
@@ -819,25 +838,29 @@ export default {
             })
         }
         if (this.selectedAction === 2) {
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationGranmaQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2 = data.contributorsWithDifferentInformationGranma
-              this.loading = false
-            })
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationGranmaInfogestiQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2a =
-                data.contributorsWithDifferentInformationGranmaInfogesti
-              this.loading = false
-            })
+          if (this.radio === 'names') {
+            this.$apollo
+              .query({
+                query: granmaDifferentNameQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationGranmaName
+                this.loading = false
+              })
+          } else {
+            this.$apollo
+              .query({
+                query: granmaDifferentPlateQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationGranmaPlate
+                this.loading = false
+              })
+          }
         }
         if (this.selectedAction === 3) {
           this.$apollo
@@ -877,25 +900,29 @@ export default {
             })
         }
         if (this.selectedAction === 2) {
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationGuantanamoQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2 = data.contributorsWithDifferentInformationGuantanamo
-              this.loading = false
-            })
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationGuantanamoInfogestiQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2a =
-                data.contributorsWithDifferentInformationGuantanamoInfogesti
-              this.loading = false
-            })
+          if (this.radio === 'names') {
+            this.$apollo
+              .query({
+                query: guantanamoDifferentNameQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationGuantanamoName
+                this.loading = false
+              })
+          } else {
+            this.$apollo
+              .query({
+                query: guantanamoDifferentPlateQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationGuantanamoPlate
+                this.loading = false
+              })
+          }
         }
         if (this.selectedAction === 3) {
           this.$apollo
@@ -935,25 +962,29 @@ export default {
             })
         }
         if (this.selectedAction === 2) {
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationHolguinQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2 = data.contributorsWithDifferentInformationHolguin
-              this.loading = false
-            })
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationHolguinInfogestiQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2a =
-                data.contributorsWithDifferentInformationHolguinInfogesti
-              this.loading = false
-            })
+          if (this.radio === 'names') {
+            this.$apollo
+              .query({
+                query: holguinDifferentNameQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationHolguinName
+                this.loading = false
+              })
+          } else {
+            this.$apollo
+              .query({
+                query: holguinDifferentPlateQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationHolguinPlate
+                this.loading = false
+              })
+          }
         }
         if (this.selectedAction === 3) {
           this.$apollo
@@ -992,26 +1023,29 @@ export default {
             })
         }
         if (this.selectedAction === 2) {
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationIslaDeLaJuventudQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2 =
-                data.contributorsWithDifferentInformationIslaDeLaJuventud
-              this.loading = false
-            })
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationIslaDeLaJuventudInfogestiQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2a =
-                data.contributorsWithDifferentInformationIslaDeLaJuventudInfogesti
-              this.loading = false
-            })
+          if (this.radio === 'names') {
+            this.$apollo
+              .query({
+                query: islaDifferentNameQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationIslaDeLaJuventudName
+                this.loading = false
+              })
+          } else {
+            this.$apollo
+              .query({
+                query: islaDifferentPlateQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationIslaDeLaJuventudPlate
+                this.loading = false
+              })
+          }
         }
         if (this.selectedAction === 3) {
           this.$apollo
@@ -1053,25 +1087,29 @@ export default {
             })
         }
         if (this.selectedAction === 2) {
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationLaHabanaQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2 = data.contributorsWithDifferentInformationLaHabana
-              this.loading = false
-            })
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationLaHabanaInfogestiQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2a =
-                data.contributorsWithDifferentInformationLaHabanaInfogesti
-              this.loading = false
-            })
+          if (this.radio === 'names') {
+            this.$apollo
+              .query({
+                query: contributorsWithDifferentInformationLaHabanaQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationLaHabanaNames
+                this.loading = false
+              })
+          } else {
+            this.$apollo
+              .query({
+                query: contributorsWithDifferentInformationLaHabanaInfogestiQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationLaHabanaPlate
+                this.loading = false
+              })
+          }
         }
         if (this.selectedAction === 3) {
           this.$apollo
@@ -1111,25 +1149,29 @@ export default {
             })
         }
         if (this.selectedAction === 2) {
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationLasTunasQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2 = data.contributorsWithDifferentInformationLasTunas
-              this.loading = false
-            })
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationLasTunasInfogestiQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2a =
-                data.contributorsWithDifferentInformationLasTunasInfogesti
-              this.loading = false
-            })
+          if (this.radio === 'names') {
+            this.$apollo
+              .query({
+                query: lasTunasDifferentNameQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationLasTunasName
+                this.loading = false
+              })
+          } else {
+            this.$apollo
+              .query({
+                query: lasTunasDifferentPlateQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationLasTunasPlate
+                this.loading = false
+              })
+          }
         }
         if (this.selectedAction === 3) {
           this.$apollo
@@ -1169,25 +1211,29 @@ export default {
             })
         }
         if (this.selectedAction === 2) {
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationMatanzasQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2 = data.contributorsWithDifferentInformationMatanzas
-              this.loading = false
-            })
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationMatanzasInfogestiQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2a =
-                data.contributorsWithDifferentInformationMatanzasInfogesti
-              this.loading = false
-            })
+          if (this.radio === 'name') {
+            this.$apollo
+              .query({
+                query: matanzasDifferentNameQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationMatanzasName
+                this.loading = false
+              })
+          } else {
+            this.$apollo
+              .query({
+                query: matanzasDifferentPlateQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationMatanzasPlate
+                this.loading = false
+              })
+          }
         }
         if (this.selectedAction === 3) {
           this.$apollo
@@ -1227,25 +1273,29 @@ export default {
             })
         }
         if (this.selectedAction === 2) {
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationMayabequeQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2 = data.contributorsWithDifferentInformationMayabeque
-              this.loading = false
-            })
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationMayabequeInfogestiQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2a =
-                data.contributorsWithDifferentInformationMayabequeInfogesti
-              this.loading = false
-            })
+          if (this.radio === 'names') {
+            this.$apollo
+              .query({
+                query: mayabequeDifferentNameQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationMayabequeName
+                this.loading = false
+              })
+          } else {
+            this.$apollo
+              .query({
+                query: mayabequeDifferentPlateQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationMayabequePlate
+                this.loading = false
+              })
+          }
         }
         if (this.selectedAction === 3) {
           this.$apollo
@@ -1285,25 +1335,28 @@ export default {
             })
         }
         if (this.selectedAction === 2) {
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationPinarQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2 = data.contributorsWithDifferentInformationPinar
-              this.loading = false
-            })
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationPinarInfogestiQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2a =
-                data.contributorsWithDifferentInformationPinarInfogesti
-              this.loading = false
-            })
+          if (this.radio === 'names') {
+            this.$apollo
+              .query({
+                query: pinarDifferentNameQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 = data.contributorsWithDifferentInformationPinarName
+                this.loading = false
+              })
+          } else {
+            this.$apollo
+              .query({
+                query: pinarDifferentPlateQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationPinarPlate
+                this.loading = false
+              })
+          }
         }
         if (this.selectedAction === 3) {
           this.$apollo
@@ -1343,26 +1396,29 @@ export default {
             })
         }
         if (this.selectedAction === 2) {
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationSantiagoDeCubaQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2 =
-                data.contributorsWithDifferentInformationSantiagoDeCuba
-              this.loading = false
-            })
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationSantiagoDeCubaInfogestiQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2a =
-                data.contributorsWithDifferentInformationSantiagoDeCubaInfogesti
-              this.loading = false
-            })
+          if (this.radio === 'names') {
+            this.$apollo
+              .query({
+                query: santiagoDifferentNameQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationSantiagoDeCubaName
+                this.loading = false
+              })
+          } else {
+            this.$apollo
+              .query({
+                query: santiagoDifferentPlateQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationSantiagoDeCubaPlate
+                this.loading = false
+              })
+          }
         }
         if (this.selectedAction === 3) {
           this.$apollo
@@ -1402,26 +1458,29 @@ export default {
             })
         }
         if (this.selectedAction === 2) {
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationSanticEspiritudQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2 =
-                data.contributorsWithDifferentInformationSanticEspiritud
-              this.loading = false
-            })
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationSanticEspiritudInfogestiQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2a =
-                data.contributorsWithDifferentInformationSanticEspiritudInfogesti
-              this.loading = false
-            })
+          if (this.radio === 'names') {
+            this.$apollo
+              .query({
+                query: santicEspiritudDifferentNameQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationSanticEspiritudName
+                this.loading = false
+              })
+          } else {
+            this.$apollo
+              .query({
+                query: santicEspiritudDifferentPlateQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationSanticEspiritudPlate
+                this.loading = false
+              })
+          }
         }
         if (this.selectedAction === 3) {
           this.$apollo
@@ -1462,25 +1521,29 @@ export default {
             })
         }
         if (this.selectedAction === 2) {
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationVillaClaraQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2 = data.contributorsWithDifferentInformationVillaClara
-              this.loading = false
-            })
-          this.$apollo
-            .query({
-              query: contributorsWithDifferentInformationVillaClaraInfogestiQuery,
-              variables: { cityName: this.cityById.name }
-            })
-            .then(({ data }) => {
-              this.data_2a =
-                data.contributorsWithDifferentInformationVillaClaraInfogesti
-              this.loading = false
-            })
+          if (this.radio === 'names') {
+            this.$apollo
+              .query({
+                query: VillaClaraDifferentNameQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationVillaClaraName
+                this.loading = false
+              })
+          } else {
+            this.$apollo
+              .query({
+                query: VillaClaraDifferentPlateQuery,
+                variables: { cityName: this.cityById.name }
+              })
+              .then(({ data }) => {
+                this.data_2 =
+                  data.contributorsWithDifferentInformationVillaClaraPlate
+                this.loading = false
+              })
+          }
         }
         if (this.selectedAction === 3) {
           this.$apollo
@@ -1535,4 +1598,7 @@ export default {
   width 87%
   background #ffffff
   z-index 1
+.changeColorR:not([disabled]):hover
+  background #d60000 !important
+  transition background 300ms
 </style>

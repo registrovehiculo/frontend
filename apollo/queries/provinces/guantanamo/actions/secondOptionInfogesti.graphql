@@ -1,9 +1,0 @@
-query contributorsWithDifferentInformationGuantanamoInfogesti($cityName: String!){
-    contributorsWithDifferentInformationGuantanamoInfogesti(cityName: $cityName){
-    id
-    nit
-    unidad
-    nombreCompleto
-    direccionPrincipal
-  }
-}
