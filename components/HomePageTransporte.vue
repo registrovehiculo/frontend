@@ -187,7 +187,10 @@
               >Exportar</b-button
             >
           </b-field>
-          <div v-show="selectedAction === 2" class="margin-top-30">
+          <div v-show="selectedAction === 2" class="margin-top-20">
+            <p v-if="!radio" style="color: #d60000" class="margin-bottom-20">
+              Seleccione criterio de busqueda
+            </p>
             <b-radio
               v-model="radio"
               name="differentPlates"
