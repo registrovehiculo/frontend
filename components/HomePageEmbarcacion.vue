@@ -288,6 +288,33 @@ export default {
           .then(data => {
             this.ownerWithMoreThanOneShipment =
               data.data.ownerWithMoreThanOneShipment
+            console.log(this.ownerWithMoreThanOneShipment.length)
+            for (
+              let i = 0;
+              i < this.ownerWithMoreThanOneShipment.length - 1;
+              i++
+            ) {
+              if (
+                this.ownerWithMoreThanOneShipment[i].idNumber ===
+                this.ownerWithMoreThanOneShipment[i + 1].idNumber
+              ) {
+                let a = this.ownerWithMoreThanOneShipment[
+                  i
+                ].shipmentName.toUpperCase()
+                a = a.normalize('NFD').replace(/[\u0300-\u036F]/g, '')
+                a = a.replace(/[^\w]/g, '')
+                let b = this.ownerWithMoreThanOneShipment[
+                  i + 1
+                ].shipmentName.toUpperCase()
+                b = b.normalize('NFD').replace(/[\u0300-\u036F]/g, '')
+                b = b.replace(/[^\w]/g, '')
+                if (a === b) {
+                  this.ownerWithMoreThanOneShipment.splice(i, 1)
+                  this.ownerWithMoreThanOneShipment.splice(i, 1)
+                  i--
+                }
+              }
+            }
             this.option2 = this.ownerWithMoreThanOneShipment.slice()
             this.loading = false
             this.visible1 = true
