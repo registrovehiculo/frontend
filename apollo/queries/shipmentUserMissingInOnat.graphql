@@ -1,0 +1,11 @@
+query shipmentUserMissingInOnat{
+  shipmentUserMissingInOnat{
+    provinceNumber
+    idNumber
+    registryNumber
+    shipmentName
+    captaincyProvince
+    baseName
+    id
+  }
+}

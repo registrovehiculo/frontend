@@ -1,0 +1,9 @@
+query shipmentUserMissingInSystem{
+  shipmentUserMissingInSystem{
+    id
+    nombreCompleto
+    nit
+    dpa
+    nombreEmbarcacion
+  }
+}

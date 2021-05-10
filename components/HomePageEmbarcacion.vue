@@ -248,6 +248,15 @@ export default {
           id: 3,
           name:
             'Mostar propietarios con igual numero de identidad y nombres diferentes'
+        },
+        {
+          id: 4,
+          name: 'Mostar propietarios que no estan registrados en el InfoGesti'
+        },
+        {
+          id: 5,
+          name:
+            'Mostar propietarios que estan en el InfoGesti y no estan en el sistema'
         }
       ]
     }
