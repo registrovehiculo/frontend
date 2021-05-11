@@ -93,6 +93,18 @@
               <b>Exportar</b>
             </vue-excel-xlsx>
           </div>
+          <div v-show="selectedAction === 6 && visible6">
+            <vue-excel-xlsx
+              v-if="!loading"
+              :data="shipmentUserDifferentShipment"
+              :columns="tableColumnsEmbarcacionInfo"
+              filename="Registrados con embarcaciones distintas"
+              sheetname="Embarcaciones distintas"
+              class="documentStyle"
+            >
+              <b>Exportar</b>
+            </vue-excel-xlsx>
+          </div>
         </div>
       </div>
       <div v-if="loading" class="columns is-centered">
@@ -113,6 +125,7 @@
               visible3 ||
               visible4 ||
               visible5 ||
+              visible6 ||
               visible1)
         "
         class="has-text-centered margin-top-30 font-size-6"
@@ -132,6 +145,27 @@
             :columns="tableColumnsEmbarcacion"
           />
         </div>
+        <div v-show="selectedAction === 1 && visible1">
+          <InformationTable
+            v-if="ownerWithMoreThanOneShipment"
+            :data="ownerWithMoreThanOneShipment"
+            :columns="tableColumnsEmbarcacion"
+          />
+        </div>
+        <div v-show="selectedAction === 2 && visible2">
+          <InformationTable
+            v-if="ownerWithOneShipment"
+            :data="ownerWithOneShipment"
+            :columns="tableColumnsEmbarcacion"
+          />
+        </div>
+        <div v-show="selectedAction === 3 && visible3">
+          <InformationTable
+            v-if="result"
+            :data="result"
+            :columns="tableColumnsEmbarcacion"
+          />
+        </div>
         <div v-show="selectedAction === 4 && visible4">
           <InformationTable
             v-if="shipmentUserMissingInOnat"
@@ -146,26 +180,11 @@
             :columns="tableColumnsEmbarcacionInfo"
           />
         </div>
-        <div v-show="selectedAction === 1 && visible1 && !checkbox">
+        <div v-show="selectedAction === 6 && visible6">
           <InformationTable
-            v-if="ownerWithMoreThanOneShipment"
-            :data="ownerWithMoreThanOneShipment"
-            :columns="tableColumnsEmbarcacion"
-          />
-        </div>
-
-        <div v-show="selectedAction === 2 && visible2 && !checkbox2">
-          <InformationTable
-            v-if="ownerWithOneShipment"
-            :data="ownerWithOneShipment"
-            :columns="tableColumnsEmbarcacion"
-          />
-        </div>
-        <div v-show="selectedAction === 3 && visible3">
-          <InformationTable
-            v-if="result"
-            :data="result"
-            :columns="tableColumnsEmbarcacion"
+            v-if="shipmentUserDifferentShipment"
+            :data="shipmentUserDifferentShipment"
+            :columns="tableColumnsEmbarcacionInfo"
           />
         </div>
       </div>
@@ -176,13 +195,11 @@
 <script>
 // apollo
 import ownerWithMoreThanOneShipmentQuery from '~/apollo/queries/ownerWithMoreThanOneShipment.graphql'
-import registeredOwnersMoreThanOneQuery from '~/apollo/queries/registeredOwnersMoreThanOne.graphql'
 import ownerWithOneShipmentQuery from '~/apollo/queries/ownerWithOneShipment.graphql'
-// import registeredOwnersOneQuery from '~/apollo/queries/registeredOwnersOne.graphql'
 import ownerWithDifferentNameEqualIdQuery from '~/apollo/queries/ownerWithDifferentNameEqualId.graphql'
 import shipmentUserMissingInOnatQuery from '~/apollo/queries/shipmentUserMissingInOnat.graphql'
 import shipmentUserMissingInSystemQuery from '~/apollo/queries/shipmentUserMissingInSystem.graphql'
-import shipmentQuery from '~/apollo/queries/shipment.graphql'
+import shipmentUserDifferentShipmentQuery from '~/apollo/queries/shipmentUserDifferentShipment.graphql'
 // Components
 import InformationTable from '~/components/InformationTable'
 // json loading
@@ -191,6 +208,7 @@ import tableColumnsOnatEmbarcacion from '~/static/tableColumnsOnatEmbarcacion.js
 import registeredOne from '~/static/registeredOne.json'
 import notRegisteredOne from '~/static/notRegisteredOne.json'
 import tableColumnsEmbarcacionInfo from '~/static/tableColumnsEmbarcacionInfo.json'
+import shipment from '~/static/shipment.json'
 
 // import validators from '~/utils/validators'
 export default {
@@ -202,7 +220,8 @@ export default {
       tableColumnsOnatEmbarcacion,
       registeredOne,
       notRegisteredOne,
-      tableColumnsEmbarcacionInfo
+      tableColumnsEmbarcacionInfo,
+      shipment
     }
   },
   data() {
@@ -211,42 +230,29 @@ export default {
       ownerWithMoreThanOneShipment: [],
       ownerWithOneShipment: [],
       ownerWithDifferentNameEqualId: [],
-      registeredOwnersMoreThanOne: [],
-      // registeredOwnersOne: [],
       result: [],
-      shipment: [],
+      shipment,
       option1: [],
       option2: [],
       option3: [],
       option4: [],
+      registeredOwnersMoreThanOne: [],
       shipmentUserMissingInOnat: [],
       shipmentUserMissingInSystem: [],
+      shipmentUserDifferentShipment: [],
       tableColumnsEmbarcacion,
       tableColumnsOnatEmbarcacion,
       registeredOne,
       notRegisteredOne,
       tableColumnsEmbarcacionInfo,
-      radio: null,
       visible: false,
       visible1: false,
       visible2: false,
       visible3: false,
       visible4: false,
       visible5: false,
-      registered: null,
-      notRegistered: null,
-      registeredOwners: [],
-      asd: [],
-      founded: false,
-      checkbox: false,
-      checkbox2: false,
+      visible6: false,
       loading: false,
-      loading1: false,
-      loading2: false,
-      loading3: false,
-      checkboxLoading: false,
-      loadingPage: true,
-      loadedRegistered: false,
       actions: [
         { id: 0, name: 'Mostrar todos' },
         { id: 1, name: 'Mostrar propietarios de mas de una embarcación' },
@@ -264,6 +270,11 @@ export default {
           id: 5,
           name:
             'Mostrar propietarios que están en el InfoGesti y no están en el sistema'
+        },
+        {
+          id: 6,
+          name:
+            'Mostrar propietarios que están en ambos sistemas con embarcaciones distintas'
         }
       ]
     }
@@ -272,16 +283,6 @@ export default {
     return {
       title: `Embarcacion | Home`
     }
-  },
-  beforeMount() {
-    this.$apollo
-      .query({ query: registeredOwnersMoreThanOneQuery })
-      .then(data => {
-        this.registeredOwnersMoreThanOne = data.data.registeredOwnersMoreThanOne
-      })
-    // this.$apollo.query({ query: registeredOwnersOneQuery }).then(data => {
-    //   this.registeredOwnersOne = data.data.registeredOwnersOne
-    // })
   },
   methods: {
     search() {
@@ -292,13 +293,10 @@ export default {
       this.visible3 = false
       this.visible4 = false
       this.visible5 = false
+      this.visible6 = false
       if (this.selectedAction === 0) {
-        this.loading = true
-        this.$apollo.query({ query: shipmentQuery }).then(data => {
-          this.shipment = data.data.shipment
-          this.loading = false
-          this.visible = true
-        })
+        this.loading = false
+        this.visible = true
       }
       if (this.selectedAction === 1) {
         this.$apollo
@@ -402,6 +400,46 @@ export default {
             this.visible5 = true
           })
       }
+      if (this.selectedAction === 6) {
+        if (this.shipmentUserDifferentShipment.length === 0) {
+          this.$apollo
+            .query({ query: shipmentUserDifferentShipmentQuery })
+            .then(data => {
+              this.shipmentUserDifferentShipment =
+                data.data.shipmentUserDifferentShipment
+              for (
+                let i = 0;
+                i < this.shipmentUserDifferentShipment.length;
+                i++
+              ) {
+                for (let j = 0; j < this.shipment.length; j++) {
+                  if (
+                    this.shipment[j].idNumber ===
+                    this.shipmentUserDifferentShipment[i].nit
+                  ) {
+                    let a = this.shipment[j].shipmentName.toUpperCase()
+                    a = a.normalize('NFD').replace(/[\u0300-\u036F]/g, '')
+                    a = a.replace(/[^\w]/g, '')
+                    let b = this.shipmentUserDifferentShipment[
+                      i
+                    ].nombreEmbarcacion.toUpperCase()
+                    b = b.normalize('NFD').replace(/[\u0300-\u036F]/g, '')
+                    b = b.replace(/[^\w]/g, '')
+                    if (a === b) {
+                      this.shipmentUserDifferentShipment.splice(i, 1)
+                    }
+                  }
+                }
+              }
+
+              this.loading = false
+              this.visible6 = true
+            })
+        } else {
+          this.loading = false
+          this.visible6 = true
+        }
+      }
     }
   }
 }
@@ -409,12 +447,10 @@ export default {
 
 <style scoped lang="stylus">
 
-@keyframes spinner {
-  to {transform: rotate(360deg);}
-}
 .changeColorB:not([disabled]):hover
   background #0855f5 !important
   transition background 300ms
+
 .documentStyle
   background black
   border none
@@ -423,23 +459,9 @@ export default {
   color: #ffffff
   margin-left 15px
   width 120%
+
 .documentStyle:hover
   background #0855f5 !important
   transition background 250ms
   cursor pointer
-.spinner:before {
-  content: ''
-  box-sizing: border-box
-  position: absolute
-  top: 50%
-  left: 50%
-  width: 40px
-  height: 40px
-  margin-top: -10px
-  margin-left: -10px
-  border-radius: 50%
-  border: 2px solid #ccc
-  border-top-color: #0855f5
-  animation: spinner .6s linear infinite
-}
 </style>

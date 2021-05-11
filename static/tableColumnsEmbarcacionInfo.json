@@ -22,5 +22,11 @@
           "label": "Embarcacion",
           "searchable": true,
           "visible": true
+        },
+  {
+          "field": "nombre",
+          "label": "Capitania",
+          "searchable": true,
+          "visible": true
         }
   ]

@@ -1,0 +1,9 @@
+query shipmentUserDifferentShipment{
+  shipmentUserDifferentShipment{
+    nombreCompleto
+    nit
+    dpa
+    nombreEmbarcacion
+    nombre
+  }
+}
