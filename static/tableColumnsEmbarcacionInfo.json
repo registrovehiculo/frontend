@@ -1,0 +1,26 @@
+[
+        {
+          "field": "dpa",
+          "label": "Dpa",
+          "searchable": true,
+          "visible": true
+        },
+        {
+          "field": "nit",
+          "label": "Nit",
+          "searchable": true,
+          "visible": true
+        },
+        {
+          "field": "nombreCompleto",
+          "label": "Propietario",
+          "searchable": true,
+          "visible": true
+        },
+        {
+          "field": "nombreEmbarcacion",
+          "label": "Embarcacion",
+          "searchable": true,
+          "visible": true
+        }
+  ]

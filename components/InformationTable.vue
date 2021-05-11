@@ -8,6 +8,7 @@
     :narrowed="true"
     :hoverable="true"
     :draggable="true"
+    type="is-warning"
   >
     <template v-for="(column, index) in columns">
       <b-table-column
@@ -41,3 +42,4 @@ export default {
   }
 }
 </script>
+<style lang="stylus" scoped></style>

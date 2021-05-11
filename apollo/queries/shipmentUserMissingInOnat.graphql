@@ -2,6 +2,7 @@ query shipmentUserMissingInOnat{
   shipmentUserMissingInOnat{
     provinceNumber
     idNumber
+    ownerName
     registryNumber
     shipmentName
     captaincyProvince

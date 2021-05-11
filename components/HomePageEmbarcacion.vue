@@ -9,7 +9,7 @@
                 v-model="selectedAction"
                 dropdown-position="bottom"
                 placeholder="Acciones..."
-                @input="resetSelect()"
+                @input="search()"
               >
                 <option
                   v-for="option in actions"
@@ -21,46 +21,78 @@
               </b-select>
             </b-field>
           </div>
-          <div class="level-right margin-left-20">
-            <b-button
-              type="is-black"
-              rounded
-              :disabled="selectedAction === null"
-              :loading="loading"
-              class="changeColorB"
-              @click="search()"
-              >Buscar</b-button
+          <div v-show="selectedAction === 0 && visible">
+            <vue-excel-xlsx
+              v-if="!loading"
+              :data="shipment"
+              :columns="tableColumnsEmbarcacion"
+              filename="Todos los propietarios Embarcacion"
+              sheetname="Propietarios"
+              class="documentStyle"
             >
+              <b>Exportar</b>
+            </vue-excel-xlsx>
           </div>
-          <div class="level-right margin-left-20"></div>
-        </div>
-      </div>
-      <div
-        v-show="selectedAction === 1 && visible1"
-        class="columns is-centered"
-      >
-        <div class="column has-text-centered margin-top-20">
-          <b-checkbox
-            v-model="checkbox"
-            type="is-warning"
-            @input="registeredOnatMoreThanOneShipment"
-          >
-            {{ 'Comparar con la base de datos de la onat' }}
-          </b-checkbox>
-        </div>
-      </div>
-      <div
-        v-show="selectedAction === 2 && visible2"
-        class="columns is-centered"
-      >
-        <div class="column has-text-centered margin-top-20">
-          <b-checkbox
-            v-model="checkbox2"
-            type="is-warning"
-            @input="registeredOnatOneShipment"
-          >
-            {{ 'Comparar con la base de datos de la onat' }}
-          </b-checkbox>
+          <div v-show="selectedAction === 1 && visible1">
+            <vue-excel-xlsx
+              v-if="!loading"
+              :data="ownerWithMoreThanOneShipment"
+              :columns="tableColumnsEmbarcacion"
+              filename="Propietarios con más de una embarcación"
+              sheetname="Más de una embarcación"
+              class="documentStyle"
+            >
+              <b>Exportar</b>
+            </vue-excel-xlsx>
+          </div>
+          <div v-show="selectedAction === 2 && visible2">
+            <vue-excel-xlsx
+              v-if="!loading"
+              :data="ownerWithOneShipment"
+              :columns="tableColumnsEmbarcacion"
+              filename="Propietarios de una embarcación"
+              sheetname="Una embarcación"
+              class="documentStyle"
+            >
+              <b>Exportar</b>
+            </vue-excel-xlsx>
+          </div>
+          <div v-show="selectedAction === 3 && visible3">
+            <vue-excel-xlsx
+              v-if="!loading"
+              :data="ownerWithDifferentNameEqualId"
+              :columns="tableColumnsEmbarcacion"
+              filename="Id iguales, nombre diferentes"
+              sheetname="Nombres diferentes"
+              class="documentStyle"
+            >
+              <b>Exportar</b>
+            </vue-excel-xlsx>
+          </div>
+          <div v-show="selectedAction === 4 && visible4">
+            <vue-excel-xlsx
+              v-if="!loading"
+              :data="shipmentUserMissingInOnat"
+              :columns="tableColumnsEmbarcacion"
+              filename="No registrados"
+              sheetname="No registrados"
+              class="documentStyle"
+            >
+              <b>Exportar</b>
+            </vue-excel-xlsx>
+          </div>
+          <div v-show="selectedAction === 5 && visible5">
+            <vue-excel-xlsx
+              v-if="!loading"
+              :data="shipmentUserMissingInSystem"
+              :columns="tableColumnsEmbarcacionInfo"
+              filename="Registrados en la onat que no estan en el sistema"
+              sheetname="Infogesti"
+              class="documentStyle"
+            >
+              <b>Exportar</b>
+            </vue-excel-xlsx>
+          </div>
         </div>
       </div>
       <div v-if="loading" class="columns is-centered">
@@ -73,12 +105,45 @@
           ></b-skeleton>
         </div>
       </div>
-      <div class="margin-top-20">
+      <p
+        v-if="
+          selectedAction !== null &&
+            (visible ||
+              visible2 ||
+              visible3 ||
+              visible4 ||
+              visible5 ||
+              visible1)
+        "
+        class="has-text-centered margin-top-30 font-size-6"
+        style="font-weight: 700"
+      >
+        {{
+          actions[selectedAction].name.charAt(8).toUpperCase() +
+            actions[selectedAction].name.substring(9)
+        }}
+      </p>
+
+      <div class="margin-top-30">
         <div v-show="selectedAction === 0 && visible">
           <InformationTable
             v-if="shipment"
             :data="shipment"
             :columns="tableColumnsEmbarcacion"
+          />
+        </div>
+        <div v-show="selectedAction === 4 && visible4">
+          <InformationTable
+            v-if="shipmentUserMissingInOnat"
+            :data="shipmentUserMissingInOnat"
+            :columns="tableColumnsEmbarcacion"
+          />
+        </div>
+        <div v-show="selectedAction === 5 && visible5">
+          <InformationTable
+            v-if="shipmentUserMissingInSystem"
+            :data="shipmentUserMissingInSystem"
+            :columns="tableColumnsEmbarcacionInfo"
           />
         </div>
         <div v-show="selectedAction === 1 && visible1 && !checkbox">
@@ -105,91 +170,27 @@
         </div>
       </div>
     </div>
-    <div
-      v-if="checkbox && selectedAction === 1"
-      class="row is-flex padding-left-30 padding-right-30"
-    >
-      <div class="column has-text-centered">
-        <b class="font-size-4" style="color: #0855f5"> {{ 'Registrados' }}</b>
-        <InformationTable
-          v-if="registered"
-          :data="registered"
-          :columns="tableColumnsEmbarcacion"
-          class="margin-top-20"
-        />
-      </div>
-      <div class="column has-text-centered">
-        <b class="font-size-4" style="color: #0855f5">
-          {{ 'No registrados' }}</b
-        >
-        <vue-excel-xlsx
-          v-if="notRegistered"
-          :data="notRegistered"
-          :columns="tableColumnsEmbarcacion"
-          filename="no registrados de mas de una embarcacion"
-          sheetname="no registrados"
-          class="documentStyle"
-        >
-          <b>Exportar</b>
-        </vue-excel-xlsx>
-        <InformationTable
-          v-if="notRegistered"
-          :data="notRegistered"
-          :columns="tableColumnsEmbarcacion"
-          class="margin-top-20"
-        />
-      </div>
-    </div>
-    <div
-      v-if="checkbox2 && selectedAction === 2"
-      class="row is-flex padding-left-30 padding-right-30"
-    >
-      <div class="column has-text-centered">
-        <b class="font-size-4" style="color: #0855f5"> {{ 'Registrados' }}</b>
-        <InformationTable
-          v-if="registeredOne"
-          :data="registeredOne"
-          :columns="tableColumnsEmbarcacion"
-          class="margin-top-20"
-        />
-      </div>
-      <div class="column has-text-centered">
-        <b class="font-size-4" style="color: #0855f5">
-          {{ 'No registrados' }}</b
-        >
-        <vue-excel-xlsx
-          v-if="notRegisteredOne"
-          :data="notRegisteredOne"
-          :columns="tableColumnsEmbarcacion"
-          filename="no registrados de una embarcacion"
-          sheetname="no registrados"
-          class="documentStyle"
-        >
-          <b>Exportar</b>
-        </vue-excel-xlsx>
-        <InformationTable
-          v-if="notRegisteredOne"
-          :data="notRegisteredOne"
-          :columns="tableColumnsEmbarcacion"
-          class="margin-top-20"
-        />
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
+// apollo
 import ownerWithMoreThanOneShipmentQuery from '~/apollo/queries/ownerWithMoreThanOneShipment.graphql'
 import registeredOwnersMoreThanOneQuery from '~/apollo/queries/registeredOwnersMoreThanOne.graphql'
 import ownerWithOneShipmentQuery from '~/apollo/queries/ownerWithOneShipment.graphql'
-import registeredOwnersOneQuery from '~/apollo/queries/registeredOwnersOne.graphql'
+// import registeredOwnersOneQuery from '~/apollo/queries/registeredOwnersOne.graphql'
 import ownerWithDifferentNameEqualIdQuery from '~/apollo/queries/ownerWithDifferentNameEqualId.graphql'
+import shipmentUserMissingInOnatQuery from '~/apollo/queries/shipmentUserMissingInOnat.graphql'
+import shipmentUserMissingInSystemQuery from '~/apollo/queries/shipmentUserMissingInSystem.graphql'
 import shipmentQuery from '~/apollo/queries/shipment.graphql'
+// Components
 import InformationTable from '~/components/InformationTable'
+// json loading
 import tableColumnsEmbarcacion from '~/static/tableColumnsEmbarcacion.json'
 import tableColumnsOnatEmbarcacion from '~/static/tableColumnsOnatEmbarcacion.json'
 import registeredOne from '~/static/registeredOne.json'
 import notRegisteredOne from '~/static/notRegisteredOne.json'
+import tableColumnsEmbarcacionInfo from '~/static/tableColumnsEmbarcacionInfo.json'
 
 // import validators from '~/utils/validators'
 export default {
@@ -200,7 +201,8 @@ export default {
       tableColumnsEmbarcacion,
       tableColumnsOnatEmbarcacion,
       registeredOne,
-      notRegisteredOne
+      notRegisteredOne,
+      tableColumnsEmbarcacionInfo
     }
   },
   data() {
@@ -210,22 +212,27 @@ export default {
       ownerWithOneShipment: [],
       ownerWithDifferentNameEqualId: [],
       registeredOwnersMoreThanOne: [],
-      registeredOwnersOne: [],
+      // registeredOwnersOne: [],
       result: [],
       shipment: [],
       option1: [],
       option2: [],
       option3: [],
       option4: [],
+      shipmentUserMissingInOnat: [],
+      shipmentUserMissingInSystem: [],
       tableColumnsEmbarcacion,
       tableColumnsOnatEmbarcacion,
       registeredOne,
       notRegisteredOne,
+      tableColumnsEmbarcacionInfo,
       radio: null,
       visible: false,
       visible1: false,
       visible2: false,
       visible3: false,
+      visible4: false,
+      visible5: false,
       registered: null,
       notRegistered: null,
       registeredOwners: [],
@@ -242,21 +249,21 @@ export default {
       loadedRegistered: false,
       actions: [
         { id: 0, name: 'Mostrar todos' },
-        { id: 1, name: 'Mostar propietarios de mas de una embarcacion' },
-        { id: 2, name: 'Mostar propietarios con una sola embarcacion' },
+        { id: 1, name: 'Mostrar propietarios de mas de una embarcación' },
+        { id: 2, name: 'Mostrar propietarios con una sola embarcación' },
         {
           id: 3,
           name:
-            'Mostar propietarios con igual numero de identidad y nombres diferentes'
+            'Mostrar propietarios con igual número de identidad y nombres diferentes'
         },
         {
           id: 4,
-          name: 'Mostar propietarios que no estan registrados en el InfoGesti'
+          name: 'Mostrar propietarios que no están registrados en el InfoGesti'
         },
         {
           id: 5,
           name:
-            'Mostar propietarios que estan en el InfoGesti y no estan en el sistema'
+            'Mostrar propietarios que están en el InfoGesti y no están en el sistema'
         }
       ]
     }
@@ -272,9 +279,9 @@ export default {
       .then(data => {
         this.registeredOwnersMoreThanOne = data.data.registeredOwnersMoreThanOne
       })
-    this.$apollo.query({ query: registeredOwnersOneQuery }).then(data => {
-      this.registeredOwnersOne = data.data.registeredOwnersOne
-    })
+    // this.$apollo.query({ query: registeredOwnersOneQuery }).then(data => {
+    //   this.registeredOwnersOne = data.data.registeredOwnersOne
+    // })
   },
   methods: {
     search() {
@@ -283,6 +290,8 @@ export default {
       this.visible = false
       this.visible2 = false
       this.visible3 = false
+      this.visible4 = false
+      this.visible5 = false
       if (this.selectedAction === 0) {
         this.loading = true
         this.$apollo.query({ query: shipmentQuery }).then(data => {
@@ -374,60 +383,25 @@ export default {
             this.visible3 = true
           })
       }
-    },
-    // 444 215
-    registeredOnatMoreThanOneShipment() {
-      this.checkboxLoading = true
-      if (this.notRegistered === null || this.registered === null) {
-        this.notRegistered = []
-        this.registered = []
-        const arr = new Set()
-        const arr1 = new Set()
-        const len = this.option2.length
-        for (let i = 0; i < len; i++) {
-          if (
-            this.registeredOwnersMoreThanOne.some(
-              e => e.idNumber === this.option2[i].idNumber
-            )
-          ) {
-            arr.add(this.option2[i])
-          } else {
-            arr1.add(this.option2[i])
-          }
-        }
-        this.notRegistered = Array.from(arr1)
-        this.registered = Array.from(arr)
-        this.checkboxLoading = false
+      if (this.selectedAction === 4) {
+        this.$apollo
+          .query({ query: shipmentUserMissingInOnatQuery })
+          .then(data => {
+            this.shipmentUserMissingInOnat = data.data.shipmentUserMissingInOnat
+            this.loading = false
+            this.visible4 = true
+          })
       }
-    },
-    registeredOnatOneShipment() {
-      this.checkboxLoading = true
-      this.registeredOne = registeredOne
-      this.notRegisteredOne = notRegisteredOne
-      // if (this.registeredOne === null || this.notRegisteredOne === null) {
-      //   this.notRegisteredOne = []
-      //   this.registeredOne = []
-      //   const arr = new Set()
-      //   const arr2 = new Set()
-      //   const len = this.option1.length
-      //   for (let i = 0; i < len; i++) {
-      //     if (
-      //       this.registeredOwnersOne.some(
-      //         e => e.idNumber === this.option1[i].idNumber
-      //       )
-      //     ) {
-      //       arr.add(this.option1[i])
-      //     } else {
-      //       arr2.add(this.option1[i])
-      //     }
-      //   }
-      //   this.notRegisteredOne = Array.from(arr2)
-      //   this.registeredOne = Array.from(arr)
-      this.checkboxLoading = false
-    },
-    resetSelect() {
-      this.checkbox2 = false
-      this.checkbox = false
+      if (this.selectedAction === 5) {
+        this.$apollo
+          .query({ query: shipmentUserMissingInSystemQuery })
+          .then(data => {
+            this.shipmentUserMissingInSystem =
+              data.data.shipmentUserMissingInSystem
+            this.loading = false
+            this.visible5 = true
+          })
+      }
     }
   }
 }
@@ -447,8 +421,8 @@ export default {
   height 40px
   border-radius 20px
   color: #ffffff
-  width 15%
-  margin-left 50px
+  margin-left 15px
+  width 120%
 .documentStyle:hover
   background #0855f5 !important
   transition background 250ms
