@@ -3,8 +3,5 @@ query shipmentUserMissingInSystem{
     nombreCompleto
     nit
     dpa
-    embarcacion
-  	capitania
-    basificacion
   }
 }

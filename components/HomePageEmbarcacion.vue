@@ -203,7 +203,7 @@
           <InformationTable
             v-if="shipmentUserMissingInSystem"
             :data="shipmentUserMissingInSystem"
-            :columns="tableColumnsEmbarcacionInfo"
+            :columns="tableColumnsEmbarcacionInfoR"
           />
         </div>
         <div v-show="selectedAction === 6 && visible6">
@@ -252,6 +252,7 @@ import notRegisteredOne from '~/static/notRegisteredOne.json'
 import tableColumnsEmbarcacionInfoShipment from '~/static/tableColumnsEmbarcacionInfoShipment.json'
 import tableColumnsEmbarcacionInfoBase from '~/static/tableColumnsEmbarcacionInfoBase.json'
 import tableColumnsEmbarcacionInfo from '~/static/tableColumnsEmbarcacionInfo.json'
+import tableColumnsEmbarcacionInfoR from '~/static/tableColumnsEmbarcacionInfoR.json'
 import tableColumnsEmbarcacionInfoCaptaincy from '~/static/tableColumnsEmbarcacionInfoCaptaincy.json'
 import shipment from '~/static/shipment.json'
 
@@ -269,6 +270,7 @@ export default {
       tableColumnsEmbarcacionInfoBase,
       tableColumnsEmbarcacionInfo,
       tableColumnsEmbarcacionInfoCaptaincy,
+      tableColumnsEmbarcacionInfoR,
       shipment
     }
   },
@@ -298,6 +300,7 @@ export default {
       tableColumnsEmbarcacionInfo,
       tableColumnsEmbarcacionInfoBase,
       tableColumnsEmbarcacionInfoCaptaincy,
+      tableColumnsEmbarcacionInfoR,
       visible: false,
       visible1: false,
       visible2: false,

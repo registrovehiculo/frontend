@@ -36,7 +36,13 @@
             v-if="$auth.loggedIn"
             class="navbar-item has-dropdown is-hoverable"
           >
-            <a class="navbar-link font-size-3"> {{ getUsername() }} </a>
+            <a class="navbar-link font-size-3">
+              <font-awesome-icon
+                :icon="['fas', 'user']"
+                class="font-size-5 is-white"
+              />
+              <p class="padding-left-10">{{ getUsername() }}</p>
+            </a>
             <div
               :class="
                 name === 'Transporte'
