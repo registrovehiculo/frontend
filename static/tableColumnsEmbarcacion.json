@@ -8,7 +8,7 @@
         },
         {
           "field": "idNumber",
-          "label": "Numero de identidad",
+          "label": "Número de identidad",
           "searchable": true,
           "visible": true
         },
@@ -20,25 +20,25 @@
         },
         {
           "field": "registryNumber",
-          "label": "Numero de registro",
+          "label": "Número de registro",
           "searchable": true,
           "visible": true
         },
         {
           "field": "shipmentName",
-          "label": "Embarcacion",
+          "label": "Embarcación",
           "searchable": true,
           "visible": true
         },
         {
           "field": "captaincyProvince",
-          "label": "Capitania",
+          "label": "Capitanía",
           "searchable": true,
           "visible": true
         },
         {
           "field": "baseName",
-          "label": "Basificacion",
+          "label": "Basificación",
           "searchable": true,
           "visible": true
         }

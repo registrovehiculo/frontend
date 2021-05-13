@@ -1,0 +1,8 @@
+query shipmentUserDifferentBase{
+  shipmentUserDifferentBase{
+    nombreCompleto
+    nit
+    dpa
+    basificacion
+  }
+}

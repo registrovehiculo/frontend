@@ -1,8 +1,10 @@
 query shipmentUserMissingInSystem{
   shipmentUserMissingInSystem{
-    dpa
-    nit
     nombreCompleto
-    nombreEmbarcacion
+    nit
+    dpa
+    embarcacion
+  	capitania
+    basificacion
   }
 }

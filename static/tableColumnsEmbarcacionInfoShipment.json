@@ -22,18 +22,5 @@
           "label": "Embarcación",
           "searchable": true,
           "visible": true
-        },
-        {
-          "field": "capitania",
-          "label": "Capitanía",
-          "searchable": true,
-          "visible": true
-        },
-        {
-          "field": "basificacion",
-          "label": "Basificación",
-          "searchable": true,
-          "visible": true
         }
-
   ]

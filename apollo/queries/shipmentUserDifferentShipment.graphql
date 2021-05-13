@@ -3,7 +3,6 @@ query shipmentUserDifferentShipment{
     nombreCompleto
     nit
     dpa
-    nombreEmbarcacion
-    nombre
+    embarcacion
   }
 }

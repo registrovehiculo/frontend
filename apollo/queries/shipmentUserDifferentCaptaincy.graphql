@@ -1,0 +1,8 @@
+query shipmentUserDifferentCaptaincy{
+  shipmentUserDifferentCaptaincy{
+    nombreCompleto
+    nit
+    dpa
+  	capitania
+  }
+}

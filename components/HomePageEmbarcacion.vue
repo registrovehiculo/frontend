@@ -105,6 +105,30 @@
               <b>Exportar</b>
             </vue-excel-xlsx>
           </div>
+          <div v-show="selectedAction === 7 && visible7">
+            <vue-excel-xlsx
+              v-if="!loading"
+              :data="shipmentUserDifferentCaptaincy"
+              :columns="shipmentUserDifferentCaptaincy"
+              filename="Registrados con capitanías distintas"
+              sheetname="Capitanías distintas"
+              class="documentStyle"
+            >
+              <b>Exportar</b>
+            </vue-excel-xlsx>
+          </div>
+          <div v-show="selectedAction === 8 && visible8">
+            <vue-excel-xlsx
+              v-if="!loading"
+              :data="shipmentUserDifferentBase"
+              :columns="shipmentUserDifferentBase"
+              filename="Registrados con basificiónes distintas"
+              sheetname="Basificiónes distintas"
+              class="documentStyle"
+            >
+              <b>Exportar</b>
+            </vue-excel-xlsx>
+          </div>
         </div>
       </div>
       <div v-if="loading" class="columns is-centered">
@@ -126,6 +150,8 @@
               visible4 ||
               visible5 ||
               visible6 ||
+              visible7 ||
+              visible8 ||
               visible1)
         "
         class="has-text-centered margin-top-30 font-size-6"
@@ -184,9 +210,23 @@
           <InformationTable
             v-if="shipmentUserDifferentShipment"
             :data="shipmentUserDifferentShipment"
-            :columns="tableColumnsEmbarcacionInfo"
+            :columns="tableColumnsEmbarcacionInfoShipment"
           />
         </div>
+        <div v-show="selectedAction === 7 && visible7">
+          <InformationTable
+            v-if="shipmentUserDifferentCaptaincy"
+            :data="shipmentUserDifferentCaptaincy"
+            :columns="tableColumnsEmbarcacionInfoCaptaincy"
+          />
+        </div>
+      </div>
+      <div v-show="selectedAction === 8 && visible8">
+        <InformationTable
+          v-if="shipmentUserDifferentBase"
+          :data="shipmentUserDifferentBase"
+          :columns="tableColumnsEmbarcacionInfoBase"
+        />
       </div>
     </div>
   </div>
@@ -200,6 +240,8 @@ import ownerWithDifferentNameEqualIdQuery from '~/apollo/queries/ownerWithDiffer
 import shipmentUserMissingInOnatQuery from '~/apollo/queries/shipmentUserMissingInOnat.graphql'
 import shipmentUserMissingInSystemQuery from '~/apollo/queries/shipmentUserMissingInSystem.graphql'
 import shipmentUserDifferentShipmentQuery from '~/apollo/queries/shipmentUserDifferentShipment.graphql'
+import shipmentUserDifferentCaptaincyQuery from '~/apollo/queries/shipmentUserDifferentCaptaincy.graphql'
+import shipmentUserDifferentBaseQuery from '~/apollo/queries/shipmentUserDifferentBase.graphql'
 // Components
 import InformationTable from '~/components/InformationTable'
 // json loading
@@ -207,7 +249,10 @@ import tableColumnsEmbarcacion from '~/static/tableColumnsEmbarcacion.json'
 import tableColumnsOnatEmbarcacion from '~/static/tableColumnsOnatEmbarcacion.json'
 import registeredOne from '~/static/registeredOne.json'
 import notRegisteredOne from '~/static/notRegisteredOne.json'
+import tableColumnsEmbarcacionInfoShipment from '~/static/tableColumnsEmbarcacionInfoShipment.json'
+import tableColumnsEmbarcacionInfoBase from '~/static/tableColumnsEmbarcacionInfoBase.json'
 import tableColumnsEmbarcacionInfo from '~/static/tableColumnsEmbarcacionInfo.json'
+import tableColumnsEmbarcacionInfoCaptaincy from '~/static/tableColumnsEmbarcacionInfoCaptaincy.json'
 import shipment from '~/static/shipment.json'
 
 // import validators from '~/utils/validators'
@@ -220,7 +265,10 @@ export default {
       tableColumnsOnatEmbarcacion,
       registeredOne,
       notRegisteredOne,
+      tableColumnsEmbarcacionInfoShipment,
+      tableColumnsEmbarcacionInfoBase,
       tableColumnsEmbarcacionInfo,
+      tableColumnsEmbarcacionInfoCaptaincy,
       shipment
     }
   },
@@ -240,11 +288,16 @@ export default {
       shipmentUserMissingInOnat: [],
       shipmentUserMissingInSystem: [],
       shipmentUserDifferentShipment: [],
+      shipmentUserDifferentCaptaincy: [],
+      shipmentUserDifferentBase: [],
       tableColumnsEmbarcacion,
       tableColumnsOnatEmbarcacion,
       registeredOne,
       notRegisteredOne,
+      tableColumnsEmbarcacionInfoShipment,
       tableColumnsEmbarcacionInfo,
+      tableColumnsEmbarcacionInfoBase,
+      tableColumnsEmbarcacionInfoCaptaincy,
       visible: false,
       visible1: false,
       visible2: false,
@@ -252,6 +305,9 @@ export default {
       visible4: false,
       visible5: false,
       visible6: false,
+      visible7: false,
+      visible8: false,
+      visible9: false,
       loading: false,
       actions: [
         { id: 0, name: 'Mostrar todos' },
@@ -275,6 +331,16 @@ export default {
           id: 6,
           name:
             'Mostrar propietarios que están en ambos sistemas con embarcaciones distintas'
+        },
+        {
+          id: 7,
+          name:
+            'Mostrar propietarios que están en ambos sistemas con capitania distintas'
+        },
+        {
+          id: 8,
+          name:
+            'Mostrar propietarios que están en ambos sistemas con basificaciones distintas'
         }
       ]
     }
@@ -294,6 +360,9 @@ export default {
       this.visible4 = false
       this.visible5 = false
       this.visible6 = false
+      this.visible7 = false
+      this.visible8 = false
+      this.visible9 = false
       if (this.selectedAction === 0) {
         this.loading = false
         this.visible = true
@@ -422,7 +491,7 @@ export default {
                     a = a.replace(/[^\w]/g, '')
                     let b = this.shipmentUserDifferentShipment[
                       i
-                    ].nombreEmbarcacion.toUpperCase()
+                    ].embarcacion.toUpperCase()
                     b = b.normalize('NFD').replace(/[\u0300-\u036F]/g, '')
                     b = b.replace(/[^\w]/g, '')
                     if (a === b) {
@@ -438,6 +507,36 @@ export default {
         } else {
           this.loading = false
           this.visible6 = true
+        }
+      }
+      if (this.selectedAction === 7) {
+        if (this.shipmentUserDifferentCaptaincy.length === 0) {
+          this.$apollo
+            .query({ query: shipmentUserDifferentCaptaincyQuery })
+            .then(data => {
+              this.shipmentUserDifferentCaptaincy =
+                data.data.shipmentUserDifferentCaptaincy
+              this.loading = false
+              this.visible7 = true
+            })
+        } else {
+          this.loading = false
+          this.visible7 = true
+        }
+      }
+      if (this.selectedAction === 8) {
+        if (this.shipmentUserDifferentBase.length === 0) {
+          this.$apollo
+            .query({ query: shipmentUserDifferentBaseQuery })
+            .then(data => {
+              this.shipmentUserDifferentBase =
+                data.data.shipmentUserDifferentBase
+              this.loading = false
+              this.visible8 = true
+            })
+        } else {
+          this.loading = false
+          this.visible8 = true
         }
       }
     }
