@@ -1,0 +1,8 @@
+query shipmentUserDifferentRegister{
+  shipmentUserDifferentRegister{
+    dpa
+    nit
+    nombreCompleto
+  	registro
+  }
+}

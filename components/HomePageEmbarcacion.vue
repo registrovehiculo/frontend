@@ -109,7 +109,7 @@
             <vue-excel-xlsx
               v-if="!loading"
               :data="shipmentUserDifferentCaptaincy"
-              :columns="shipmentUserDifferentCaptaincy"
+              :columns="tableColumnsEmbarcacionInfoCaptaincy"
               filename="Registrados con capitanías distintas"
               sheetname="Capitanías distintas"
               class="documentStyle"
@@ -121,9 +121,21 @@
             <vue-excel-xlsx
               v-if="!loading"
               :data="shipmentUserDifferentBase"
-              :columns="shipmentUserDifferentBase"
+              :columns="tableColumnsEmbarcacionInfoBase"
               filename="Registrados con basificiónes distintas"
               sheetname="Basificiónes distintas"
+              class="documentStyle"
+            >
+              <b>Exportar</b>
+            </vue-excel-xlsx>
+          </div>
+          <div v-show="selectedAction === 9 && visible9">
+            <vue-excel-xlsx
+              v-if="!loading"
+              :data="shipmentUserDifferentRegister"
+              :columns="tableColumnsEmbarcacionInfoRegister"
+              filename="Registrados con registros distintas"
+              sheetname="Registros distintos"
               class="documentStyle"
             >
               <b>Exportar</b>
@@ -228,6 +240,13 @@
           :columns="tableColumnsEmbarcacionInfoBase"
         />
       </div>
+      <div v-show="selectedAction === 9 && visible9">
+        <InformationTable
+          v-if="shipmentUserDifferentRegister"
+          :data="shipmentUserDifferentRegister"
+          :columns="tableColumnsEmbarcacionInfoRegister"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -242,6 +261,7 @@ import shipmentUserMissingInSystemQuery from '~/apollo/queries/shipmentUserMissi
 import shipmentUserDifferentShipmentQuery from '~/apollo/queries/shipmentUserDifferentShipment.graphql'
 import shipmentUserDifferentCaptaincyQuery from '~/apollo/queries/shipmentUserDifferentCaptaincy.graphql'
 import shipmentUserDifferentBaseQuery from '~/apollo/queries/shipmentUserDifferentBase.graphql'
+import shipmentUserDifferentRegisterQuery from '~/apollo/queries/shipmentUserDifferentRegister.graphql'
 // Components
 import InformationTable from '~/components/InformationTable'
 // json loading
@@ -254,6 +274,7 @@ import tableColumnsEmbarcacionInfoBase from '~/static/tableColumnsEmbarcacionInf
 import tableColumnsEmbarcacionInfo from '~/static/tableColumnsEmbarcacionInfo.json'
 import tableColumnsEmbarcacionInfoR from '~/static/tableColumnsEmbarcacionInfoR.json'
 import tableColumnsEmbarcacionInfoCaptaincy from '~/static/tableColumnsEmbarcacionInfoCaptaincy.json'
+import tableColumnsEmbarcacionInfoRegister from '~/static/tableColumnsEmbarcacionInfoRegister.json'
 import shipment from '~/static/shipment.json'
 
 // import validators from '~/utils/validators'
@@ -271,6 +292,7 @@ export default {
       tableColumnsEmbarcacionInfo,
       tableColumnsEmbarcacionInfoCaptaincy,
       tableColumnsEmbarcacionInfoR,
+      tableColumnsEmbarcacionInfoRegister,
       shipment
     }
   },
@@ -292,6 +314,7 @@ export default {
       shipmentUserDifferentShipment: [],
       shipmentUserDifferentCaptaincy: [],
       shipmentUserDifferentBase: [],
+      shipmentUserDifferentRegister: [],
       tableColumnsEmbarcacion,
       tableColumnsOnatEmbarcacion,
       registeredOne,
@@ -301,6 +324,7 @@ export default {
       tableColumnsEmbarcacionInfoBase,
       tableColumnsEmbarcacionInfoCaptaincy,
       tableColumnsEmbarcacionInfoR,
+      tableColumnsEmbarcacionInfoRegister,
       visible: false,
       visible1: false,
       visible2: false,
@@ -314,7 +338,7 @@ export default {
       loading: false,
       actions: [
         { id: 0, name: 'Mostrar todos' },
-        { id: 1, name: 'Mostrar propietarios de mas de una embarcación' },
+        { id: 1, name: 'Mostrar propietarios de más de una embarcación' },
         { id: 2, name: 'Mostrar propietarios con una sola embarcación' },
         {
           id: 3,
@@ -328,7 +352,7 @@ export default {
         {
           id: 5,
           name:
-            'Mostrar propietarios que están en el InfoGesti y no están en el sistema'
+            'Mostrar propietarios que están en el InfoGesti y no están en la BD Capitanía'
         },
         {
           id: 6,
@@ -344,6 +368,11 @@ export default {
           id: 8,
           name:
             'Mostrar propietarios que están en ambos sistemas con basificaciones distintas'
+        },
+        {
+          id: 9,
+          name:
+            'Mostrar propietarios que están en ambos sistemas con registros distintos'
         }
       ]
     }
@@ -540,6 +569,18 @@ export default {
         } else {
           this.loading = false
           this.visible8 = true
+        }
+      }
+      if (this.selectedAction === 9) {
+        if (this.shipmentUserDifferentRegister.length === 0) {
+          this.$apollo
+            .query({ query: shipmentUserDifferentRegisterQuery })
+            .then(data => {
+              this.shipmentUserDifferentRegister =
+                data.data.shipmentUserDifferentRegister
+              this.loading = false
+              this.visible9 = true
+            })
         }
       }
     }
