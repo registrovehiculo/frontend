@@ -17,7 +17,7 @@
           />
         </nuxt-link>
         <Searcher
-          v-if="!getSystem"
+          v-if="!getSystem && $route.name !== 'faq'"
           style="width: 100%"
           class="margin-top-10 is-hidden-tablet is-hidden-desktop"
         />
@@ -29,7 +29,7 @@
       </div>
       <div class="navbar-menu is-hidden-mobile">
         <div style="margin-top: 0.75rem; width: 30%" class="margin-left-10">
-          <Searcher v-if="!getSystem" />
+          <Searcher v-if="!getSystem && $route.name !== 'faq'" />
         </div>
         <div class="navbar-end margin-right-30">
           <div
@@ -50,9 +50,25 @@
                   : 'navbar-dropdown navbar-red'
               "
             >
-              <a class="navbar-item" @click="changeSystem()">{{
-                'Cambiar a ' + name
-              }}</a>
+              <a
+                v-if="$route.name !== 'faq'"
+                class="navbar-item"
+                @click="changeSystem()"
+              >
+                {{ 'Cambiar a ' + name }}</a
+              >
+              <a
+                v-if="$route.name === 'faq'"
+                class="navbar-item"
+                @click="$router.replace('/')"
+                >Página de inicio</a
+              >
+              <a
+                v-if="$route.name !== 'faq'"
+                class="navbar-item"
+                @click="userManual()"
+                >Manual de usuario</a
+              >
               <a class="navbar-item" @click="logout()">Salir</a>
             </div>
           </div>
@@ -106,6 +122,11 @@ export default {
       } else {
         this.$store.commit('system/setActive', true)
         this.name = 'Transporte'
+      }
+    },
+    userManual() {
+      if (this.$route.name !== 'faq') {
+        this.$router.replace('faq')
       }
     },
     linkify: require('~/services/linkify').linkify,

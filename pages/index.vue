@@ -1,13 +1,8 @@
 <template>
   <div>
-    <div v-if="!getSystem">
-      <HomePageTransporte v-if="$auth.loggedIn" />
-      <WelcomePage v-else />
-    </div>
-    <div v-else>
-      <HomePageEmbarcacion v-if="$auth.loggedIn" />
-      <WelcomePage v-else />
-    </div>
+    <HomePageTransporte v-if="$auth.loggedIn && !getSystem" />
+    <HomePageEmbarcacion v-if="$auth.loggedIn && getSystem" />
+    <LoginForm v-if="!$auth.loggedIn" />
   </div>
 </template>
 
@@ -15,9 +10,9 @@
 // Components
 import HomePageTransporte from '~/components/HomePageTransporte'
 import HomePageEmbarcacion from '~/components/HomePageEmbarcacion'
-import WelcomePage from '~/components/WelcomePage'
+import LoginForm from '~/components/LoginForm'
 export default {
-  components: { HomePageTransporte, WelcomePage, HomePageEmbarcacion },
+  components: { HomePageTransporte, LoginForm, HomePageEmbarcacion },
   auth: false,
   computed: {
     getSystem() {

@@ -6,26 +6,14 @@
           <div class="columns is-centered is-variable is-8">
             <div class="column has-text-centered is-6 flex-wrap-center">
               <img
-                v-if="!getSystem"
-                src="~assets/car.png"
+                src="~static/database.png"
                 alt="car"
                 height="150"
                 width="150"
                 style="margin-top: -100px"
               />
-              <img
-                v-else
-                src="~assets/boat.png"
-                alt="boat"
-                height="150"
-                width="150"
-                style="margin-top: -100px"
-              />
-              <h2 v-if="getSystem" class="title has-text-centered">
-                Embarcaci&oacute;n
-              </h2>
-              <h2 v-else class="title has-text-centered">
-                Transporte
+              <h2 class="title has-text-centered">
+                Registro
               </h2>
               <form @submit.stop.prevent="login()">
                 <div class="margin-top-10">

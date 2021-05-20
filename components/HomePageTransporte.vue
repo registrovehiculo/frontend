@@ -81,6 +81,12 @@
       </section>
     </div>
     <!--ColumnOptions :columns="tableColumns" /-->
+    <p
+      class="has-text-centered margin-top-20"
+      style="font-size: 32px; font-weight: 700"
+    >
+      Transporte terrestre
+    </p>
     <hr />
     <div class="row is-flex-desktop has-text-centered">
       <div class="column is-2-desktop is-12-tablet is-offset-1-desktop">

@@ -1,8 +1,15 @@
 <template>
   <div>
     <div class="container">
-      <div class="columns is-centered">
-        <div class="level margin-top-40">
+      <p
+        class="has-text-centered margin-top-20"
+        style="font-size: 32px; font-weight: 700"
+      >
+        Embarcaciones
+      </p>
+      <hr />
+      <div class="columns is-centered has-text-centered">
+        <div class="level margin-top-20">
           <div class="level-left">
             <b-field type="is-warning">
               <b-select
