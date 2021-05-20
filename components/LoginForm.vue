@@ -104,20 +104,6 @@ export default {
       }
     }
   },
-  // beforeCreate() {
-  //   const url = this.$cookies.get('auth.redirect')
-  //   if (url && this.$auth.loggedIn) {
-  //     this.$router.replace(url)
-  //   } else {
-  //     // this.$router.replace('/home')
-  //   }
-  // },
-  // beforeMount() {
-  //   if (this.$auth.loggedIn) {
-  //     this.loadAuth()
-  //     this.$router.replace('/home')
-  //   }
-  // },
   methods: {
     login() {
       this.$v.form.$touch()

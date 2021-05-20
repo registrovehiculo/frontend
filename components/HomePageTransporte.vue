@@ -83,7 +83,7 @@
     <!--ColumnOptions :columns="tableColumns" /-->
     <p
       class="has-text-centered margin-top-20"
-      style="font-size: 32px; font-weight: 700"
+      style="font-size: 32px; font-weight: 700; color: #d60000"
     >
       Transporte terrestre
     </p>

@@ -11,7 +11,7 @@
       <section>
         <div class="columns is-centered">
           <div class="column">
-            <b-tabs size="is-large">
+            <b-tabs size="is-large" position="is-centered">
               <b-tab-item label="Transporte">
                 <ul>
                   <li

@@ -3,7 +3,7 @@
     <div class="container">
       <p
         class="has-text-centered margin-top-20"
-        style="font-size: 32px; font-weight: 700"
+        style="font-size: 32px; font-weight: 700; color: #0855f5"
       >
         Embarcaciones
       </p>
@@ -614,4 +614,9 @@ export default {
   background #0855f5 !important
   transition background 250ms
   cursor pointer
+a.pagination-link.is-current {
+   background-color: #0855f5 !important
+   border-color: #0855f5 !important
+   color: #fff;
+}
 </style>
