@@ -171,6 +171,7 @@
               visible6 ||
               visible7 ||
               visible8 ||
+              visible9 ||
               visible1)
         "
         class="has-text-centered margin-top-30 font-size-6"

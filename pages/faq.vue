@@ -220,7 +220,313 @@
                 </ul>
               </b-tab-item>
               <b-tab-item label="Embarcaciones">
-                Lorem ipsum dolor sit amet.
+                <ul>
+                  <li
+                    class="has-text-centered font-size-3 margin-top-30"
+                    style="font-weight: 700"
+                  >
+                    ¿Cómo acceder al sistema?
+                  </li>
+                  <li class="margin-top-30" style="font-size: 18px">
+                    Una vez logeado aparecera la página principal. El usuario
+                    deberá elegir en la parte superior derecha la opción
+                    <span style="color: #0855f5;">Cambiar a embarcación.</span>
+                  </li>
+                  <div class="level">
+                    <li class="has-text-centered margin-top-30 level-left">
+                      <img src="~/static/embarcacion1.png" />
+                    </li>
+                    <li class="has-text-centered margin-top-10 level-right">
+                      <img src="~/static/embarcacion2.png" />
+                    </li>
+                  </div>
+                  <li
+                    class="has-text-centered font-size-3"
+                    style="font-weight: 700"
+                  >
+                    ¿Cómo mostrar todos los propietarios?
+                  </li>
+                  <li class="margin-top-30" style="font-size: 18px">
+                    Para ello hacer click en el menú desplegable
+                    <span style="color: #0855f5">Acciones...</span>. <br />
+                    Elegir:
+                    <span style="color: #0855f5">Mostrar todos</span> (opción
+                    1). El cual auto seguido le mostrará al usuario una tabla
+                    con todos los propietarios de la base de datos de capitanía.
+                  </li>
+                  <div class="level">
+                    <li class="has-text-centered margin-top-30 level-left">
+                      <img src="~/static/embarcacion3.png" />
+                    </li>
+                    <li class="has-text-centered margin-top-10 level-right">
+                      <img src="~/static/embarcacion4.png" />
+                    </li>
+                  </div>
+                  <li
+                    class="has-text-centered font-size-3"
+                    style="font-weight: 700"
+                  >
+                    ¿Cómo mostrar todos los propietarios con más de una
+                    embarcación de la base de datos de capitanía.?
+                  </li>
+                  <li class="margin-top-30" style="font-size: 18px">
+                    Para ello hacer click en el menú desplegable
+                    <span style="color: #0855f5">Acciones...</span>. <br />
+                    Elegir:
+                    <span style="color: #0855f5"
+                      >Mostrar propietarios de más de una embarcación</span
+                    >
+                    (opción 2). El cual auto seguido le mostrará al usuario una
+                    tabla con todos los propietarios de más de una embarcación.
+                  </li>
+                  <div class="level">
+                    <li class="has-text-centered margin-top-30 level-left">
+                      <img src="~/static/embarcacion5.png" />
+                    </li>
+                    <li class="has-text-centered margin-top-10 level-right">
+                      <img src="~/static/embarcacion6.png" />
+                    </li>
+                  </div>
+                  <li
+                    class="has-text-centered font-size-3"
+                    style="font-weight: 700"
+                  >
+                    ¿Cómo mostrar propietarios con igual númer de identidad y
+                    nombres diferentes.?
+                  </li>
+                  <li class="margin-top-30" style="font-size: 18px">
+                    Para ello hacer click en el menú desplegable
+                    <span style="color: #0855f5">Acciones...</span>. <br />
+                    Elegir:
+                    <span style="color: #0855f5"
+                      >Mostrar propietarios con igual número de identidad y
+                      nombres diferentes</span
+                    >
+                    (opción 3). El cual auto seguido le mostrará al usuario una
+                    tabla con todos los propietarios con igual númer de
+                    identidad y nombres diferentes.
+                  </li>
+                  <div class="level">
+                    <li class="has-text-centered margin-top-30 level-left">
+                      <img src="~/static/embarcacion7.png" />
+                    </li>
+                    <li class="has-text-centered margin-top-10 level-right">
+                      <img src="~/static/embarcacion8.png" />
+                    </li>
+                  </div>
+                  <li
+                    class="has-text-centered font-size-3"
+                    style="font-weight: 700"
+                  >
+                    ¿Cómo mostrar propietarios que no están registrados en el
+                    InfoGesti?
+                  </li>
+                  <li class="margin-top-30" style="font-size: 18px">
+                    Para ello hacer click en el menú desplegable
+                    <span style="color: #0855f5">Acciones...</span>. <br />
+                    Elegir:
+                    <span style="color: #0855f5"
+                      >Mostrar propietarios que no están registrados en el
+                      InfoGesti</span
+                    >
+                    (opción 4). El cual auto seguido le mostrará al usuario una
+                    tabla con todos los propietarios que no están registrados en
+                    el InfoGesti.
+                  </li>
+                  <div class="level">
+                    <li class="has-text-centered margin-top-30 level-left">
+                      <img src="~/static/embarcacion9.png" />
+                    </li>
+                    <li class="has-text-centered margin-top-10 level-right">
+                      <img src="~/static/embarcacion10.png" />
+                    </li>
+                  </div>
+                  <li
+                    class="has-text-centered font-size-3"
+                    style="font-weight: 700"
+                  >
+                    ¿Cómo mostrar propietarios que están en el InfoGesti y no
+                    están en la base de datos de Capitanía?
+                  </li>
+                  <li class="margin-top-30" style="font-size: 18px">
+                    Para ello hacer click en el menú desplegable
+                    <span style="color: #0855f5">Acciones...</span>. <br />
+                    Elegir:
+                    <span style="color: #0855f5"
+                      >Mostrar propietarios que están registrados en el
+                      InfoGesti</span
+                    >
+                    (opción 5). El cual auto seguido le mostrará al usuario una
+                    tabla con todos los propietarios que están en el InfoGesti y
+                    no están en la base de datos de Capitanía.
+                  </li>
+                  <div class="level">
+                    <li class="has-text-centered margin-top-30 level-left">
+                      <img src="~/static/embarcacion11.png" />
+                    </li>
+                    <li class="has-text-centered margin-top-10 level-right">
+                      <img src="~/static/embarcacion12.png" />
+                    </li>
+                  </div>
+                  <li
+                    class="has-text-centered font-size-3"
+                    style="font-weight: 700"
+                  >
+                    ¿Cómo mostrar propietarios que están en ambos sistemas con
+                    embarcaciones distintas?
+                  </li>
+                  <li class="margin-top-30" style="font-size: 18px">
+                    Para ello hacer click en el menú desplegable
+                    <span style="color: #0855f5">Acciones...</span>. <br />
+                    Elegir:
+                    <span style="color: #0855f5"
+                      >Mostrar propietarios que están en ambos sistemas con
+                      embarcaciones distintas</span
+                    >
+                    (opción 6). El cual auto seguido le mostrará al usuario una
+                    tabla con todos los propietarios que están en ambos sistemas
+                    con embarcaciones distintas.
+                  </li>
+                  <div class="level">
+                    <li class="has-text-centered margin-top-30 level-left">
+                      <img src="~/static/embarcacion13.png" />
+                    </li>
+                    <li class="has-text-centered margin-top-10 level-right">
+                      <img src="~/static/embarcacion14.png" />
+                    </li>
+                  </div>
+                  <li
+                    class="has-text-centered font-size-3"
+                    style="font-weight: 700"
+                  >
+                    ¿Cómo mostrar propietarios que están en ambos sistemas con
+                    capitanía distintas?
+                  </li>
+                  <li class="margin-top-30" style="font-size: 18px">
+                    Para ello hacer click en el menú desplegable
+                    <span style="color: #0855f5">Acciones...</span>. <br />
+                    Elegir:
+                    <span style="color: #0855f5"
+                      >Mostrar propietarios que están en ambos sistemas con
+                      capitanía distintas</span
+                    >
+                    (opción 7). El cual auto seguido le mostrará al usuario una
+                    tabla con todos los propietarios que están en ambos sistemas
+                    con capitanía distintas.
+                  </li>
+                  <div class="level">
+                    <li class="has-text-centered margin-top-30 level-left">
+                      <img src="~/static/embarcacion15.png" />
+                    </li>
+                    <li class="has-text-centered margin-top-10 level-right">
+                      <img src="~/static/embarcacion16.png" />
+                    </li>
+                  </div>
+                  <li
+                    class="has-text-centered font-size-3"
+                    style="font-weight: 700"
+                  >
+                    ¿Cómo mostrar propietarios que están en ambos sistemas con
+                    basificaciones distintas?
+                  </li>
+                  <li class="margin-top-30" style="font-size: 18px">
+                    Para ello hacer click en el menú desplegable
+                    <span style="color: #0855f5">Acciones...</span>. <br />
+                    Elegir:
+                    <span style="color: #0855f5"
+                      >Mostrar propietarios que están en ambos sistemas con
+                      basificaciones distintas</span
+                    >
+                    (opción 8). El cual auto seguido le mostrará al usuario una
+                    tabla con todos los propietarios que están en ambos sistemas
+                    con basificaciones distintas.
+                  </li>
+                  <div class="level">
+                    <li class="has-text-centered margin-top-30 level-left">
+                      <img src="~/static/embarcacion17.png" />
+                    </li>
+                    <li class="has-text-centered margin-top-10 level-right">
+                      <img src="~/static/embarcacion18.png" />
+                    </li>
+                  </div>
+                  <li
+                    class="has-text-centered font-size-3"
+                    style="font-weight: 700"
+                  >
+                    ¿Cómo mostrar propietarios que están en ambos sistemas con
+                    registros distintos?
+                  </li>
+                  <li class="margin-top-30" style="font-size: 18px">
+                    Para ello hacer click en el menú desplegable
+                    <span style="color: #0855f5">Acciones...</span>. <br />
+                    Elegir:
+                    <span style="color: #0855f5"
+                      >Mostrar propietarios que están en ambos sistemas con
+                      registros distintos</span
+                    >
+                    (opción 9). El cual auto seguido le mostrará al usuario una
+                    tabla con todos los propietarios que están en ambos sistemas
+                    con registros distintos.
+                  </li>
+                  <div class="level">
+                    <li class="has-text-centered margin-top-30 level-left">
+                      <img src="~/static/embarcacion19.png" />
+                    </li>
+                    <li class="has-text-centered margin-top-10 level-right">
+                      <img src="~/static/embarcacion20.png" />
+                    </li>
+                  </div>
+                  <li
+                    class="has-text-centered font-size-3"
+                    style="font-weight: 700"
+                  >
+                    ¿Cómo exportar los datos a una tabla de excel?
+                  </li>
+                  <li class="margin-top-30" style="font-size: 18px">
+                    Una vez que se haya elegido la opción en el menú
+                    <span style="color: #0855f5">Acciones...</span>. aparecerá
+                    un boton <span style="color: #0855f5">Exportar</span>. a su
+                    derecha. Hacer click sobre este.
+                  </li>
+                  <div class="level">
+                    <li class="has-text-centered margin-top-30 level-left">
+                      <img src="~/static/embarcacion21.png" />
+                    </li>
+                    <li class="has-text-centered margin-top-10 level-right">
+                      <img src="~/static/embarcacion22.png" />
+                    </li>
+                  </div>
+                  <li
+                    class="has-text-centered font-size-3"
+                    style="font-weight: 700"
+                  >
+                    ¿Cómo buscar propietario en la base de datos de Capitanía?
+                  </li>
+                  <li class="margin-top-30" style="font-size: 18px">
+                    El usuario deberá seleccionar “Mostrar todos” en el menú
+                    acciones. Aparecerá una tabla con todos los propietarios.
+                    Podrá buscarlos por provincias, número identidad, nombre,
+                    número de registro, embarcaciones, capitanía o basificación
+                    respectivamente.
+                  </li>
+                  <li class="has-text-centered margin-top-30">
+                    <img src="~/static/embarcacion23.png" />
+                  </li>
+                  <li
+                    class="has-text-centered font-size-3"
+                    style="font-weight: 700"
+                  >
+                    ¿Cómo Salir o desloguearse del sistema?
+                  </li>
+                  <li class="margin-top-30" style="font-size: 18px">
+                    En la parte superior derecha hacer click sobre el nombre,
+                    aparecerá un menú; hacer click en
+                    <span style="color: #0855f5">salir</span>.
+                  </li>
+                  <li class="has-text-centered margin-top-30">
+                    <img src="~/static/embarcacion24.png" />
+                  </li>
+                </ul>
               </b-tab-item>
             </b-tabs>
           </div>

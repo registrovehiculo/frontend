@@ -126,7 +126,7 @@ export default {
     },
     userManual() {
       if (this.$route.name !== 'faq') {
-        this.$router.replace('faq')
+        this.$router.push('faq')
       }
     },
     linkify: require('~/services/linkify').linkify,
