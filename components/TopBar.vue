@@ -17,7 +17,9 @@
           />
         </nuxt-link>
         <Searcher
-          v-if="!getSystem && $route.name !== 'faq'"
+          v-if="
+            !getSystem && $route.name !== 'faq' && $route.name !== 'suggestions'
+          "
           style="width: 100%"
           class="margin-top-10 is-hidden-tablet is-hidden-desktop"
         />
@@ -29,7 +31,13 @@
       </div>
       <div class="navbar-menu is-hidden-mobile">
         <div style="margin-top: 0.75rem; width: 30%" class="margin-left-10">
-          <Searcher v-if="!getSystem && $route.name !== 'faq'" />
+          <Searcher
+            v-if="
+              !getSystem &&
+                $route.name !== 'faq' &&
+                $route.name !== 'suggestions'
+            "
+          />
         </div>
         <div class="navbar-end margin-right-30">
           <div
@@ -51,14 +59,14 @@
               "
             >
               <a
-                v-if="$route.name !== 'faq'"
+                v-if="$route.name !== 'faq' && $route.name !== 'suggestions'"
                 class="navbar-item"
                 @click="changeSystem()"
               >
                 {{ 'Cambiar a ' + name }}</a
               >
               <a
-                v-if="$route.name === 'faq'"
+                v-if="$route.name === 'faq' || $route.name === 'suggestions'"
                 class="navbar-item"
                 @click="$router.replace('/')"
                 >Página de inicio</a
@@ -68,6 +76,12 @@
                 class="navbar-item"
                 @click="userManual()"
                 >Manual de usuario</a
+              >
+              <a
+                v-if="$route.name !== 'suggestions'"
+                class="navbar-item"
+                @click="suggestions()"
+                >Quejas y sugerencias</a
               >
               <a class="navbar-item" @click="logout()">Salir</a>
             </div>
@@ -127,6 +141,11 @@ export default {
     userManual() {
       if (this.$route.name !== 'faq') {
         this.$router.push('faq')
+      }
+    },
+    suggestions() {
+      if (this.$route.name !== 'suggestions') {
+        this.$router.push('suggestions')
       }
     },
     linkify: require('~/services/linkify').linkify,

@@ -1,0 +1,13 @@
+mutation createReview($text: String!, $username: String!) {
+  createReview(text: $text, username: $username) {
+    status
+      review {
+        id
+        text
+        createdAt
+        reviewer {
+          username
+        }
+    }
+  }
+}

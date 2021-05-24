@@ -1,0 +1,9 @@
+mutation updateReview($id: Int!, $text: String!) {
+  updateReview(id: $id, text: $text) {
+    status
+    review {
+      id
+      updatedAt
+    }
+  }
+}
