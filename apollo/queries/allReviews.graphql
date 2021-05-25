@@ -1,0 +1,12 @@
+query allReviews{
+  allReviews{
+    id
+    createdAt
+    updatedAt
+    text
+    reviewer{
+      id
+      username
+    }
+  }
+}

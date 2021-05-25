@@ -1,0 +1,20 @@
+query userReviews($username: String!){
+  userReviews(username: $username){
+    id
+    text
+    createdAt
+    updatedAt
+    reviewer{
+      id
+      isSuperuser
+      username
+      firstName
+      lastName
+      email
+      isActive
+      dateJoined
+      genre
+      firstLogin
+    }
+  }
+}

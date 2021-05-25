@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    {{ 'pagina en desarrollo' }}
+    <!-- edit mode -->
     <p
       class="has-text-centered margin-top-30"
       style="font-size: 32px; font-weight: 700"
@@ -8,14 +8,206 @@
       Quejas y sugerencias
     </p>
     <hr />
-    <ReviewBox />
+    <form
+      class="margin-top-70 column is-6 is-offset-3"
+      @submit.stop.prevent="publish()"
+    >
+      <b-input
+        v-model="form.text"
+        maxlength="200"
+        placeholder="Escriba su sugerencia"
+        type="textarea"
+      ></b-input>
+      <b-field>
+        <b-button
+          :disabled="!form.text"
+          :loading="form.loading"
+          type="is-black"
+          class="is-fullwidth is-size-7-mobile"
+          style="border: 5pt"
+          @click="publish()"
+        >
+          Publicar
+        </b-button>
+      </b-field>
+    </form>
+    <hr />
+    <div class="margin-top-40 margin-bottom-50"></div>
+    <div
+      v-for="(review, index) in reviews"
+      :key="index"
+      class="margin-top-20 column is-6 is-offset-3"
+    >
+      <p class="font-size-3" style="font-weight: 700; margin-bottom: -2rem">
+        {{ review.reviewer.username }}
+      </p>
+      <p class="has-text-right" style="margin-bottom: 1rem">
+        {{
+          moment(review.createdAt)
+            .locale('es')
+            .fromNow()
+        }}
+      </p>
+      <div class="Card" v-html="linkify(review.text)"></div>
+      <div>
+        <p
+          v-if="review.reviewer.username === getUsername()"
+          class="has-text-right margin-top-10"
+        >
+          <font-awesome-icon
+            :icon="['fas', 'trash']"
+            class="font-size-5"
+            style="right: 0"
+            @click="reviews.splice(index, 1) && remove(review.id)"
+          />
+        </p>
+      </div>
+    </div>
+    <!--div class="review-text" style="margin-top: -5%">
+          <br />
+          <div v-show="review.text !== ''" v-html="linkify(review.text)"></div>
+        </div>
+        <div class="row is-flex" style="margin-top: -2%">
+          <div class="column is-6-desktop is-6-mobile">
+            <p v-if="reviewer.username === getUsername() && !editMode">
+              <i class="icon icon-pencil" @click="edit()"></i>
+              <i class="icon icon-trash" @click="remove()"></i>
+            </p>
+          </div>
+          <div class="column is-6-desktop is-6-mobile">
+            <p v-if="!editMode && review.createdAt" class="review-date">
+              {{ $moment(review.createdAt).fromNow() }}
+              <span v-if="review.updatedAt" class="edited">
+                Editado
+              </span>
+            </p>
+          </div>
+        </div-->
   </div>
 </template>
 
 <script>
-import ReviewBox from '~/components/ReviewBox'
+// Vuex
+import { mapGetters } from 'vuex'
+import moment from 'moment'
+// Apollo
+import userReviewsQuery from '~/apollo/queries/userReviews.graphql'
+import allReviewsQuery from '~/apollo/queries/allReviews.graphql'
+import createReviewMutation from '~/apollo/mutations/reviews/createReview.graphql'
+// import updateReviewMutation from '~/apollo/mutations/reviews/updateReview.graphql'
+import removeReviewMutation from '~/apollo/mutations/reviews/removeReview.graphql'
 export default {
-  components: { ReviewBox }
+  data() {
+    return {
+      userReview: null,
+      allReviews: null,
+      form: {
+        text: null,
+        loading: false
+      },
+      editing: false,
+      removed: false,
+      moment
+    }
+  },
+  computed: {
+    reviews() {
+      return this.$store.getters['review/get']
+    }
+  },
+  beforeMount() {
+    this.$apollo
+      .query({
+        query: userReviewsQuery,
+        variables: {
+          username: this.getUsername()
+        }
+      })
+      .then(({ data }) => {
+        this.review = data.userReviews
+      })
+    this.$apollo
+      .query({
+        query: allReviewsQuery
+      })
+      .then(({ data }) => {
+        this.allReviews = data.allReviews
+      })
+  },
+  methods: {
+    publish() {
+      this.$apollo
+        .mutate({
+          mutation: createReviewMutation,
+          variables: { text: this.form.text, username: this.getUsername() }
+        })
+        .then(
+          ({ data }) => {
+            let status = null
+            let review = null
+            if (data.createReview) {
+              status = data.createReview.status
+              review = data.createReview.review
+              console.log(review)
+              this.$store.commit('review/publishReview', review)
+            }
+            if (status === 'forbidden') {
+              this.$toast.show('No es posible publicar esa opinión')
+            } else {
+              this.cleanForm()
+              this.$toast.show('Se publicó tu opinión')
+            }
+            this.form.loading = false
+          },
+          error => {
+            if (error.message === 'Network error: Failed to fetch') {
+              this.form.loading = false
+              this.$toast.show('Revisa tu conexión a internet')
+            }
+          }
+        )
+    },
+    edit() {
+      this.loadForm()
+      this.editing = true
+    },
+    loadForm() {
+      this.form.text = this.review.text
+    },
+    cleanForm() {
+      this.form.text = null
+    },
+    removeReview(reviewId) {
+      this.$store.commit('review/removeReview', reviewId)
+    },
+    remove(reviewId) {
+      this.$apollo
+        .mutate({
+          mutation: removeReviewMutation,
+          variables: { id: reviewId }
+        })
+        .then(({ data }) => {
+          const { status } = data.removeReview
+          if (status === 'ok') {
+            this.removed = true
+            this.$toast.show('Se eliminó la opinión')
+          }
+        })
+    },
+    linkify: require('~/services/linkify').linkify,
+    ...mapGetters({
+      // Auth
+      getUser: 'getUser',
+      getUsername: 'getUsername'
+    })
+  }
 }
 </script>
-<style scoped></style>
+
+<style lang="stylus" scoped>
+.Card
+  background #d7dbeb
+  height 7rem
+  padding 1rem
+  border-radius 16px
+</style>
