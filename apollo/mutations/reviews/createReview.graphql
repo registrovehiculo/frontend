@@ -6,6 +6,7 @@ mutation createReview($text: String!, $username: String!) {
         text
         createdAt
         reviewer {
+          id
           username
         }
     }

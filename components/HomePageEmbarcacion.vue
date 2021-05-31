@@ -92,7 +92,7 @@
             <vue-excel-xlsx
               v-if="!loading"
               :data="shipmentUserMissingInSystem"
-              :columns="tableColumnsEmbarcacionInfo"
+              :columns="tableColumnsEmbarcacionInfoR"
               filename="Registrados en la onat que no estan en el sistema"
               sheetname="Infogesti"
               class="documentStyle"

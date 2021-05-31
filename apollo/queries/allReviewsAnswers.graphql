@@ -1,0 +1,8 @@
+query allReviewsAnswers{
+  allReviewsAnswers{
+    id
+    text
+    createdAt
+    updatedAt
+  }
+}

@@ -1,0 +1,8 @@
+query userReviewAnswer($reviewId: Int!){
+  userReviewAnswer(reviewId: $reviewId){
+    id
+    text
+    createdAt
+    updatedAt
+  }
+}

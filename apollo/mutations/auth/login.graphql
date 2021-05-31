@@ -3,6 +3,7 @@ mutation login($username: String!, $password: String!) {
     status
     token
     user {
+      id
       username
       firstName
       lastName

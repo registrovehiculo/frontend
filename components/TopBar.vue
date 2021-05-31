@@ -109,12 +109,10 @@ export default {
       return this.$store.getters['system/getActive']
     }
   },
-  beforeMount() {
+  mounted() {
     if (this.$auth.loggedIn) {
       this.loadAuth()
     }
-  },
-  mounted() {
     if (this.$store.getters['system/getActive']) {
       this.name = 'Transporte'
     } else {

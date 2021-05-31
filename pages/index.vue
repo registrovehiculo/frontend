@@ -18,6 +18,14 @@ export default {
     getSystem() {
       return this.$store.getters['system/getActive']
     }
+  },
+  beforeCreate() {
+    const url = this.$cookies.get('auth.redirect')
+    if (url && this.$auth.loggedIn) {
+      this.$router.replace(url)
+    } else {
+      // this.$router.replace('/')
+    }
   }
 }
 </script>

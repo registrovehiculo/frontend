@@ -1,0 +1,11 @@
+mutation createReviewAnswer ($text: String!, $reviewId: Int!, $username: String!){
+  createReviewAnswer(text: $text, reviewId: $reviewId, username: $username){
+    status
+   reviewerAnswers{
+    id
+    text
+    createdAt
+    updatedAt
+  }
+  }
+}

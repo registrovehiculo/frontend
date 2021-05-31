@@ -8,7 +8,7 @@ export const mutations = {
     state.reviews = review
   },
   publishReview(state, review) {
-    state.reviews.push(review)
+    state.reviews.unshift(review)
   },
   updateReview(state, review) {
     const index = state.review.findIndex(i => i.review.id === review.id)

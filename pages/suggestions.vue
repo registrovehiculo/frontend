@@ -5,11 +5,15 @@
       class="has-text-centered margin-top-30"
       style="font-size: 32px; font-weight: 700"
     >
-      Quejas y sugerencias
+      Quejas y sugerencias (Pagina en desarollo)
     </p>
     <hr />
+    <p class="has-text-centered">
+      En esta página puede escribrir los problemas, quejas o sugerencias que
+      tenga con la plataforma, serán revisados y respondido de inmediato
+    </p>
     <form
-      class="margin-top-70 column is-6 is-offset-3"
+      class="margin-top-50 column is-6 is-offset-3"
       @submit.stop.prevent="publish()"
     >
       <b-input
@@ -23,7 +27,8 @@
           :disabled="!form.text"
           :loading="form.loading"
           type="is-black"
-          class="is-fullwidth is-size-7-mobile"
+          rounded
+          class="is-fullwidth is-size-7-mobile changeColorB"
           style="border: 5pt"
           @click="publish()"
         >
@@ -32,7 +37,13 @@
       </b-field>
     </form>
     <hr />
-    <div class="margin-top-40 margin-bottom-50"></div>
+
+    <div class="margin-top-70 margin-bottom-50"></div>
+    <div v-if="reviews.length > 0">
+      <p class="has-text-centered font-size-5" style="font-weight: 700">
+        Opiniones
+      </p>
+    </div>
     <div
       v-for="(review, index) in reviews"
       :key="index"
@@ -50,39 +61,31 @@
       </p>
       <div class="Card" v-html="linkify(review.text)"></div>
       <div>
-        <p
-          v-if="review.reviewer.username === getUsername()"
-          class="has-text-right margin-top-10"
-        >
-          <font-awesome-icon
-            :icon="['fas', 'trash']"
-            class="font-size-5"
-            style="right: 0"
-            @click="reviews.splice(index, 1) && remove(review.id)"
-          />
-        </p>
+        <div class="columns">
+          <div class="column">
+            <font-awesome-icon
+              :icon="['fas', 'plus']"
+              class="font-size-4 changeColor icon-plus"
+              @click="changeVisible"
+            />
+          </div>
+          <div
+            v-if="review.reviewer.username === getUsername()"
+            class="column has-text-right"
+          >
+            <p>
+              <font-awesome-icon
+                :icon="['fas', 'trash']"
+                class="font-size-5 icon"
+                alt="Borrar sugerencia"
+                @click="reviews.splice(index, 1) && remove(review.id)"
+              />
+            </p>
+          </div>
+        </div>
       </div>
     </div>
-    <!--div class="review-text" style="margin-top: -5%">
-          <br />
-          <div v-show="review.text !== ''" v-html="linkify(review.text)"></div>
-        </div>
-        <div class="row is-flex" style="margin-top: -2%">
-          <div class="column is-6-desktop is-6-mobile">
-            <p v-if="reviewer.username === getUsername() && !editMode">
-              <i class="icon icon-pencil" @click="edit()"></i>
-              <i class="icon icon-trash" @click="remove()"></i>
-            </p>
-          </div>
-          <div class="column is-6-desktop is-6-mobile">
-            <p v-if="!editMode && review.createdAt" class="review-date">
-              {{ $moment(review.createdAt).fromNow() }}
-              <span v-if="review.updatedAt" class="edited">
-                Editado
-              </span>
-            </p>
-          </div>
-        </div-->
+    <div class="margin-bottom-50"></div>
   </div>
 </template>
 
@@ -92,8 +95,11 @@ import { mapGetters } from 'vuex'
 import moment from 'moment'
 // Apollo
 import userReviewsQuery from '~/apollo/queries/userReviews.graphql'
+import allReviewsAnswersQuery from '~/apollo/queries/allReviewsAnswers.graphql'
 import allReviewsQuery from '~/apollo/queries/allReviews.graphql'
 import createReviewMutation from '~/apollo/mutations/reviews/createReview.graphql'
+import createReviewAnswerQuery from '~/apollo/mutations/reviews/createReviewAnswer.graphql'
+import userReviewAnswerQuery from '~/apollo/queries/userReviewAnswer.graphql'
 // import updateReviewMutation from '~/apollo/mutations/reviews/updateReview.graphql'
 import removeReviewMutation from '~/apollo/mutations/reviews/removeReview.graphql'
 export default {
@@ -101,9 +107,13 @@ export default {
     return {
       userReview: null,
       allReviews: null,
+      allReviewsAnswers: null,
+      userAnswers: null,
       form: {
         text: null,
-        loading: false
+        loading: false,
+        visible: false,
+        answer: null
       },
       editing: false,
       removed: false,
@@ -113,6 +123,9 @@ export default {
   computed: {
     reviews() {
       return this.$store.getters['review/get']
+    },
+    reviewsAnswers() {
+      return this.$store.getters['reviewAnswer/get']
     }
   },
   beforeMount() {
@@ -133,9 +146,13 @@ export default {
       .then(({ data }) => {
         this.allReviews = data.allReviews
       })
+    this.$apollo.query({ query: allReviewsAnswersQuery }).then(({ data }) => {
+      this.allReviewsAnswers = data.allReviewsAnswers
+    })
   },
   methods: {
     publish() {
+      this.form.loading = true
       this.$apollo
         .mutate({
           mutation: createReviewMutation,
@@ -166,6 +183,32 @@ export default {
             }
           }
         )
+    },
+    createReviewAnswer(index, text) {
+      this.$apollo
+        .mutate({
+          mutation: createReviewAnswerQuery,
+          variables: { reviewId: index, text }
+        })
+        .then(({ data }) => {
+          this.$store.commit(
+            'reviewAnswer/publishAnswer',
+            data.createReviewAnswer
+          )
+        })
+    },
+    getUserAnswers(index) {
+      this.$apollo
+        .query({
+          query: userReviewAnswerQuery,
+          variables: { reviewId: index }
+        })
+        .then(({ data }) => {
+          this.userAnswers = data.userReviewAnswer
+        })
+    },
+    changeVisible() {
+      this.form.visible = true
     },
     edit() {
       this.loadForm()
@@ -210,4 +253,16 @@ export default {
   height 7rem
   padding 1rem
   border-radius 16px
+.icon-plus:hover
+  color #d60000
+  cursor pointer
+.icon:hover
+  color #d60000
+  cursor pointer
+.changeColorB:not([disabled]):hover
+  background #0855f5 !important
+  transition background 300ms
+.changeColor:hover
+  color #0855f5 !important
+  transition background 300ms
 </style>

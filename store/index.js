@@ -3,6 +3,7 @@ export const actions = {
 }
 export const state = () => ({
   user: {
+    id: null,
     username: null,
     email: null
   },
@@ -13,7 +14,8 @@ export const mutations = {
   loadFromCookie(state) {
     const cookie = this.$cookies.get('auth.user')
     if (cookie) {
-      const { username, email } = cookie
+      const { id, username, email } = cookie
+      state.user.id = id
       state.user.username = username
       state.user.email = email
       // Inject into nuxt $auth
@@ -25,6 +27,7 @@ export const mutations = {
   },
   initUser(state) {
     state.user = {
+      id: null,
       username: null,
       email: null
     }
@@ -34,6 +37,7 @@ export const mutations = {
     // state.strategy = payload.strategy
     switch (payload.strategy) {
       case 'local': {
+        state.user.id = payload.user.id
         state.user.username = payload.user.username
         state.user.email = payload.user.email
         break
