@@ -127,7 +127,7 @@
           <b-field>
             <b-select
               v-model="address.form.city"
-              placeholder="Ciudad"
+              placeholder="Municipio"
               expanded
               dropdown-position="bottom"
               @input="selectCity"

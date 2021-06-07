@@ -1,6 +1,41 @@
 <template>
   <div class="container">
     <!-- edit mode -->
+    <b-modal
+      :active.sync="activeModal"
+      trap-focus
+      aria-role="dialog"
+      scroll="keep"
+      class="has-text-centered"
+      @close="activeModal = null"
+    >
+      <div
+        v-if="activeModal !== null"
+        class="modal-card-body"
+        style="width: auto"
+      >
+        <small class="help"> Respondiendo a {{ activeModal }} </small>
+        <b-input
+          v-model="form.text"
+          maxlength="200"
+          placeholder="Escriba su sugerencia"
+          type="textarea"
+        ></b-input>
+        <b-field>
+          <b-button
+            :disabled="!form.text"
+            :loading="form.loading"
+            type="is-black"
+            rounded
+            class="is-fullwidth is-size-7-mobile changeColorB"
+            style="border: 5pt"
+            @click="publish()"
+          >
+            Publicar
+          </b-button>
+        </b-field>
+      </div>
+    </b-modal>
     <p
       class="has-text-centered margin-top-30"
       style="font-size: 32px; font-weight: 700"
@@ -66,7 +101,7 @@
             <font-awesome-icon
               :icon="['fas', 'plus']"
               class="font-size-4 changeColor icon-plus"
-              @click="changeVisible"
+              @click="createReviewAnswer(review.reviewer.username, index)"
             />
           </div>
           <div
@@ -98,7 +133,7 @@ import userReviewsQuery from '~/apollo/queries/userReviews.graphql'
 import allReviewsAnswersQuery from '~/apollo/queries/allReviewsAnswers.graphql'
 import allReviewsQuery from '~/apollo/queries/allReviews.graphql'
 import createReviewMutation from '~/apollo/mutations/reviews/createReview.graphql'
-import createReviewAnswerQuery from '~/apollo/mutations/reviews/createReviewAnswer.graphql'
+// import createReviewAnswerQuery from '~/apollo/mutations/reviews/createReviewAnswer.graphql'
 import userReviewAnswerQuery from '~/apollo/queries/userReviewAnswer.graphql'
 // import updateReviewMutation from '~/apollo/mutations/reviews/updateReview.graphql'
 import removeReviewMutation from '~/apollo/mutations/reviews/removeReview.graphql'
@@ -109,6 +144,7 @@ export default {
       allReviews: null,
       allReviewsAnswers: null,
       userAnswers: null,
+      reviewIndex: null,
       form: {
         text: null,
         loading: false,
@@ -117,6 +153,7 @@ export default {
       },
       editing: false,
       removed: false,
+      activeModal: null,
       moment
     }
   },
@@ -145,6 +182,7 @@ export default {
       })
       .then(({ data }) => {
         this.allReviews = data.allReviews
+        this.$store.commit('review/set', this.allReviews)
       })
     this.$apollo.query({ query: allReviewsAnswersQuery }).then(({ data }) => {
       this.allReviewsAnswers = data.allReviewsAnswers
@@ -184,19 +222,19 @@ export default {
           }
         )
     },
-    createReviewAnswer(index, text) {
-      this.$apollo
-        .mutate({
-          mutation: createReviewAnswerQuery,
-          variables: { reviewId: index, text }
-        })
-        .then(({ data }) => {
-          this.$store.commit(
-            'reviewAnswer/publishAnswer',
-            data.createReviewAnswer
-          )
-        })
-    },
+    // createReviewAnswer(index, text) {
+    //   this.$apollo
+    //     .mutate({
+    //       mutation: createReviewAnswerQuery,
+    //       variables: { reviewId: index, text }
+    //     })
+    //     .then(({ data }) => {
+    //       this.$store.commit(
+    //         'reviewAnswer/publishAnswer',
+    //         data.createReviewAnswer
+    //       )
+    //     })
+    // },
     getUserAnswers(index) {
       this.$apollo
         .query({
@@ -236,6 +274,10 @@ export default {
             this.$toast.show('Se eliminó la opinión')
           }
         })
+    },
+    createReviewAnswer(username, index) {
+      this.activeModal = username
+      this.reviewIndex = index
     },
     linkify: require('~/services/linkify').linkify,
     ...mapGetters({
