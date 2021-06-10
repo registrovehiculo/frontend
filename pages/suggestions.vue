@@ -262,6 +262,7 @@ export default {
       this.$store.commit('review/removeReview', reviewId)
     },
     remove(reviewId) {
+      this.$store.commit('review/removeReview', reviewId)
       this.$apollo
         .mutate({
           mutation: removeReviewMutation,

@@ -18,7 +18,10 @@
         </nuxt-link>
         <Searcher
           v-if="
-            !getSystem && $route.name !== 'faq' && $route.name !== 'suggestions'
+            !getSystem &&
+              $route.name !== 'faq' &&
+              $route.name !== 'suggestions' &&
+              $route.name !== 'upload'
           "
           style="width: 100%"
           class="margin-top-10 is-hidden-tablet is-hidden-desktop"
@@ -35,7 +38,8 @@
             v-if="
               !getSystem &&
                 $route.name !== 'faq' &&
-                $route.name !== 'suggestions'
+                $route.name !== 'suggestions' &&
+                $route.name !== 'upload'
             "
           />
         </div>
@@ -59,14 +63,22 @@
               "
             >
               <a
-                v-if="$route.name !== 'faq' && $route.name !== 'suggestions'"
+                v-if="
+                  $route.name !== 'faq' &&
+                    $route.name !== 'suggestions' &&
+                    $route.name !== 'upload'
+                "
                 class="navbar-item"
                 @click="changeSystem()"
               >
                 {{ 'Cambiar a ' + name }}</a
               >
               <a
-                v-if="$route.name === 'faq' || $route.name === 'suggestions'"
+                v-if="
+                  $route.name === 'faq' ||
+                    $route.name === 'suggestions' ||
+                    $route.name === 'upload'
+                "
                 class="navbar-item"
                 @click="$router.replace('/')"
                 >Página de inicio</a
@@ -82,6 +94,12 @@
                 class="navbar-item"
                 @click="suggestions()"
                 >Quejas y sugerencias</a
+              >
+              <a
+                v-if="$route.name !== 'upload'"
+                class="navbar-item"
+                @click="upload()"
+                >Actualizar base de datos</a
               >
               <a class="navbar-item" @click="logout()">Salir</a>
             </div>
@@ -144,6 +162,11 @@ export default {
     suggestions() {
       if (this.$route.name !== 'suggestions') {
         this.$router.push('suggestions')
+      }
+    },
+    upload() {
+      if (this.$route.name !== 'upload') {
+        this.$router.push('upload')
       }
     },
     linkify: require('~/services/linkify').linkify,

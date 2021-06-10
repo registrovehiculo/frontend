@@ -1,0 +1,5 @@
+mutation updateShipmentDatabase($data:  JSONString!){
+  updateShipmentDatabase(data: $data){
+    status
+  }
+}
