@@ -1,12 +1,8 @@
-query contributorsWithEqualsInformationPinar($cityName: String!){
-    contributorsWithEqualsInformationPinar(cityName: $cityName){
-    dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+  query contributorsWithEqualsInformationPinar{
+    contributorsWithEqualsInformationPinar{
+    nit
+    matricula
+    nombreCompleto
     direccion
+    }
   }
-}

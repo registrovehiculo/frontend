@@ -1,12 +1,8 @@
-query contributorsWithDifferentInformationHolguinPlate($cityName: String!){
-    contributorsWithDifferentInformationHolguinPlate(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+query contributorsWithDifferentInformationHolguinPlate{
+  contributorsWithDifferentInformationHolguinPlate{
+    nit
+    matricula
+    nombreCompleto
     direccion
   }
 }

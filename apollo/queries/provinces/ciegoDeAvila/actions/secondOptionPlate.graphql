@@ -1,12 +1,8 @@
-query contributorsWithDifferentInformationCiegoPlate($cityName: String!){
-    contributorsWithDifferentInformationCiegoPlate(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+query contributorsWithDifferentInformationCiegoPlate{
+  contributorsWithDifferentInformationCiegoPlate{
+    nit
+    matricula
+    nombreCompleto
     direccion
   }
 }

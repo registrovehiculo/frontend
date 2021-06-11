@@ -1,12 +1,8 @@
-query contributorsMissingInOnatVillaClara($cityName: String!){
-    contributorsMissingInOnatVillaClara(cityName: $cityName){
-    dpa
+  query contributorsMissingInOnatVillaClara{
+    contributorsMissingInOnatVillaClara{
+     numeroidentidad
     chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
     datospersona
     direccion
+    }
   }
-}

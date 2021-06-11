@@ -1,11 +1,7 @@
-query contributorsMissingInOnatGranma($cityName: String!){
-    contributorsMissingInOnatGranma(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
+query contributorsMissingInOnatGranma{
+  contributorsMissingInOnatGranma{
     numeroidentidad
+    chapanueva
     datospersona
     direccion
   }

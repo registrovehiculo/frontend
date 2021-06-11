@@ -1,12 +1,8 @@
-query contributorsWithDifferentInformationSanticEspiritudPlate($cityName: String!){
-    contributorsWithDifferentInformationSanticEspiritudPlate(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+  query contributorsWithDifferentInformationSanticEspiritudPlate{
+    contributorsWithDifferentInformationSanticEspiritudPlate{
+    nit
+    matricula
+    nombreCompleto
     direccion
+    }
   }
-}

@@ -1,12 +1,8 @@
-query contributorsWithDifferentInformationLaHabanaPlate($cityName: String!){
-    contributorsWithDifferentInformationLaHabanaPlate(cityName: $cityName){
-    dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+query contributorsWithDifferentInformationHabanaPlate{
+  contributorsWithDifferentInformationHabanaPlate{
+    nit
+    matricula
+    nombreCompleto
     direccion
   }
 }

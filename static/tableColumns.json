@@ -1,43 +1,19 @@
 [
-        {
-          "field": "dpa",
-          "label": "DPA",
+  {
+          "field": "numeroidentidad",
+          "label": "No. Identidad",
+          "searchable": true,
+          "visible": true
+        },
+          {
+          "field": "datospersona",
+          "label": "Nombre",
           "searchable": true,
           "visible": true
         },
         {
           "field": "chapanueva",
           "label": "Chapa Nueva",
-          "searchable": true,
-          "visible": true
-        },
-        {
-          "field": "numeromotor",
-          "label": "Numero Motor",
-          "searchable": true,
-          "visible": true
-        },
-        {
-          "field": "numerocarroseria",
-          "label": "Numero carroseria",
-          "searchable": true,
-          "visible": true
-        },
-        {
-          "field": "marcamotor",
-          "label": "Marca del Motor",
-          "searchable": true,
-          "visible": true
-        },
-        {
-          "field": "numeroidentidad",
-          "label": "No. Identidad",
-          "searchable": true,
-          "visible": true
-        },
-        {
-          "field": "datospersona",
-          "label": "Nombre",
           "searchable": true,
           "visible": true
         },

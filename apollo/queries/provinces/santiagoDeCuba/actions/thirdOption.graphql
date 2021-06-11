@@ -1,12 +1,8 @@
-query contributorsWithEqualsInformationSantiagoDeCuba($cityName: String!){
-    contributorsWithEqualsInformationSantiagoDeCuba(cityName: $cityName){
-    dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+  query contributorsWithEqualsInformationSantiagoDeCuba{
+    contributorsWithEqualsInformationSantiagoDeCuba{
+    nit
+    matricula
+    nombreCompleto
     direccion
+    }
   }
-}

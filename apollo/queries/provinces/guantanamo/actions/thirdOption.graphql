@@ -1,12 +1,8 @@
-query contributorsWithEqualsInformationGuantanamo($cityName: String!){
-    contributorsWithEqualsInformationGuantanamo(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+query contributorsWithEqualsInformationGuantanamo{
+  contributorsWithEqualsInformationGuantanamo{
+    nit
+    matricula
+    nombreCompleto
     direccion
   }
 }

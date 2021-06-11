@@ -1,11 +1,7 @@
-query contributorsMissingInOnatCienfuegos($cityName: String!){
-    contributorsMissingInOnatCienfuegos(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
+query contributorsMissingInOnatCienfuegos{
+  contributorsMissingInOnatCienfuegos{
     numeroidentidad
+    chapanueva
     datospersona
     direccion
   }

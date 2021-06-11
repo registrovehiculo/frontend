@@ -1,5 +1,0 @@
-query citiesById($cityId: Int!) {
-    citiesById(cityId: $cityId) {
-        name
-    }
-}

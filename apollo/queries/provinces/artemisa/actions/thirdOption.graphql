@@ -1,12 +1,8 @@
-query contributorsWithEqualsInformationArtemisa($cityName: String!){
-    contributorsWithEqualsInformationArtemisa(cityName: $cityName){
-        dpa
-        chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+query contributorsWithEqualsInformationArtemisa{
+  contributorsWithEqualsInformationArtemisa{
+    nit
+    matricula
+    nombreCompleto
     direccion
   }
 }

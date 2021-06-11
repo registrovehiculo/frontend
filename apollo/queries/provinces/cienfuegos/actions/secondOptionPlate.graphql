@@ -1,12 +1,8 @@
-query contributorsWithDifferentInformationCienfuegosPlate($cityName: String!){
-    contributorsWithDifferentInformationCienfuegosPlate(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+query contributorsWithDifferentInformationCienfuegosPlate{
+  contributorsWithDifferentInformationCienfuegosPlate{
+    nit
+    matricula
+    nombreCompleto
     direccion
   }
 }

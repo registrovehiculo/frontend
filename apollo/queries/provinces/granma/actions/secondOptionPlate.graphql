@@ -1,12 +1,8 @@
-query contributorsWithDifferentInformationGranmaPlate($cityName: String!){
-    contributorsWithDifferentInformationGranmaPlate(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+query contributorsWithDifferentInformationGranmaPlate{
+  contributorsWithDifferentInformationGranmaPlate{
+    nit
+    matricula
+    nombreCompleto
     direccion
   }
 }

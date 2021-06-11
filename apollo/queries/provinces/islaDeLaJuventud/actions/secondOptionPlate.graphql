@@ -1,12 +1,8 @@
-query contributorsWithDifferentInformationIslaDeLaJuventudPlate($cityName: String!){
-    contributorsWithDifferentInformationIslaDeLaJuventudPlate(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+query contributorsWithDifferentInformationIslaPlate{
+  contributorsWithDifferentInformationIslaPlate{
+    nit
+    matricula
+    nombreCompleto
     direccion
   }
 }

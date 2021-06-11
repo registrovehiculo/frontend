@@ -6,12 +6,6 @@
           "searchable": true,
           "visible": true
         },
-    {
-          "field": "unidad",
-          "label": "Unidad",
-          "searchable": true,
-          "visible": true
-        },
         {
           "field": "nombreCompleto",
           "label": "Nombre Completo",
@@ -19,8 +13,14 @@
           "visible": true
         },
   {
-          "field": "direccionPrincipal",
-          "label": "Direccion Principal",
+          "field": "matricula",
+          "label": "Matricula",
+          "searchable": true,
+          "visible": true
+        },
+  {
+          "field": "direccion",
+          "label": "Dirección",
           "searchable": true,
           "visible": true
         }

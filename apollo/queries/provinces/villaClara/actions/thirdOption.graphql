@@ -1,12 +1,8 @@
-query contributorsWithEqualsInformationVillaClara($cityName: String!){
-    contributorsWithEqualsInformationVillaClara(cityName: $cityName){
-    dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+  query contributorsWithEqualsInformationVillaClara{
+    contributorsWithEqualsInformationVillaClara{
+    nit
+    matricula
+    nombreCompleto
     direccion
+    }
   }
-}

@@ -1,11 +1,7 @@
-query contributorsMissingInOnatLaHabana($cityName: String!){
-    contributorsMissingInOnatLaHabana(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
+query contributorsMissingInOnatHabana{
+  contributorsMissingInOnatHabana{
     numeroidentidad
+    chapanueva
     datospersona
     direccion
   }

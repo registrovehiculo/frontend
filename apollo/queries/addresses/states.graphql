@@ -1,6 +1,0 @@
-query states($countryId: String!) {
-    states(countryId: $countryId){
-        id
-        name
-    }
-}

@@ -1,9 +1,8 @@
-query infogestiGuantanamo($cityName: String!){
-    infogestiGuantanamo(cityName: $cityName){
-        id
-        nit
-        unidad
-        nombreCompleto
-        direccionPrincipal
+query infogestiGuantanamo{
+  infogestiGuantanamo{
+    nit
+    matricula
+    nombreCompleto
+    direccion
   }
 }

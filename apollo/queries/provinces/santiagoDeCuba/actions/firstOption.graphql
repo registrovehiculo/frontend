@@ -1,12 +1,8 @@
-query contributorsMissingInOnatSantiagoDeCuba($cityName: String!){
-    contributorsMissingInOnatSantiagoDeCuba(cityName: $cityName){
-    dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
+  query contributorsMissingInOnatSantiagoDeCuba{
+    contributorsMissingInOnatSantiagoDeCuba{
     numeroidentidad
+    chapanueva
     datospersona
     direccion
+    }
   }
-}

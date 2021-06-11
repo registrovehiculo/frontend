@@ -1,9 +1,8 @@
-query infogestiMayabeque($cityName: String!){
-    infogestiMayabeque(cityName: $cityName){
-        id
-        nit
-        unidad
-        nombreCompleto
-        direccionPrincipal
+  query infogestiMayabeque{
+    infogestiMayabeque{
+    nit
+    matricula
+    nombreCompleto
+    direccion
+    }
   }
-}

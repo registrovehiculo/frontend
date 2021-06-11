@@ -1,11 +1,7 @@
-query contributorsMissingInOnatCamaguey($cityName: String!){
-    contributorsMissingInOnatCamaguey(cityName: $cityName){
-        dpa
+query contributorsMissingInOnatCamaguey{
+  contributorsMissingInOnatCamaguey{
+		numeroidentidad
     chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
     datospersona
     direccion
   }

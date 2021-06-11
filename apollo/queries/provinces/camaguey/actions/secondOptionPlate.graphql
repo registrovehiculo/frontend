@@ -1,12 +1,8 @@
-query contributorsWithDifferentInformationCamagueyPlate($cityName: String!){
-    contributorsWithDifferentInformationCamagueyPlate(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+query contributorsWithDifferentInformationCamagueyPlate{
+  contributorsWithDifferentInformationCamagueyPlate{
+    nit
+    matricula
+    nombreCompleto
     direccion
   }
 }

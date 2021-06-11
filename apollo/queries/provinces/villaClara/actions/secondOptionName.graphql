@@ -1,12 +1,8 @@
-query contributorsWithDifferentInformationVillaClaraName($cityName: String!){
-    contributorsWithDifferentInformationVillaClaraName(cityName: $cityName){
-    dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+  query contributorsWithDifferentInformationVillaClaraName{
+    contributorsWithDifferentInformationVillaClaraName{
+    nit
+    matricula
+    nombreCompleto
     direccion
+    }
   }
-}

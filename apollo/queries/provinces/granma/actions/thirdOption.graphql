@@ -1,12 +1,8 @@
-query contributorsWithEqualsInformationGranma($cityName: String!){
-    contributorsWithEqualsInformationGranma(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+query contributorsWithEqualsInformationGranma{
+  contributorsWithEqualsInformationGranma{
+    nit
+    matricula
+    nombreCompleto
     direccion
   }
 }

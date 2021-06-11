@@ -1,12 +1,8 @@
-query contributorsWithDifferentInformationArtemisaPlate($cityName: String!){
-    contributorsWithDifferentInformationArtemisaPlate(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+query contributorsWithDifferentInformationArtemisaPlate{
+  contributorsWithDifferentInformationArtemisaPlate{
+    nit
+    matricula
+    nombreCompleto
     direccion
   }
 }

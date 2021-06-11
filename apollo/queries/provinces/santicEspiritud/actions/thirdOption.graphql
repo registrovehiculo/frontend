@@ -1,12 +1,8 @@
-query contributorsWithEqualsInformationSanticEspiritud($cityName: String!){
-    contributorsWithEqualsInformationSanticEspiritud(cityName: $cityName){
-    dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+  query contributorsWithEqualsInformationSanticEspiritud{
+    contributorsWithEqualsInformationSanticEspiritud{
+    nit
+    matricula
+    nombreCompleto
     direccion
+    }
   }
-}

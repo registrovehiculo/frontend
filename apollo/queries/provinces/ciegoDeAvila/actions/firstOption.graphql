@@ -1,11 +1,7 @@
-query contributorsMissingInOnatCiego($cityName: String!){
-    contributorsMissingInOnatCiego(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
+query contributorsMissingInOnatCiego{
+  contributorsMissingInOnatCiego{
     numeroidentidad
+    chapanueva
     datospersona
     direccion
   }

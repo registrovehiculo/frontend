@@ -1,12 +1,8 @@
-query contributorsWithEqualsInformationIslaDeLaJuventud($cityName: String!){
-    contributorsWithEqualsInformationIslaDeLaJuventud(cityName: $cityName){
-    dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+query contributorsWithEqualsInformationIsla{
+  contributorsWithEqualsInformationIsla{
+    nit
+    matricula
+    nombreCompleto
     direccion
   }
 }

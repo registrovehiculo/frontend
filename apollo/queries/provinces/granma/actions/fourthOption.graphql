@@ -1,9 +1,8 @@
-query infogestiGranma($cityName: String!){
-    infogestiGranma(cityName: $cityName){
-        id
-        nit
-        unidad
-        nombreCompleto
-        direccionPrincipal
+query infogestiGranma{
+  infogestiGranma{
+    nit
+    matricula
+    nombreCompleto
+    direccion
   }
 }

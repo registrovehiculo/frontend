@@ -23,8 +23,8 @@
                 v-if="data_1"
                 :data="data_1"
                 :columns="tableColumns"
-                :filename="selectedProvince + ' (' + cityById.name + ')'"
-                :sheetname="selectedProvince + ' (' + cityById.name + ')'"
+                :filename="selectedProvince"
+                :sheetname="selectedProvince"
                 class="documentStyle"
               >
                 <b>Documento excel</b>
@@ -37,8 +37,8 @@
                 v-if="data_2"
                 :data="data_2"
                 :columns="tableColumns"
-                :filename="selectedProvince + ' (' + cityById.name + ')'"
-                :sheetname="selectedProvince + ' (' + cityById.name + ')'"
+                :filename="selectedProvince"
+                :sheetname="selectedProvince"
                 class="documentStyle"
               >
                 <b>Documento excel</b>
@@ -51,8 +51,8 @@
                 v-if="data_3"
                 :data="data_3"
                 :columns="tableColumns"
-                :filename="selectedProvince + ' (' + cityById.name + ')'"
-                :sheetname="selectedProvince + ' (' + cityById.name + ')'"
+                :filename="selectedProvince"
+                :sheetname="selectedProvince"
                 class="documentStyle"
               >
                 <b>Documento excel</b>
@@ -65,8 +65,8 @@
                 v-if="data_4"
                 :data="data_4"
                 :columns="tableColumns"
-                :filename="selectedProvince + ' (' + cityById.name + ')'"
-                :sheetname="selectedProvince + ' (' + cityById.name + ')'"
+                :filename="selectedProvince"
+                :sheetname="selectedProvince"
                 class="documentStyle"
               >
                 <b>Documento excel</b>
@@ -88,74 +88,29 @@
       Transporte terrestre
     </p>
     <hr />
-    <div class="row is-flex-desktop has-text-centered">
-      <div class="column is-2-desktop is-12-tablet is-offset-1-desktop">
-        <form class="has-text-right">
-          <b-field>
-            <b-select
-              v-model="address.form.country.code"
-              placeholder="Pais"
-              expanded
-              @input="selectCountry"
-            >
-              <option
-                v-for="option in countries"
-                :key="option.code"
-                :value="option.code"
-              >
-                {{ option.nameEs }}
-              </option>
-            </b-select>
-          </b-field>
-          <b-field>
-            <b-select
-              v-model="address.form.state"
-              placeholder="Provincia"
-              expanded
-              dropdown-position="bottom"
-              @input="selectState"
-            >
-              <option
-                v-for="option in states"
-                :key="option.id"
-                :value="option.id"
-              >
-                {{ option.name }}
-              </option>
-            </b-select>
-          </b-field>
-          <b-field>
-            <b-select
-              v-model="address.form.city"
-              placeholder="Municipio"
-              expanded
-              dropdown-position="bottom"
-              @input="selectCity"
-            >
-              <option
-                v-for="option in cities"
-                :key="option.id"
-                :value="option.id"
-              >
-                {{ option.name }}
-              </option>
-            </b-select>
-          </b-field>
-        </form>
-      </div>
+    <div class="columns is-centered">
       <div
         class="column is-6-desktop is-12-tablet has-text-centered margin-left-20"
       >
-        <span v-if="states && address.form.state" style="font-size: 35px">
-          <b
-            >{{ states[address.form.state - 1].name
-            }}<span v-if="cityById">{{ ' (' + cityById.name + ')' }}</span></b
-          >
-        </span>
         <div
           class="column is-hidden-tablet-only is-hidden-mobile margin-left-20"
           style="margin-top:2.5rem"
         >
+          <b-field class="margin-bottom-10" style="width: 72%">
+            <b-select
+              v-model="selectedProvince"
+              placeholder="Provincias"
+              expanded
+            >
+              <option
+                v-for="province in provinces"
+                :key="province.id"
+                :value="province.value"
+              >
+                {{ province.name }}
+              </option>
+            </b-select>
+          </b-field>
           <b-field>
             <b-select
               v-model="selectedAction"
@@ -176,9 +131,7 @@
               rounded
               :loading="loading"
               :disabled="
-                !address.form.country ||
-                  !address.form.state ||
-                  !address.form.city ||
+                !selectedProvince ||
                   !selectedAction ||
                   (!radio && selectedAction === 2)
               "
@@ -222,12 +175,7 @@
             <b-button
               class="is-black is-fullwidth is-small"
               rounded
-              :disabled="
-                !address.form.country ||
-                  !address.form.state ||
-                  !address.form.city ||
-                  !selectedAction
-              "
+              :disabled="!selectedProvince || !selectedAction"
               @click="select()"
               >Buscar</b-button
             >
@@ -295,7 +243,7 @@
           <StatesTable
             v-if="data_3"
             :data="data_3"
-            :columns="tableColumns"
+            :columns="tableColumnsInfo"
             :loading="loading"
           />
         </div>
@@ -304,7 +252,7 @@
           <StatesTable
             v-if="data_2"
             :data="data_2"
-            :columns="tableColumns"
+            :columns="tableColumnsInfo"
             checkable
           />
         </div>
@@ -420,10 +368,6 @@ import VillaClaraDifferentNameQuery from '~/apollo/queries/provinces/villaClara/
 import VillaClaraDifferentPlateQuery from '~/apollo/queries/provinces/villaClara/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationVillaClaraQuery from '~/apollo/queries/provinces/villaClara/actions/thirdOption.graphql'
 import infogestiVillaQuery from '~/apollo/queries/provinces/villaClara/actions/fourthOption.graphql'
-import statesQuery from '~/apollo/queries/addresses/states.graphql'
-import countriesQuery from '~/apollo/queries/addresses/countries.graphql'
-import citiesQuery from '~/apollo/queries/addresses/cities.graphql'
-import citiesByIdQuery from '~/apollo/queries/addresses/cityById.graphql'
 // Components
 // import ColumnOptions from '~/components/ColumnOptions'
 import StatesTable from '~/components/StatesTable'
@@ -446,23 +390,11 @@ export default {
   },
   data() {
     return {
-      address: {
-        form: {
-          id: null,
-          city: null,
-          state: null,
-          country: {
-            code: null,
-            nameEs: null
-          }
-        }
-      },
       selectedAction: null,
       radio: null,
       countries: [],
       cities: [],
       states: [],
-      cityById: null,
       tableColumns,
       provinces,
       tableColumnsInfo,
@@ -507,12 +439,6 @@ export default {
       selected: false
     }
   },
-  apollo: {
-    countries: {
-      prefetch: true,
-      query: countriesQuery
-    }
-  },
   head() {
     return {
       title: `Transporte | Home`
@@ -530,72 +456,19 @@ export default {
     clean() {
       this.data = null
     },
-    async selectCountry(option, stateId, cityId) {
-      await this.$apollo
-        .query({
-          query: statesQuery,
-          variables: {
-            countryId: option
-          }
-        })
-        .then(({ data }) => {
-          this.states = data.states
-          this.cities = []
-          if (stateId === undefined) {
-            this.address.form.state = null
-          } else {
-            this.address.form.state = stateId
-          }
-          if (cityId === undefined) {
-            this.address.form.city = null
-          } else {
-            this.selectState(stateId, cityId)
-          }
-        })
-    },
-    selectState(option, cityId) {
-      this.$apollo
-        .query({
-          query: citiesQuery,
-          variables: {
-            stateId: option
-          }
-        })
-        .then(({ data }) => {
-          this.cities = data.cities
-          if (cityId === undefined) {
-            this.address.form.city = null
-          } else {
-            this.address.form.city = cityId
-          }
-        })
-    },
-    selectCity(option) {
-      this.a = option
-      this.$apollo
-        .query({
-          query: citiesByIdQuery,
-          variables: {
-            cityId: option
-          }
-        })
-        .then(({ data }) => (this.cityById = data.citiesById))
-    },
     select() {
       // Artemisa
-      this.selectedProvince = this.states[this.address.form.state - 1].name
       this.loading = true
       this.data_1 = null
       this.data_2 = null
       this.data_3 = null
       this.data_4 = null
       this.$store.commit('search/setActive', false)
-      if (this.selectedProvince === 'Artemisa') {
+      if (this.selectedProvince === 'artemisa') {
         if (this.selectedAction === 1) {
           this.$apollo
             .query({
-              query: contributorsMissingInOnatArtemisaQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsMissingInOnatArtemisaQuery
             })
             .then(({ data }) => {
               this.data_1 = data.contributorsMissingInOnatArtemisa
@@ -607,8 +480,7 @@ export default {
           if (this.radio === 'names') {
             this.$apollo
               .query({
-                query: artemisaDifferentNameQuery,
-                variables: { cityName: this.cityById.name }
+                query: artemisaDifferentNameQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -618,8 +490,7 @@ export default {
           } else {
             this.$apollo
               .query({
-                query: artemisaDifferentPlateQuery,
-                variables: { cityName: this.cityById.name }
+                query: artemisaDifferentPlateQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -631,8 +502,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationArtemisaQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsWithEqualsInformationArtemisaQuery
             })
             .then(({ data }) => {
               this.data_3 = data.contributorsWithEqualsInformationArtemisa
@@ -642,8 +512,7 @@ export default {
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiArtemisaQuery,
-              variables: { cityName: this.cityById.name }
+              query: infogestiArtemisaQuery
             })
             .then(({ data }) => {
               this.data_4 = data.infogestiArtemisa
@@ -652,12 +521,11 @@ export default {
         }
       }
       // Camaguey
-      else if (this.selectedProvince === 'Camagüey') {
+      else if (this.selectedProvince === 'camaguey') {
         if (this.selectedAction === 1) {
           this.$apollo
             .query({
-              query: contributorsMissingInOnatCamagueyQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsMissingInOnatCamagueyQuery
             })
             .then(({ data }) => {
               this.data_1 = data.contributorsMissingInOnatCamaguey
@@ -668,8 +536,7 @@ export default {
           if (this.radio === 'names') {
             this.$apollo
               .query({
-                query: camagueyDifferentNameQuery,
-                variables: { cityName: this.cityById.name }
+                query: camagueyDifferentNameQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -679,8 +546,7 @@ export default {
           } else {
             this.$apollo
               .query({
-                query: camagueyDifferentPlateQuery,
-                variables: { cityName: this.cityById.name }
+                query: camagueyDifferentPlateQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -692,8 +558,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationCamagueyQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsWithEqualsInformationCamagueyQuery
             })
             .then(({ data }) => {
               this.data_3 = data.contributorsWithEqualsInformationCamaguey
@@ -703,8 +568,7 @@ export default {
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiCamagueyQuery,
-              variables: { cityName: this.cityById.name }
+              query: infogestiCamagueyQuery
             })
             .then(({ data }) => {
               this.data_4 = data.infogestiCamaguey
@@ -713,12 +577,11 @@ export default {
         }
       }
       // Ciego De Avila
-      else if (this.selectedProvince === 'Ciego de Avila') {
+      else if (this.selectedProvince === 'ciegoDeAvila') {
         if (this.selectedAction === 1) {
           this.$apollo
             .query({
-              query: contributorsMissingInOnatCiegoDeAvilaQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsMissingInOnatCiegoDeAvilaQuery
             })
             .then(({ data }) => {
               this.data_1 = data.contributorsMissingInOnatCiego
@@ -729,8 +592,7 @@ export default {
           if (this.radio === 'names') {
             this.$apollo
               .query({
-                query: ciegoDifferentNameQuery,
-                variables: { cityName: this.cityById.name }
+                query: ciegoDifferentNameQuery
               })
               .then(({ data }) => {
                 this.data_2 = data.contributorsWithDifferentInformationCiegoName
@@ -739,8 +601,7 @@ export default {
           } else {
             this.$apollo
               .query({
-                query: ciegoDifferentPlateQuery,
-                variables: { cityName: this.cityById.name }
+                query: ciegoDifferentPlateQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -752,8 +613,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationCiegoDeAvilaQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsWithEqualsInformationCiegoDeAvilaQuery
             })
             .then(({ data }) => {
               this.data_3 = data.contributorsWithEqualsInformationCiego
@@ -763,8 +623,7 @@ export default {
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiCiegoQuery,
-              variables: { cityName: this.cityById.name }
+              query: infogestiCiegoQuery
             })
             .then(({ data }) => {
               this.data_4 = data.infogestiCiego
@@ -773,12 +632,11 @@ export default {
         }
       }
       // Cienfuegos
-      else if (this.selectedProvince === 'Cienfuegos') {
+      else if (this.selectedProvince === 'cienfuegos') {
         if (this.selectedAction === 1) {
           this.$apollo
             .query({
-              query: contributorsMissingInOnatCienfuegosQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsMissingInOnatCienfuegosQuery
             })
             .then(({ data }) => {
               this.data_1 = data.contributorsMissingInOnatCienfuegos
@@ -789,8 +647,7 @@ export default {
           if (this.radio === 'names') {
             this.$apollo
               .query({
-                query: cienfuegosDifferentNameQuery,
-                variables: { cityName: this.cityById.name }
+                query: cienfuegosDifferentNameQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -800,8 +657,7 @@ export default {
           } else {
             this.$apollo
               .query({
-                query: cienfuegosDifferentPlateQuery,
-                variables: { cityName: this.cityById.name }
+                query: cienfuegosDifferentPlateQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -813,8 +669,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationCienfuegosQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsWithEqualsInformationCienfuegosQuery
             })
             .then(({ data }) => {
               this.data_3 = data.contributorsWithEqualsInformationCienfuegos
@@ -824,8 +679,7 @@ export default {
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiCienfuegosQuery,
-              variables: { cityName: this.cityById.name }
+              query: infogestiCienfuegosQuery
             })
             .then(({ data }) => {
               this.data_4 = data.infogestiCienfuegos
@@ -834,12 +688,11 @@ export default {
         }
       }
       // Granma
-      else if (this.selectedProvince === 'Granma') {
+      else if (this.selectedProvince === 'granma') {
         if (this.selectedAction === 1) {
           this.$apollo
             .query({
-              query: contributorsMissingInOnatGranmaQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsMissingInOnatGranmaQuery
             })
             .then(({ data }) => {
               this.data_1 = data.contributorsMissingInOnatGranma
@@ -850,8 +703,7 @@ export default {
           if (this.radio === 'names') {
             this.$apollo
               .query({
-                query: granmaDifferentNameQuery,
-                variables: { cityName: this.cityById.name }
+                query: granmaDifferentNameQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -861,8 +713,7 @@ export default {
           } else {
             this.$apollo
               .query({
-                query: granmaDifferentPlateQuery,
-                variables: { cityName: this.cityById.name }
+                query: granmaDifferentPlateQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -874,8 +725,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationGranmaQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsWithEqualsInformationGranmaQuery
             })
             .then(({ data }) => {
               this.data_3 = data.contributorsWithEqualsInformationGranma
@@ -885,8 +735,7 @@ export default {
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiGranmaQuery,
-              variables: { cityName: this.cityById.name }
+              query: infogestiGranmaQuery
             })
             .then(({ data }) => {
               this.data_4 = data.infogestiGranma
@@ -896,12 +745,11 @@ export default {
       }
 
       // Guantanamo
-      else if (this.selectedProvince === 'Guantanamo') {
+      else if (this.selectedProvince === 'guantanamo') {
         if (this.selectedAction === 1) {
           this.$apollo
             .query({
-              query: contributorsMissingInOnatGuantanamoQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsMissingInOnatGuantanamoQuery
             })
             .then(({ data }) => {
               this.data_1 = data.contributorsMissingInOnatGuantanamo
@@ -912,8 +760,7 @@ export default {
           if (this.radio === 'names') {
             this.$apollo
               .query({
-                query: guantanamoDifferentNameQuery,
-                variables: { cityName: this.cityById.name }
+                query: guantanamoDifferentNameQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -923,8 +770,7 @@ export default {
           } else {
             this.$apollo
               .query({
-                query: guantanamoDifferentPlateQuery,
-                variables: { cityName: this.cityById.name }
+                query: guantanamoDifferentPlateQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -936,8 +782,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationGuantanamoQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsWithEqualsInformationGuantanamoQuery
             })
             .then(({ data }) => {
               this.data_3 = data.contributorsWithEqualsInformationGuantanamo
@@ -947,8 +792,7 @@ export default {
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiGuantanamoQuery,
-              variables: { cityName: this.cityById.name }
+              query: infogestiGuantanamoQuery
             })
             .then(({ data }) => {
               this.data_4 = data.infogestiGuantanamo
@@ -958,12 +802,11 @@ export default {
       }
 
       // Holguin
-      else if (this.selectedProvince === 'Holguin') {
+      else if (this.selectedProvince === 'holguin') {
         if (this.selectedAction === 1) {
           this.$apollo
             .query({
-              query: contributorsMissingInOnatHolguinQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsMissingInOnatHolguinQuery
             })
             .then(({ data }) => {
               this.data_1 = data.contributorsMissingInOnatHolguin
@@ -974,8 +817,7 @@ export default {
           if (this.radio === 'names') {
             this.$apollo
               .query({
-                query: holguinDifferentNameQuery,
-                variables: { cityName: this.cityById.name }
+                query: holguinDifferentNameQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -985,8 +827,7 @@ export default {
           } else {
             this.$apollo
               .query({
-                query: holguinDifferentPlateQuery,
-                variables: { cityName: this.cityById.name }
+                query: holguinDifferentPlateQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -998,8 +839,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationHolguinQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsWithEqualsInformationHolguinQuery
             })
             .then(({ data }) => {
               this.data_3 = data.contributorsWithEqualsInformationHolguin
@@ -1009,8 +849,7 @@ export default {
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiHolguinQuery,
-              variables: { cityName: this.cityById.name }
+              query: infogestiHolguinQuery
             })
             .then(({ data }) => {
               this.data_4 = data.infogestiHolguin
@@ -1019,12 +858,11 @@ export default {
         }
       }
       // Isla de la juventud
-      else if (this.selectedProvince === 'Isla de la Juventud') {
+      else if (this.selectedProvince === 'islaDeLaJuventud') {
         if (this.selectedAction === 1) {
           this.$apollo
             .query({
-              query: contributorsMissingInOnatIslaDeLaJuventudQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsMissingInOnatIslaDeLaJuventudQuery
             })
             .then(({ data }) => {
               this.data_1 = data.contributorsMissingInOnatIslaDeLaJuventud
@@ -1035,8 +873,7 @@ export default {
           if (this.radio === 'names') {
             this.$apollo
               .query({
-                query: islaDifferentNameQuery,
-                variables: { cityName: this.cityById.name }
+                query: islaDifferentNameQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -1046,8 +883,7 @@ export default {
           } else {
             this.$apollo
               .query({
-                query: islaDifferentPlateQuery,
-                variables: { cityName: this.cityById.name }
+                query: islaDifferentPlateQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -1059,8 +895,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationIslaDeLaJuventudQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsWithEqualsInformationIslaDeLaJuventudQuery
             })
             .then(({ data }) => {
               this.data_3 =
@@ -1071,8 +906,7 @@ export default {
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiIslaQuery,
-              variables: { cityName: this.cityById.name }
+              query: infogestiIslaQuery
             })
             .then(({ data }) => {
               this.data_4 = data.infogestiIslaQuery
@@ -1082,13 +916,12 @@ export default {
       }
 
       // La habana
-      else if (this.selectedProvince === 'La Habana') {
+      else if (this.selectedProvince === 'habana') {
         console.log(1)
         if (this.selectedAction === 1) {
           this.$apollo
             .query({
-              query: contributorsMissingInOnatLaHabanaQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsMissingInOnatLaHabanaQuery
             })
             .then(({ data }) => {
               this.data_1 = data.contributorsMissingInOnatLaHabana
@@ -1099,8 +932,7 @@ export default {
           if (this.radio === 'names') {
             this.$apollo
               .query({
-                query: contributorsWithDifferentInformationLaHabanaQuery,
-                variables: { cityName: this.cityById.name }
+                query: contributorsWithDifferentInformationLaHabanaQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -1110,8 +942,7 @@ export default {
           } else {
             this.$apollo
               .query({
-                query: contributorsWithDifferentInformationLaHabanaInfogestiQuery,
-                variables: { cityName: this.cityById.name }
+                query: contributorsWithDifferentInformationLaHabanaInfogestiQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -1123,8 +954,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationLaHabanaQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsWithEqualsInformationLaHabanaQuery
             })
             .then(({ data }) => {
               this.data_3 = data.contributorsWithEqualsInformationLaHabana
@@ -1134,8 +964,7 @@ export default {
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiHabanaQuery,
-              variables: { cityName: this.cityById.name }
+              query: infogestiHabanaQuery
             })
             .then(({ data }) => {
               this.data_4 = data.infogestiHabana
@@ -1145,12 +974,11 @@ export default {
       }
 
       // Las Tunas
-      else if (this.selectedProvince === 'Las Tunas') {
+      else if (this.selectedProvince === 'lasTunas') {
         if (this.selectedAction === 1) {
           this.$apollo
             .query({
-              query: contributorsMissingInOnatLasTunasQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsMissingInOnatLasTunasQuery
             })
             .then(({ data }) => {
               this.data_1 = data.contributorsMissingInOnatLasTunas
@@ -1161,8 +989,7 @@ export default {
           if (this.radio === 'names') {
             this.$apollo
               .query({
-                query: lasTunasDifferentNameQuery,
-                variables: { cityName: this.cityById.name }
+                query: lasTunasDifferentNameQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -1172,8 +999,7 @@ export default {
           } else {
             this.$apollo
               .query({
-                query: lasTunasDifferentPlateQuery,
-                variables: { cityName: this.cityById.name }
+                query: lasTunasDifferentPlateQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -1185,8 +1011,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationLasTunasQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsWithEqualsInformationLasTunasQuery
             })
             .then(({ data }) => {
               this.data_3 = data.contributorsWithEqualsInformationLasTunas
@@ -1196,8 +1021,7 @@ export default {
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiTunasQuery,
-              variables: { cityName: this.cityById.name }
+              query: infogestiTunasQuery
             })
             .then(({ data }) => {
               this.data_4 = data.infogestiTunas
@@ -1207,12 +1031,11 @@ export default {
       }
 
       // Matanzas
-      else if (this.selectedProvince === 'Matanzas') {
+      else if (this.selectedProvince === 'matanzas') {
         if (this.selectedAction === 1) {
           this.$apollo
             .query({
-              query: contributorsMissingInOnatMatanzasQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsMissingInOnatMatanzasQuery
             })
             .then(({ data }) => {
               this.data_1 = data.contributorsMissingInOnatMatanzas
@@ -1223,8 +1046,7 @@ export default {
           if (this.radio === 'name') {
             this.$apollo
               .query({
-                query: matanzasDifferentNameQuery,
-                variables: { cityName: this.cityById.name }
+                query: matanzasDifferentNameQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -1234,8 +1056,7 @@ export default {
           } else {
             this.$apollo
               .query({
-                query: matanzasDifferentPlateQuery,
-                variables: { cityName: this.cityById.name }
+                query: matanzasDifferentPlateQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -1247,8 +1068,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationMatanzasQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsWithEqualsInformationMatanzasQuery
             })
             .then(({ data }) => {
               this.data_3 = data.contributorsWithEqualsInformationMatanzas
@@ -1258,8 +1078,7 @@ export default {
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiMatanzasQuery,
-              variables: { cityName: this.cityById.name }
+              query: infogestiMatanzasQuery
             })
             .then(({ data }) => {
               this.data_4 = data.infogestiMatanzas
@@ -1269,12 +1088,11 @@ export default {
       }
 
       // Mayabeque
-      else if (this.selectedProvince === 'Mayabeque') {
+      else if (this.selectedProvince === 'mayabeque') {
         if (this.selectedAction === 1) {
           this.$apollo
             .query({
-              query: contributorsMissingInOnatMayabequeQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsMissingInOnatMayabequeQuery
             })
             .then(({ data }) => {
               this.data_1 = data.contributorsMissingInOnatMayabeque
@@ -1285,8 +1103,7 @@ export default {
           if (this.radio === 'names') {
             this.$apollo
               .query({
-                query: mayabequeDifferentNameQuery,
-                variables: { cityName: this.cityById.name }
+                query: mayabequeDifferentNameQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -1296,8 +1113,7 @@ export default {
           } else {
             this.$apollo
               .query({
-                query: mayabequeDifferentPlateQuery,
-                variables: { cityName: this.cityById.name }
+                query: mayabequeDifferentPlateQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -1309,8 +1125,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationMayabequeQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsWithEqualsInformationMayabequeQuery
             })
             .then(({ data }) => {
               this.data_3 = data.contributorsWithEqualsInformationMayabeque
@@ -1320,8 +1135,7 @@ export default {
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiMayabequeQuery,
-              variables: { cityName: this.cityById.name }
+              query: infogestiMayabequeQuery
             })
             .then(({ data }) => {
               this.data_4 = data.infogestiMayabeque
@@ -1331,12 +1145,11 @@ export default {
       }
 
       // Pinar del Rio
-      else if (this.selectedProvince === 'Pinar del Rio') {
+      else if (this.selectedProvince === 'pinarDelRio') {
         if (this.selectedAction === 1) {
           this.$apollo
             .query({
-              query: contributorsMissingInOnatPinarQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsMissingInOnatPinarQuery
             })
             .then(({ data }) => {
               this.data_1 = data.contributorsMissingInOnatPinar
@@ -1347,8 +1160,7 @@ export default {
           if (this.radio === 'names') {
             this.$apollo
               .query({
-                query: pinarDifferentNameQuery,
-                variables: { cityName: this.cityById.name }
+                query: pinarDifferentNameQuery
               })
               .then(({ data }) => {
                 this.data_2 = data.contributorsWithDifferentInformationPinarName
@@ -1357,8 +1169,7 @@ export default {
           } else {
             this.$apollo
               .query({
-                query: pinarDifferentPlateQuery,
-                variables: { cityName: this.cityById.name }
+                query: pinarDifferentPlateQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -1370,8 +1181,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationPinarQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsWithEqualsInformationPinarQuery
             })
             .then(({ data }) => {
               this.data_3 = data.contributorsWithEqualsInformationPinar
@@ -1381,8 +1191,7 @@ export default {
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiPinarQuery,
-              variables: { cityName: this.cityById.name }
+              query: infogestiPinarQuery
             })
             .then(({ data }) => {
               this.data_4 = data.infogestiPinar
@@ -1392,12 +1201,11 @@ export default {
       }
 
       // Santiago de Cuba
-      else if (this.selectedProvince === 'Santiago de Cuba') {
+      else if (this.selectedProvince === 'santiagoDeCuba') {
         if (this.selectedAction === 1) {
           this.$apollo
             .query({
-              query: contributorsMissingInOnatSantiagoDeCubaQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsMissingInOnatSantiagoDeCubaQuery
             })
             .then(({ data }) => {
               this.data_1 = data.contributorsMissingInOnatSantiagoDeCuba
@@ -1408,8 +1216,7 @@ export default {
           if (this.radio === 'names') {
             this.$apollo
               .query({
-                query: santiagoDifferentNameQuery,
-                variables: { cityName: this.cityById.name }
+                query: santiagoDifferentNameQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -1419,8 +1226,7 @@ export default {
           } else {
             this.$apollo
               .query({
-                query: santiagoDifferentPlateQuery,
-                variables: { cityName: this.cityById.name }
+                query: santiagoDifferentPlateQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -1432,8 +1238,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationSantiagoDeCubaQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsWithEqualsInformationSantiagoDeCubaQuery
             })
             .then(({ data }) => {
               this.data_3 = data.contributorsWithEqualsInformationSantiagoDeCuba
@@ -1443,8 +1248,7 @@ export default {
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiSantiagoQuery,
-              variables: { cityName: this.cityById.name }
+              query: infogestiSantiagoQuery
             })
             .then(({ data }) => {
               this.data_4 = data.infogestiSantiago
@@ -1454,12 +1258,11 @@ export default {
       }
 
       // Santic Espiritud
-      else if (this.selectedProvince === 'Sancti Spiritus') {
+      else if (this.selectedProvince === 'santciSpiritus') {
         if (this.selectedAction === 1) {
           this.$apollo
             .query({
-              query: contributorsMissingInOnatSanticEspiritudQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsMissingInOnatSanticEspiritudQuery
             })
             .then(({ data }) => {
               this.data_1 = data.contributorsMissingInOnatSanticEspiritud
@@ -1470,8 +1273,7 @@ export default {
           if (this.radio === 'names') {
             this.$apollo
               .query({
-                query: santicEspiritudDifferentNameQuery,
-                variables: { cityName: this.cityById.name }
+                query: santicEspiritudDifferentNameQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -1481,8 +1283,7 @@ export default {
           } else {
             this.$apollo
               .query({
-                query: santicEspiritudDifferentPlateQuery,
-                variables: { cityName: this.cityById.name }
+                query: santicEspiritudDifferentPlateQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -1494,8 +1295,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationSanticEspiritudQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsWithEqualsInformationSanticEspiritudQuery
             })
             .then(({ data }) => {
               this.data_3 =
@@ -1506,8 +1306,7 @@ export default {
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiEspiritudQuery,
-              variables: { cityName: this.cityById.name }
+              query: infogestiEspiritudQuery
             })
             .then(({ data }) => {
               this.data_4 = data.infogestiEspiritud
@@ -1517,12 +1316,11 @@ export default {
       }
 
       // Villa Clara
-      else if (this.selectedProvince === 'Villa Clara') {
+      else if (this.selectedProvince === 'villaClara') {
         if (this.selectedAction === 1) {
           this.$apollo
             .query({
-              query: contributorsMissingInOnatVillaClaraQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsMissingInOnatVillaClaraQuery
             })
             .then(({ data }) => {
               this.data_1 = data.contributorsMissingInOnatVillaClara
@@ -1533,8 +1331,7 @@ export default {
           if (this.radio === 'names') {
             this.$apollo
               .query({
-                query: VillaClaraDifferentNameQuery,
-                variables: { cityName: this.cityById.name }
+                query: VillaClaraDifferentNameQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -1544,8 +1341,7 @@ export default {
           } else {
             this.$apollo
               .query({
-                query: VillaClaraDifferentPlateQuery,
-                variables: { cityName: this.cityById.name }
+                query: VillaClaraDifferentPlateQuery
               })
               .then(({ data }) => {
                 this.data_2 =
@@ -1557,8 +1353,7 @@ export default {
         if (this.selectedAction === 3) {
           this.$apollo
             .query({
-              query: contributorsWithEqualsInformationVillaClaraQuery,
-              variables: { cityName: this.cityById.name }
+              query: contributorsWithEqualsInformationVillaClaraQuery
             })
             .then(({ data }) => {
               this.data_3 = data.contributorsWithEqualsInformationVillaClara
@@ -1568,8 +1363,7 @@ export default {
         if (this.selectedAction === 4) {
           this.$apollo
             .query({
-              query: infogestiVillaQuery,
-              variables: { cityName: this.cityById.name }
+              query: infogestiVillaQuery
             })
             .then(({ data }) => {
               this.data_4 = data.infogestiVilla

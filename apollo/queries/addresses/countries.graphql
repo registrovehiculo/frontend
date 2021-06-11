@@ -1,7 +1,0 @@
-query countries {
-    countries {
-        code
-        codeIso2
-        nameEs
-    }
-}

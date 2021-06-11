@@ -1,12 +1,8 @@
-query contributorsWithEqualsInformationCiego($cityName: String!){
-    contributorsWithEqualsInformationCiego(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+query contributorsWithEqualsInformationCiego{
+  contributorsWithEqualsInformationCiego{
+    nit
+    matricula
+    nombreCompleto
     direccion
   }
 }

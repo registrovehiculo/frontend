@@ -1,12 +1,8 @@
-query contributorsWithEqualsInformationCienfuegos($cityName: String!){
-    contributorsWithEqualsInformationCienfuegos(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+query contributorsWithEqualsInformationCienfuegos{
+  contributorsWithEqualsInformationCienfuegos{
+    nit
+    matricula
+    nombreCompleto
     direccion
   }
 }

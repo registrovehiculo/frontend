@@ -1,9 +1,8 @@
-query infogestiArtemisa($cityName: String!){
-    infogestiArtemisa(cityName: $cityName){
-        id
+query infogestiArtemisa{
+  infogestiArtemisa{
     nit
-    unidad
+    matricula
     nombreCompleto
-    direccionPrincipal
+    direccion
   }
 }

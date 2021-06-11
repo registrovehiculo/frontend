@@ -1,11 +1,7 @@
-query contributorsMissingInOnatHolguin($cityName: String!){
-    contributorsMissingInOnatHolguin(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
+query contributorsMissingInOnatHolguin{
+  contributorsMissingInOnatHolguin{
     numeroidentidad
+    chapanueva
     datospersona
     direccion
   }

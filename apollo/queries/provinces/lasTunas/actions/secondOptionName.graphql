@@ -1,12 +1,8 @@
-query contributorsWithDifferentInformationLasTunasName($cityName: String!){
-    contributorsWithDifferentInformationLasTunasName(cityName: $cityName){
-    dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+query contributorsWithDifferentInformationLasTunasName{
+  contributorsWithDifferentInformationLasTunasName{
+    nit
+    matricula
+    nombreCompleto
     direccion
   }
 }

@@ -1,9 +1,8 @@
-query infogestiHolguin($cityName: String!){
-    infogestiHolguin(cityName: $cityName){
-        id
-        nit
-        unidad
-        nombreCompleto
-        direccionPrincipal
+query infogestiHolguin{
+  infogestiHolguin{
+    nit
+    matricula
+    nombreCompleto
+    direccion
   }
 }

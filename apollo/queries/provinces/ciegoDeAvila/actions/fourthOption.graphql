@@ -1,9 +1,8 @@
-query infogestiCiego($cityName: String!){
-    infogestiCiego(cityName: $cityName){
-        id
-        nit
-        unidad
-        nombreCompleto
-        direccionPrincipal
+query infogestiCiego{
+  infogestiCiego{
+    nit
+    matricula
+    nombreCompleto
+    direccion
   }
 }

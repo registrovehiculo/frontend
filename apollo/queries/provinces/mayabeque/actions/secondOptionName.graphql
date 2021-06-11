@@ -1,12 +1,8 @@
-query contributorsWithDifferentInformationMayabequeName($cityName: String!){
-    contributorsWithDifferentInformationMayabequeName(cityName: $cityName){
-    dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+  query contributorsWithDifferentInformationMayabequeName{
+    contributorsWithDifferentInformationMayabequeName{
+    nit
+    matricula
+    nombreCompleto
     direccion
+    }
   }
-}

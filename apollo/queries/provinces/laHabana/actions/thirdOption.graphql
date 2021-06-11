@@ -1,12 +1,8 @@
-query contributorsWithEqualsInformationLaHabana($cityName: String!){
-    contributorsWithEqualsInformationLaHabana(cityName: $cityName){
-    dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+query contributorsWithEqualsInformationHabana{
+  contributorsWithEqualsInformationHabana{
+    nit
+    matricula
+    nombreCompleto
     direccion
   }
 }

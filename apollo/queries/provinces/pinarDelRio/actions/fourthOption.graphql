@@ -1,9 +1,8 @@
-query infogestiPinar($cityName: String!){
-    infogestiPinar(cityName: $cityName){
-        id
-        nit
-        unidad
-        nombreCompleto
-        direccionPrincipal
+  query infogestiPinar{
+    infogestiPinar{
+    nit
+    matricula
+    nombreCompleto
+    direccion
+    }
   }
-}

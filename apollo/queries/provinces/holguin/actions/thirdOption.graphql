@@ -1,12 +1,8 @@
-query contributorsWithEqualsInformationHolguin($cityName: String!){
-    contributorsWithEqualsInformationHolguin(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
-    numeroidentidad
-    datospersona
+query contributorsWithEqualsInformationHolguin{
+  contributorsWithEqualsInformationHolguin{
+    nit
+    matricula
+    nombreCompleto
     direccion
   }
 }

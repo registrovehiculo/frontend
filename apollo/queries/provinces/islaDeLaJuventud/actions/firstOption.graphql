@@ -1,11 +1,7 @@
-query contributorsMissingInOnatIslaDeLaJuventud($cityName: String!){
-    contributorsMissingInOnatIslaDeLaJuventud(cityName: $cityName){
-        dpa
-    chapanueva
-    numeromotor
-    numerocarroseria
-    marcamotor
+query contributorsMissingInOnatIsla{
+  contributorsMissingInOnatIsla{
     numeroidentidad
+    chapanueva
     datospersona
     direccion
   }
