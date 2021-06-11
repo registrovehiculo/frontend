@@ -1040,7 +1040,7 @@ export default {
             })
         }
         if (this.selectedAction === 2) {
-          if (this.radio === 'name') {
+          if (this.radio === 'names') {
             this.$apollo
               .query({
                 query: matanzasDifferentNameQuery
