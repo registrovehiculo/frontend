@@ -36,7 +36,7 @@
               <vue-excel-xlsx
                 v-if="data_2"
                 :data="data_2"
-                :columns="tableColumns"
+                :columns="tableColumnsInfo"
                 :filename="selectedProvince"
                 :sheetname="selectedProvince"
                 class="documentStyle"
@@ -50,7 +50,7 @@
               <vue-excel-xlsx
                 v-if="data_3"
                 :data="data_3"
-                :columns="tableColumns"
+                :columns="tableColumnsInfo"
                 :filename="selectedProvince"
                 :sheetname="selectedProvince"
                 class="documentStyle"
@@ -64,7 +64,7 @@
               <vue-excel-xlsx
                 v-if="data_4"
                 :data="data_4"
-                :columns="tableColumns"
+                :columns="tableColumnsInfo"
                 :filename="selectedProvince"
                 :sheetname="selectedProvince"
                 class="documentStyle"
@@ -322,8 +322,8 @@ import contributorsWithEqualsInformationIslaDeLaJuventudQuery from '~/apollo/que
 import infogestiIslaQuery from '~/apollo/queries/provinces/islaDeLaJuventud/actions/fourthOption.graphql'
 // La Habana
 import contributorsMissingInOnatLaHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/firstOption.graphql'
-import contributorsWithDifferentInformationLaHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/secondOptionName.graphql'
-import contributorsWithDifferentInformationLaHabanaInfogestiQuery from '~/apollo/queries/provinces/laHabana/actions/secondOptionPlate.graphql'
+import contributorsWithDifferentInformationHabanaNameQuery from '~/apollo/queries/provinces/laHabana/actions/secondOptionName.graphql'
+import contributorsWithDifferentInformationHabanaPlateQuery from '~/apollo/queries/provinces/laHabana/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationLaHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/thirdOption.graphql'
 import infogestiHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/fourthOption.graphql'
 // Las Tunas
@@ -865,7 +865,7 @@ export default {
               query: contributorsMissingInOnatIslaDeLaJuventudQuery
             })
             .then(({ data }) => {
-              this.data_1 = data.contributorsMissingInOnatIslaDeLaJuventud
+              this.data_1 = data.contributorsMissingInOnatIsla
               this.loading = false
             })
         }
@@ -876,8 +876,7 @@ export default {
                 query: islaDifferentNameQuery
               })
               .then(({ data }) => {
-                this.data_2 =
-                  data.contributorsWithDifferentInformationIslaDeLaJuventudName
+                this.data_2 = data.contributorsWithDifferentInformationIslaName
                 this.loading = false
               })
           } else {
@@ -886,8 +885,7 @@ export default {
                 query: islaDifferentPlateQuery
               })
               .then(({ data }) => {
-                this.data_2 =
-                  data.contributorsWithDifferentInformationIslaDeLaJuventudPlate
+                this.data_2 = data.contributorsWithDifferentInformationIslaPlate
                 this.loading = false
               })
           }
@@ -898,8 +896,7 @@ export default {
               query: contributorsWithEqualsInformationIslaDeLaJuventudQuery
             })
             .then(({ data }) => {
-              this.data_3 =
-                data.contributorsWithEqualsInformationIslaDeLaJuventud
+              this.data_3 = data.contributorsWithEqualsInformationIsla
               this.loading = false
             })
         }
@@ -909,7 +906,7 @@ export default {
               query: infogestiIslaQuery
             })
             .then(({ data }) => {
-              this.data_4 = data.infogestiIslaQuery
+              this.data_4 = data.infogestiIsla
               this.loading = false
             })
         }
@@ -924,7 +921,7 @@ export default {
               query: contributorsMissingInOnatLaHabanaQuery
             })
             .then(({ data }) => {
-              this.data_1 = data.contributorsMissingInOnatLaHabana
+              this.data_1 = data.contributorsMissingInOnatHabana
               this.loading = false
             })
         }
@@ -932,21 +929,21 @@ export default {
           if (this.radio === 'names') {
             this.$apollo
               .query({
-                query: contributorsWithDifferentInformationLaHabanaQuery
+                query: contributorsWithDifferentInformationHabanaNameQuery
               })
               .then(({ data }) => {
                 this.data_2 =
-                  data.contributorsWithDifferentInformationLaHabanaNames
+                  data.contributorsWithDifferentInformationHabanaName
                 this.loading = false
               })
           } else {
             this.$apollo
               .query({
-                query: contributorsWithDifferentInformationLaHabanaInfogestiQuery
+                query: contributorsWithDifferentInformationHabanaPlateQuery
               })
               .then(({ data }) => {
                 this.data_2 =
-                  data.contributorsWithDifferentInformationLaHabanaPlate
+                  data.contributorsWithDifferentInformationHabanaPlate
                 this.loading = false
               })
           }
@@ -957,7 +954,7 @@ export default {
               query: contributorsWithEqualsInformationLaHabanaQuery
             })
             .then(({ data }) => {
-              this.data_3 = data.contributorsWithEqualsInformationLaHabana
+              this.data_3 = data.contributorsWithEqualsInformationHabana
               this.loading = false
             })
         }
