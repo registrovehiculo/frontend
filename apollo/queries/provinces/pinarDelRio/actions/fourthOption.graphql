@@ -1,5 +1,6 @@
   query infogestiPinar{
     infogestiPinar{
+        dpa
     nit
     matricula
     nombreCompleto

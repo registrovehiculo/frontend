@@ -1,5 +1,6 @@
   query contributorsWithDifferentInformationSantiagoDeCubaName{
     contributorsWithDifferentInformationSantiagoDeCubaName{
+        dpa
     nit
     matricula
     nombreCompleto

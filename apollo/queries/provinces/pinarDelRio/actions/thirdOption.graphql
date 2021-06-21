@@ -1,5 +1,6 @@
   query contributorsWithEqualsInformationPinar{
     contributorsWithEqualsInformationPinar{
+        dpa
     nit
     matricula
     nombreCompleto

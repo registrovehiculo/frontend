@@ -1,5 +1,6 @@
   query contributorsWithDifferentInformationSanticEspiritudName{
     contributorsWithDifferentInformationSanticEspiritudName{
+        dpa
     nit
     matricula
     nombreCompleto

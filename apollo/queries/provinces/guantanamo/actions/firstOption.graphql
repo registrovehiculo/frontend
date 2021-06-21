@@ -1,5 +1,6 @@
 query contributorsMissingInOnatGuantanamo{
   contributorsMissingInOnatGuantanamo{
+    municipio
     numeroidentidad
     chapanueva
     datospersona

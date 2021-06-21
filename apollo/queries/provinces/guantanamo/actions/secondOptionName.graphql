@@ -1,5 +1,6 @@
 query contributorsWithDifferentInformationGuantanamoName{
   contributorsWithDifferentInformationGuantanamoName{
+    dpa
     nit
     matricula
     nombreCompleto

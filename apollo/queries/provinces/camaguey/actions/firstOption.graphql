@@ -1,6 +1,7 @@
 query contributorsMissingInOnatCamaguey{
   contributorsMissingInOnatCamaguey{
-		numeroidentidad
+    municipio
+    numeroidentidad
     chapanueva
     datospersona
     direccion

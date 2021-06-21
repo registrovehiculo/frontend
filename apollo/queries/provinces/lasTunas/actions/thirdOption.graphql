@@ -1,5 +1,6 @@
 query contributorsWithEqualsInformationLasTunas{
   contributorsWithEqualsInformationLasTunas{
+    dpa
     nit
     matricula
     nombreCompleto

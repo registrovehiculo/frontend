@@ -1,5 +1,6 @@
   query infogestiMayabeque{
     infogestiMayabeque{
+        dpa
     nit
     matricula
     nombreCompleto

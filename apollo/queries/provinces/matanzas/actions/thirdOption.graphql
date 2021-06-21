@@ -1,5 +1,6 @@
   query contributorsWithEqualsInformationMatanzas{
     contributorsWithEqualsInformationMatanzas{
+        dpa
       nit
       matricula
       nombreCompleto

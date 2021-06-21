@@ -1,5 +1,6 @@
 query contributorsWithEqualsInformationCamaguey{
   contributorsWithEqualsInformationCamaguey{
+    dpa
     nit
     matricula
     nombreCompleto

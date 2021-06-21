@@ -1,5 +1,6 @@
   query contributorsWithDifferentInformationMayabequeName{
     contributorsWithDifferentInformationMayabequeName{
+        dpa
     nit
     matricula
     nombreCompleto

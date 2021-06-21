@@ -1,5 +1,6 @@
   query contributorsWithEqualsInformationVillaClara{
     contributorsWithEqualsInformationVillaClara{
+        dpa
     nit
     matricula
     nombreCompleto

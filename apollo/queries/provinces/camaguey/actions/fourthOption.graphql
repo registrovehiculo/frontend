@@ -1,5 +1,6 @@
 query infogestiCamaguey{
   infogestiCamaguey{
+    dpa
     nit
     matricula
     nombreCompleto

@@ -1,5 +1,6 @@
   query contributorsWithDifferentInformationSanticEspiritudPlate{
     contributorsWithDifferentInformationSanticEspiritudPlate{
+        dpa
     nit
     matricula
     nombreCompleto

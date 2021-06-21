@@ -1,5 +1,6 @@
 query contributorsWithDifferentInformationIslaPlate{
   contributorsWithDifferentInformationIslaPlate{
+    dpa
     nit
     matricula
     nombreCompleto

@@ -1,5 +1,6 @@
 query contributorsMissingInOnatHabana{
   contributorsMissingInOnatHabana{
+    municipio
     numeroidentidad
     chapanueva
     datospersona

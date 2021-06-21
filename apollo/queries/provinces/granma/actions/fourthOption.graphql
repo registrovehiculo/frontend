@@ -1,5 +1,6 @@
 query infogestiGranma{
   infogestiGranma{
+    dpa
     nit
     matricula
     nombreCompleto

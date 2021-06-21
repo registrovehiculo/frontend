@@ -1,5 +1,10 @@
 [
   {
+          "field": "municipio",
+          "label": "Municipio",
+          "searchable": true,
+          "visible": true
+        },  {
           "field": "numeroidentidad",
           "label": "No. Identidad",
           "searchable": true,

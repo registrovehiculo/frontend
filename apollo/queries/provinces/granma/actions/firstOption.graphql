@@ -1,5 +1,6 @@
 query contributorsMissingInOnatGranma{
   contributorsMissingInOnatGranma{
+    municipio
     numeroidentidad
     chapanueva
     datospersona

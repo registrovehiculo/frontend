@@ -1,5 +1,6 @@
 query contributorsMissingInOnatCienfuegos{
   contributorsMissingInOnatCienfuegos{
+    municipio
     numeroidentidad
     chapanueva
     datospersona

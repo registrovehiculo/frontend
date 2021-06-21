@@ -1,5 +1,6 @@
 query contributorsWithEqualsInformationCienfuegos{
   contributorsWithEqualsInformationCienfuegos{
+    dpa
     nit
     matricula
     nombreCompleto

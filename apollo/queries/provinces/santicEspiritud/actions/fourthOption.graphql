@@ -1,5 +1,6 @@
   query infogestiEspiritud{
     infogestiEspiritud{
+        dpa
     nit
     matricula
     nombreCompleto

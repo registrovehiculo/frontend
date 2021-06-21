@@ -1,5 +1,6 @@
   query contributorsWithDifferentInformationVillaClaraPlate{
     contributorsWithDifferentInformationVillaClaraPlate{
+        dpa
     nit
     matricula
     nombreCompleto

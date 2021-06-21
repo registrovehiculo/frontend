@@ -1,5 +1,6 @@
 query contributorsWithDifferentInformationMatanzasName{
   contributorsWithDifferentInformationMatanzasName{
+    dpa
     nit
     matricula
     nombreCompleto

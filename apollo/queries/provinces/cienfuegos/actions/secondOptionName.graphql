@@ -1,5 +1,6 @@
 query contributorsWithDifferentInformationCienfuegosName{
   contributorsWithDifferentInformationCienfuegosName{
+    dpa
     nit
     matricula
     nombreCompleto

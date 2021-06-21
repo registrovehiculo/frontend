@@ -1,5 +1,6 @@
 query contributorsWithEqualsInformationHolguin{
   contributorsWithEqualsInformationHolguin{
+    dpa
     nit
     matricula
     nombreCompleto

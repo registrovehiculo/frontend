@@ -1,5 +1,6 @@
   query contributorsMissingInOnatSanticEspiritud{
     contributorsMissingInOnatSanticEspiritud{
+        municipio
     numeroidentidad
     chapanueva
     datospersona

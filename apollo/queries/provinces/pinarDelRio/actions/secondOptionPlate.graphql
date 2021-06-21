@@ -1,5 +1,6 @@
   query contributorsWithDifferentInformationPinarPlate{
     contributorsWithDifferentInformationPinarPlate{
+        dpa
     nit
     matricula
     nombreCompleto

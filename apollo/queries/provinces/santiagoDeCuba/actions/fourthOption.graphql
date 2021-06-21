@@ -1,5 +1,6 @@
   query infogestiSantiago{
     infogestiSantiago{
+        dpa
     nit
     matricula
     nombreCompleto

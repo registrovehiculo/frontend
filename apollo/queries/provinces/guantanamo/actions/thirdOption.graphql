@@ -1,5 +1,6 @@
 query contributorsWithEqualsInformationGuantanamo{
   contributorsWithEqualsInformationGuantanamo{
+    dpa
     nit
     matricula
     nombreCompleto

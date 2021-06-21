@@ -1,5 +1,6 @@
   query contributorsWithEqualsInformationSanticEspiritud{
     contributorsWithEqualsInformationSanticEspiritud{
+        dpa
     nit
     matricula
     nombreCompleto

@@ -1,5 +1,6 @@
 query contributorsWithDifferentInformationArtemisaPlate{
   contributorsWithDifferentInformationArtemisaPlate{
+    dpa
     nit
     matricula
     nombreCompleto

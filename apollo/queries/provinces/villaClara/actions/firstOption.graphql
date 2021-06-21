@@ -1,5 +1,6 @@
   query contributorsMissingInOnatVillaClara{
     contributorsMissingInOnatVillaClara{
+        municipio
      numeroidentidad
     chapanueva
     datospersona

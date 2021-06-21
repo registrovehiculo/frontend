@@ -1,5 +1,6 @@
 query contributorsWithEqualsInformationHabana{
   contributorsWithEqualsInformationHabana{
+    dpa
     nit
     matricula
     nombreCompleto

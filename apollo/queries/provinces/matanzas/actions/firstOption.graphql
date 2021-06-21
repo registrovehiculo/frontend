@@ -1,5 +1,6 @@
 query contributorsMissingInOnatMatanzas{
   contributorsMissingInOnatMatanzas{
+    municipio
     numeroidentidad
     chapanueva
     datospersona

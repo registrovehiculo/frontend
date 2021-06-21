@@ -1,5 +1,6 @@
 query infogestiCiego{
   infogestiCiego{
+    dpa
     nit
     matricula
     nombreCompleto

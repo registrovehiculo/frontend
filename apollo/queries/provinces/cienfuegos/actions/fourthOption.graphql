@@ -1,5 +1,6 @@
 query infogestiCienfuegos{
   infogestiCienfuegos{
+    dpa
     nit
     matricula
     nombreCompleto

@@ -1,5 +1,6 @@
 query contributorsWithDifferentInformationCamagueyName{
   contributorsWithDifferentInformationCamagueyName{
+    dpa
     nit
     matricula
     nombreCompleto

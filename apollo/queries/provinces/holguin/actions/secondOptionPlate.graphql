@@ -1,5 +1,6 @@
 query contributorsWithDifferentInformationHolguinPlate{
   contributorsWithDifferentInformationHolguinPlate{
+    dpa
     nit
     matricula
     nombreCompleto

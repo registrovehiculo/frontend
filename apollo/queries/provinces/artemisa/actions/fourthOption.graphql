@@ -1,5 +1,6 @@
 query infogestiArtemisa{
   infogestiArtemisa{
+    dpa
     nit
     matricula
     nombreCompleto

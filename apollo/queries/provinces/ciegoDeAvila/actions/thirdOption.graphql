@@ -1,5 +1,6 @@
 query contributorsWithEqualsInformationCiego{
   contributorsWithEqualsInformationCiego{
+    dpa
     nit
     matricula
     nombreCompleto

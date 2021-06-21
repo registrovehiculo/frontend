@@ -1,5 +1,6 @@
   query contributorsWithEqualsInformationMayabeque{
     contributorsWithEqualsInformationMayabeque{
+        dpa
     nit
     matricula
     nombreCompleto

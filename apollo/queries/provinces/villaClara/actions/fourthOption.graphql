@@ -1,5 +1,6 @@
   query infogestiVilla{
     infogestiVilla{
+        dpa
     nit
     matricula
     nombreCompleto

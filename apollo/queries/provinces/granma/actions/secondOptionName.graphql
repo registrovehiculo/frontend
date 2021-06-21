@@ -1,5 +1,6 @@
 query contributorsWithDifferentInformationGranmaName{
   contributorsWithDifferentInformationGranmaName{
+    dpa
     nit
     matricula
     nombreCompleto

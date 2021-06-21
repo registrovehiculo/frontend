@@ -1,5 +1,6 @@
 query contributorsMissingInOnatArtemisa{
   contributorsMissingInOnatArtemisa{
+    municipio
     numeroidentidad
     chapanueva
     datospersona
