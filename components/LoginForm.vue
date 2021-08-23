@@ -94,6 +94,12 @@ export default {
       return this.$store.getters['system/getActive']
     }
   },
+  beforeCreate() {
+    const url = this.$cookies.get('auth.redirect')
+    if (url && this.$auth.loggedIn) {
+      this.$router.replace(url)
+    }
+  },
   validations: {
     form: {
       username: {
@@ -138,11 +144,11 @@ export default {
                   const cookie = this.$cookies.get('auth.redirect')
                   if (cookie) {
                     this.$cookies.set('auth.redirect', null)
-                    // window.location.href = cookie
-                    this.$router.replace(cookie)
+                    window.location.href = cookie
+                    // this.$router.replace(cookie)
                   } else {
-                    // window.location.href = '/'
-                    this.$router.replace('/')
+                    window.location.href = '/'
+                    // this.$router.replace('/')
                   }
                 })
                 break

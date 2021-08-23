@@ -2,7 +2,7 @@
   <div>
     <HomePageTransporte v-if="$auth.loggedIn && !getSystem" />
     <HomePageEmbarcacion v-if="$auth.loggedIn && getSystem" />
-    <LoginForm v-if="!$auth.loggedIn" />
+    <Homepage v-if="!$auth.loggedIn" />
   </div>
 </template>
 
@@ -10,21 +10,13 @@
 // Components
 import HomePageTransporte from '~/components/HomePageTransporte'
 import HomePageEmbarcacion from '~/components/HomePageEmbarcacion'
-import LoginForm from '~/components/LoginForm'
+import Homepage from '~/components/Homepage'
 export default {
-  components: { HomePageTransporte, LoginForm, HomePageEmbarcacion },
+  components: { Homepage, HomePageTransporte, HomePageEmbarcacion },
   auth: false,
   computed: {
     getSystem() {
       return this.$store.getters['system/getActive']
-    }
-  },
-  beforeCreate() {
-    const url = this.$cookies.get('auth.redirect')
-    if (url && this.$auth.loggedIn) {
-      this.$router.replace(url)
-    } else {
-      // this.$router.replace('/')
     }
   }
 }
