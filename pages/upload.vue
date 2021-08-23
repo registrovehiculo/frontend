@@ -21,9 +21,7 @@
     <p
       class="has-text-centered font-size-5 margin-top-20"
       style="margin-left: 10%; color: #d60000"
-    >
-      {{ system }}
-    </p>
+    ></p>
 
     <p
       v-show="loadingDatabase"
@@ -80,7 +78,8 @@
         <div class="container">
           <div class="columns is-centered">
             <div class="column is-6 is-offset-1">
-              <Uploader />
+              <UploaderEmbarcaciones v-show="system === 'Embarcaciones'" />
+              <UploaderTransporte v-show="system === 'Transporte'" />
             </div>
           </div>
         </div>
@@ -91,9 +90,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Uploader from '~/components/Uploader'
+import UploaderEmbarcaciones from '~/components/UploaderEmbarcaciones'
+import UploaderTransporte from '~/components/UploaderTransporte'
 export default {
-  components: { Uploader },
+  components: { UploaderEmbarcaciones, UploaderTransporte },
   data() {
     return {
       updateData: null,

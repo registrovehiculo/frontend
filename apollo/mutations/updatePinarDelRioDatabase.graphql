@@ -1,0 +1,5 @@
+mutation updatePinarDelRioDatabase($data:  JSONString!){
+  updatePinarDelRioDatabase(data: $data){
+    status
+  }
+}

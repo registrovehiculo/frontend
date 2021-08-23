@@ -46,6 +46,12 @@ import XLSX from 'xlsx'
 import updateShipmentDatabaseMutation from '~/apollo/mutations/updateShipmentDatabase.graphql'
 export default {
   layout: 'empty',
+  props: {
+    active: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       file: {},
@@ -60,36 +66,37 @@ export default {
       this.dropFiles.splice(index, 1)
     },
     UpdateShipmentDatabase() {
-      this.loading = true
-      this.$store.commit('loading/set', true)
-      const f = this.dropFiles[0]
-      const reader = new FileReader()
-      const apply = this
-      reader.onload = function(e) {
-        const data = new Uint8Array(e.target.result)
-        const workbook = XLSX.read(data, { type: 'array' })
-        const sheetName = workbook.SheetNames[0]
-        const worksheet = workbook.Sheets[sheetName]
-        const dataArr = XLSX.utils.sheet_to_json(worksheet)
-        apply.updateData = JSON.stringify(dataArr)
-        console.log(apply.updateData)
-        apply.$apollo
-          .mutate({
-            mutation: updateShipmentDatabaseMutation,
-            variables: { data: apply.updateData }
-          })
-          .then(({ data }) => {
-            if (data.updateShipmentDatabase.status === 'ok') {
-              apply.$buefy.dialog.alert({
-                message: 'Se actualizo la base de datos'
-              })
-            }
-            apply.loading = false
-            apply.updating = 'Bases de datos de capitanñía actualizada'
-            apply.$store.commit('loading/set', false)
-          })
+      console.log(this.active)
+      if (this.active === 'Embarcaciones') {
+        this.loading = true
+        this.$store.commit('loading/set', true)
+        const f = this.dropFiles[0]
+        const reader = new FileReader()
+        const apply = this
+        reader.onload = function(e) {
+          const data = new Uint8Array(e.target.result)
+          const workbook = XLSX.read(data, { type: 'array' })
+          const sheetName = workbook.SheetNames[0]
+          const worksheet = workbook.Sheets[sheetName]
+          const dataArr = XLSX.utils.sheet_to_json(worksheet)
+          apply.updateData = JSON.stringify(dataArr)
+          apply.$apollo
+            .mutate({
+              mutation: updateShipmentDatabaseMutation,
+              variables: { data: apply.updateData }
+            })
+            .then(({ data }) => {
+              if (data.updateShipmentDatabase.status === 'ok') {
+                apply.$buefy.dialog.alert({
+                  message: 'Se actualizo la base de datos'
+                })
+              }
+              apply.loading = false
+              apply.$store.commit('loading/set', false)
+            })
+        }
+        reader.readAsArrayBuffer(f)
       }
-      reader.readAsArrayBuffer(f)
     }
   }
 }

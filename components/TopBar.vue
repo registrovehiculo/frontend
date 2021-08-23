@@ -89,18 +89,18 @@
                 @click="userManual()"
                 >Manual de usuario</a
               >
-              <a
+              <!--a
                 v-if="$route.name !== 'suggestions'"
                 class="navbar-item"
                 @click="suggestions()"
                 >Quejas y sugerencias</a
-              >
-              <a
+              -->
+              <!--a
                 v-if="$route.name !== 'upload'"
                 class="navbar-item"
                 @click="upload()"
                 >Actualizar base de datos</a
-              >
+              -->
               <a class="navbar-item" @click="logout()">Salir</a>
             </div>
           </div>
