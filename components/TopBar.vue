@@ -21,7 +21,8 @@
             !getSystem &&
               $route.name !== 'faq' &&
               $route.name !== 'suggestions' &&
-              $route.name !== 'upload'
+              $route.name !== 'upload' &&
+              $route.name !== 'createUser'
           "
           style="width: 100%"
           class="margin-top-10 is-hidden-tablet is-hidden-desktop"
@@ -39,7 +40,8 @@
               !getSystem &&
                 $route.name !== 'faq' &&
                 $route.name !== 'suggestions' &&
-                $route.name !== 'upload'
+                $route.name !== 'upload' &&
+                $route.name !== 'createUser'
             "
           />
         </div>
@@ -63,10 +65,17 @@
               "
             >
               <a
+                v-if="$route.name !== 'createUser' && getUser().isSuperuser"
+                class="navbar-item"
+                @click="createUser()"
+                >Crear usuario</a
+              >
+              <a
                 v-if="
                   $route.name !== 'faq' &&
                     $route.name !== 'suggestions' &&
-                    $route.name !== 'upload'
+                    $route.name !== 'upload' &&
+                    $route.name !== 'createUser'
                 "
                 class="navbar-item"
                 @click="changeSystem()"
@@ -77,7 +86,8 @@
                 v-if="
                   $route.name === 'faq' ||
                     $route.name === 'suggestions' ||
-                    $route.name === 'upload'
+                    $route.name === 'upload' ||
+                    $route.name === 'createUser'
                 "
                 class="navbar-item"
                 @click="$router.replace('/')"
@@ -95,12 +105,13 @@
                 @click="suggestions()"
                 >Quejas y sugerencias</a
               -->
-              <!--a
-                v-if="$route.name !== 'upload'"
+
+              <a
+                v-if="$route.name !== 'upload' && getUser().isSuperuser"
                 class="navbar-item"
                 @click="upload()"
                 >Actualizar base de datos</a
-              -->
+              >
               <a class="navbar-item" @click="logout()">Salir</a>
             </div>
           </div>
@@ -167,6 +178,11 @@ export default {
     upload() {
       if (this.$route.name !== 'upload') {
         this.$router.push('upload')
+      }
+    },
+    createUser() {
+      if (this.$route.name !== 'createUser') {
+        this.$router.push('createUser')
       }
     },
     linkify: require('~/services/linkify').linkify,

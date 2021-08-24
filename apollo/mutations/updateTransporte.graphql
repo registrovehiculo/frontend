@@ -1,0 +1,5 @@
+mutation updateTransporte{
+  updateTransporte{
+    status
+  }
+}

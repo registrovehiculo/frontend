@@ -1371,7 +1371,8 @@ export default {
     },
 
     ...mapGetters({
-      getActive: 'search/getActive'
+      getActive: 'search/getActive',
+      getUser: 'getUser'
     }),
     ...mapMutations({
       setActive: 'search/setActive'

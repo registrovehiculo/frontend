@@ -5,7 +5,8 @@ export const state = () => ({
   user: {
     id: null,
     username: null,
-    email: null
+    email: null,
+    isSuperuser: null
   },
   strategy: null
 })
@@ -14,10 +15,11 @@ export const mutations = {
   loadFromCookie(state) {
     const cookie = this.$cookies.get('auth.user')
     if (cookie) {
-      const { id, username, email } = cookie
+      const { id, username, email, isSuperuser } = cookie
       state.user.id = id
       state.user.username = username
       state.user.email = email
+      state.user.isSuperuser = isSuperuser
       // Inject into nuxt $auth
       this.$auth.setStrategy('local')
       this.$auth.setUser(state.user)
@@ -29,7 +31,8 @@ export const mutations = {
     state.user = {
       id: null,
       username: null,
-      email: null
+      email: null,
+      isSuperuser: null
     }
   },
   setUser(state, payload) {
@@ -40,6 +43,7 @@ export const mutations = {
         state.user.id = payload.user.id
         state.user.username = payload.user.username
         state.user.email = payload.user.email
+        state.user.isSuperuser = payload.user.isSuperuser
         break
       }
     }
