@@ -136,7 +136,6 @@ export default {
                   })
                   this.$auth.setToken('local', jwtToken)
                   this.$auth.setUser(user)
-                  console.log(user)
 
                   // Save auth data in cookies
                   this.$cookies.set('auth.user', user)
@@ -145,10 +144,10 @@ export default {
                   if (cookie) {
                     this.$cookies.set('auth.redirect', null)
                     // window.location.href = cookie
-                    this.$router.replace(cookie)
+                    this.$router.replace(cookie).catch(() => {})
                   } else {
                     // window.location.href = '/'
-                    this.$router.replace('/')
+                    this.$router.replace('/').catch(() => {})
                   }
                 })
                 break

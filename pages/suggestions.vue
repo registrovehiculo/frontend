@@ -203,7 +203,6 @@ export default {
             if (data.createReview) {
               status = data.createReview.status
               review = data.createReview.review
-              console.log(review)
               this.$store.commit('review/publishReview', review)
             }
             if (status === 'forbidden') {

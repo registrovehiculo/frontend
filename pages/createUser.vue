@@ -12,7 +12,7 @@
                 width="150"
               />
               <h2 class="title has-text-centered">
-                Crear Usuario
+                Crear un usuario
               </h2>
               <form @submit.stop.prevent="register()">
                 <!-- user -->
@@ -190,7 +190,6 @@ export default {
                 })
                 .then(({ data }) => {
                   const { status } = data.signup
-                  console.log(status)
                   if (status === 'ok') {
                     this.registerForm.loading = false
                     this.$buefy.dialog.alert({

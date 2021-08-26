@@ -914,7 +914,6 @@ export default {
 
       // La habana
       else if (this.selectedProvince === 'habana') {
-        console.log(1)
         if (this.selectedAction === 1) {
           this.$apollo
             .query({

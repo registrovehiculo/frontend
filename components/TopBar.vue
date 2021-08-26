@@ -107,7 +107,7 @@
               -->
 
               <a
-                v-if="$route.name !== 'upload' && getUser().isSuperuser"
+                v-if="$route.name !== 'upload'"
                 class="navbar-item"
                 @click="upload()"
                 >Actualizar base de datos</a

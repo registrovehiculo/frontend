@@ -413,7 +413,6 @@ export default {
           .then(data => {
             this.ownerWithMoreThanOneShipment =
               data.data.ownerWithMoreThanOneShipment
-            console.log(this.ownerWithMoreThanOneShipment.length)
             for (
               let i = 0;
               i < this.ownerWithMoreThanOneShipment.length - 1;
