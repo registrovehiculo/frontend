@@ -2,7 +2,7 @@ mutation search($criteria: String!) {
   search(criteria: $criteria) {
     status
     vehiculo {
-      dpa
+    municipio
     chapanueva
     numeromotor
     numerocarroseria

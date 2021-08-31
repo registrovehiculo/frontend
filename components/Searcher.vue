@@ -9,7 +9,7 @@
       field="description"
       expanded
       rounded
-      max-height="375px"
+      max-height="700px"
       scrollable
       size="is-small"
       style="width: 100%"

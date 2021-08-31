@@ -1,6 +1,6 @@
 query vehiculo ($datospersona: String!){
     vehiculo(datospersona: $datospersona){
-        dpa
+    municipio
     chapanueva
     numeromotor
     numerocarroseria
