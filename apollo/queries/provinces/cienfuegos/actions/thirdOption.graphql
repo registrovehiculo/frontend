@@ -1,9 +1,9 @@
 query contributorsWithEqualsInformationCienfuegos{
   contributorsWithEqualsInformationCienfuegos{
-    dpa
-    nit
-    matricula
-    nombreCompleto
+    municipio
+    numeroidentidad
+    chapanueva
+    datospersona
     direccion
   }
 }

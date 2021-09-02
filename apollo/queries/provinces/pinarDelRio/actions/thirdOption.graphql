@@ -1,9 +1,9 @@
   query contributorsWithEqualsInformationPinar{
     contributorsWithEqualsInformationPinar{
-        dpa
-    nit
-    matricula
-    nombreCompleto
+    municipio
+    numeroidentidad
+    chapanueva
+    datospersona
     direccion
     }
   }

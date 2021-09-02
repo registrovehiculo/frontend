@@ -1,9 +1,9 @@
   query contributorsWithEqualsInformationMayabeque{
     contributorsWithEqualsInformationMayabeque{
-        dpa
-    nit
-    matricula
-    nombreCompleto
+    municipio
+    numeroidentidad
+    chapanueva
+    datospersona
     direccion
     }
   }

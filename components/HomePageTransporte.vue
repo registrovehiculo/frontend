@@ -36,7 +36,7 @@
               <vue-excel-xlsx
                 v-if="data_2"
                 :data="data_2"
-                :columns="tableColumnsInfo"
+                :columns="tableColumns"
                 :filename="selectedProvince"
                 :sheetname="selectedProvince"
                 class="documentStyle"
@@ -50,7 +50,7 @@
               <vue-excel-xlsx
                 v-if="data_3"
                 :data="data_3"
-                :columns="tableColumnsInfo"
+                :columns="tableColumns"
                 :filename="selectedProvince"
                 :sheetname="selectedProvince"
                 class="documentStyle"
@@ -243,7 +243,7 @@
           <StatesTable
             v-if="data_3"
             :data="data_3"
-            :columns="tableColumnsInfo"
+            :columns="tableColumns"
             :loading="loading"
           />
         </div>
@@ -252,7 +252,7 @@
           <StatesTable
             v-if="data_2"
             :data="data_2"
-            :columns="tableColumnsInfo"
+            :columns="tableColumns"
             checkable
           />
         </div>

@@ -1,9 +1,9 @@
 query contributorsWithDifferentInformationCamagueyName{
   contributorsWithDifferentInformationCamagueyName{
-    dpa
-    nit
-    matricula
-    nombreCompleto
+    municipio
+    numeroidentidad
+    chapanueva
+    datospersona
     direccion
   }
 }

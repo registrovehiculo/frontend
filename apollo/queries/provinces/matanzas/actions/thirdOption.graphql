@@ -1,9 +1,9 @@
   query contributorsWithEqualsInformationMatanzas{
     contributorsWithEqualsInformationMatanzas{
-        dpa
-      nit
-      matricula
-      nombreCompleto
-      direccion
+    municipio
+    numeroidentidad
+    chapanueva
+    datospersona
+    direccion
     }
   }
