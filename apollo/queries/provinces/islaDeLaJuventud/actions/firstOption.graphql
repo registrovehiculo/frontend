@@ -4,6 +4,5 @@ query contributorsMissingInOnatIsla{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

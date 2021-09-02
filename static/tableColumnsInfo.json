@@ -23,11 +23,5 @@
           "label": "Matricula",
           "searchable": true,
           "visible": true
-        },
-  {
-          "field": "direccion",
-          "label": "Dirección",
-          "searchable": true,
-          "visible": true
         }
 ]

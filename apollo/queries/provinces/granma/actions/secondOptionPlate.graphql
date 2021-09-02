@@ -4,6 +4,5 @@ query contributorsWithDifferentInformationGranmaPlate{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

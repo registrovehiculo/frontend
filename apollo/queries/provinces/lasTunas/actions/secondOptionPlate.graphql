@@ -4,6 +4,5 @@ query contributorsWithDifferentInformationLasTunasPlate{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

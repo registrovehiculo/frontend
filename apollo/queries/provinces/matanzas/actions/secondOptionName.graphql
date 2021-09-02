@@ -4,6 +4,5 @@ query contributorsWithDifferentInformationMatanzasName{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

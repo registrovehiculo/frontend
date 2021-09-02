@@ -3,6 +3,6 @@ query infogestiHabanaCotorro{
         nit
         unidad
         nombreCompleto
-        direccionPrincipal
+        matricula
     }
 }

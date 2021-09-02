@@ -4,6 +4,5 @@ query contributorsWithDifferentInformationCamagueyName{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

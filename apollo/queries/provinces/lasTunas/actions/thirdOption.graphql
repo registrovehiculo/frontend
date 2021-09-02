@@ -4,6 +4,5 @@ query contributorsWithEqualsInformationLasTunas{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

@@ -4,6 +4,5 @@ query infogestiGuantanamo{
     nit
     matricula
     nombreCompleto
-    direccion
   }
 }

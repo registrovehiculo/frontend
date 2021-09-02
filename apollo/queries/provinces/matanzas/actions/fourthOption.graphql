@@ -4,6 +4,5 @@ query infogestiMatanzas{
     nit
     matricula
     nombreCompleto
-    direccion
   }
 }

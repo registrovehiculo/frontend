@@ -4,6 +4,5 @@ query contributorsWithEqualsInformationCiego{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

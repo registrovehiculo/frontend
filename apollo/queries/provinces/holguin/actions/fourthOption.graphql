@@ -4,6 +4,5 @@ query infogestiHolguin{
     nit
     matricula
     nombreCompleto
-    direccion
   }
 }

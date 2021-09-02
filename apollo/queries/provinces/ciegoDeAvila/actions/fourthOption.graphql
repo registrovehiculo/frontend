@@ -4,6 +4,5 @@ query infogestiCiego{
     nit
     matricula
     nombreCompleto
-    direccion
   }
 }

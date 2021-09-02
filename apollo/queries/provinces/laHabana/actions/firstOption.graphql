@@ -4,6 +4,5 @@ query contributorsMissingInOnatHabana{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

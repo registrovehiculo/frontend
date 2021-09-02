@@ -4,6 +4,5 @@ query infogestiCamaguey{
     nit
     matricula
     nombreCompleto
-    direccion
   }
 }

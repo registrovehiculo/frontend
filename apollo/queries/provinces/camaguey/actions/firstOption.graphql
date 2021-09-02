@@ -4,6 +4,5 @@ query contributorsMissingInOnatCamaguey{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

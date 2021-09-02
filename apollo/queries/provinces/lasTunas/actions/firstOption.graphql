@@ -4,6 +4,5 @@ query contributorsMissingInOnatLasTunas{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

@@ -4,6 +4,5 @@ query infogestiTunas{
     nit
     matricula
     nombreCompleto
-    direccion
   }
 }

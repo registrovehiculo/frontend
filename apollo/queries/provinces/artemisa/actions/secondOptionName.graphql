@@ -4,6 +4,5 @@ query contributorsWithDifferentInformationArtemisaName{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

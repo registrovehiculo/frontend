@@ -4,6 +4,5 @@ query contributorsWithDifferentInformationGranmaName{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

@@ -4,6 +4,5 @@ query contributorsMissingInOnatCiego{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

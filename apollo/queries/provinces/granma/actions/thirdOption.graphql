@@ -4,6 +4,5 @@ query contributorsWithEqualsInformationGranma{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

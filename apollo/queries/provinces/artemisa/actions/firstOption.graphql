@@ -2,8 +2,7 @@ query contributorsMissingInOnatArtemisa{
   contributorsMissingInOnatArtemisa{
     municipio
     numeroidentidad
-    chapanueva
     datospersona
-    direccion
+    chapanueva
   }
 }

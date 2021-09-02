@@ -4,6 +4,5 @@ query contributorsWithDifferentInformationGuantanamoName{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

@@ -4,6 +4,5 @@ query contributorsWithDifferentInformationCienfuegosPlate{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

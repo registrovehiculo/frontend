@@ -4,6 +4,5 @@ query contributorsWithDifferentInformationHolguinName{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

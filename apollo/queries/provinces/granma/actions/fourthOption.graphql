@@ -4,6 +4,5 @@ query infogestiGranma{
     nit
     matricula
     nombreCompleto
-    direccion
   }
 }

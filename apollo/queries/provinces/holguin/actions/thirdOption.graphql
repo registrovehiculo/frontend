@@ -4,6 +4,5 @@ query contributorsWithEqualsInformationHolguin{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

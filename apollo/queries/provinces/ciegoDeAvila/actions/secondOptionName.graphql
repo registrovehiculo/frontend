@@ -4,6 +4,5 @@ query contributorsWithDifferentInformationCiegoName{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

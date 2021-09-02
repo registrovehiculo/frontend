@@ -4,6 +4,5 @@ query contributorsMissingInOnatMatanzas{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

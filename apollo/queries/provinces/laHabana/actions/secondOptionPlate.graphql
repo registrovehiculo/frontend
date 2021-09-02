@@ -4,6 +4,5 @@ query contributorsWithDifferentInformationHabanaPlate{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

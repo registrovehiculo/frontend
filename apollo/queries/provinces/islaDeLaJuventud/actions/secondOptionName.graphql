@@ -4,6 +4,5 @@ query contributorsWithDifferentInformationIslaName{
     numeroidentidad
     chapanueva
     datospersona
-    direccion
   }
 }

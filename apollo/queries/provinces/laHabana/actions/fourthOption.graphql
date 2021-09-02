@@ -4,6 +4,5 @@ query infogestiHabana{
     nit
     matricula
     nombreCompleto
-    direccion
   }
 }
