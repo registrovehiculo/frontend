@@ -1,5 +1,6 @@
   query contributorsWithDifferentInformationMayabequeName{
     contributorsWithDifferentInformationMayabequeName{
+        id
     municipio
     numeroidentidad
     chapanueva

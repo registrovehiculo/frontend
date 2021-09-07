@@ -91,7 +91,8 @@
     "vue-window-size": "^0.6.1",
     "vuelidate": "^0.7.5",
     "vuex": "^3.5.1",
-    "vuex-persistedstate": "^4.0.0-beta.3"
+    "vuex-persistedstate": "^4.0.0-beta.3",
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {
     "@nuxtjs/color-mode": "^1.0.3",

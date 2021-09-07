@@ -1,0 +1,6 @@
+query tunasNameInfogesti{
+  tunasNameInfogesti{
+    nombreCompleto
+    nit
+  }
+}

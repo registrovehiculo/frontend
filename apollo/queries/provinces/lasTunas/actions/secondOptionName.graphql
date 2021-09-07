@@ -1,5 +1,6 @@
 query contributorsWithDifferentInformationLasTunasName{
   contributorsWithDifferentInformationLasTunasName{
+    id
     municipio
     numeroidentidad
     chapanueva

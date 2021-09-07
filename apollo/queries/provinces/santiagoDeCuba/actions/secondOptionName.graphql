@@ -1,5 +1,6 @@
   query contributorsWithDifferentInformationSantiagoDeCubaName{
     contributorsWithDifferentInformationSantiagoDeCubaName{
+        id
     municipio
     numeroidentidad
     chapanueva

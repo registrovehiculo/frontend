@@ -1,5 +1,6 @@
 query contributorsWithDifferentInformationHolguinName{
   contributorsWithDifferentInformationHolguinName{
+    id
     municipio
     numeroidentidad
     chapanueva

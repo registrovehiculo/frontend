@@ -1,0 +1,6 @@
+query espiritudNameInfogesti{
+  espiritudNameInfogesti{
+    nombreCompleto
+    nit
+  }
+}

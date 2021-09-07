@@ -1,5 +1,6 @@
 query contributorsWithDifferentInformationGranmaName{
   contributorsWithDifferentInformationGranmaName{
+    id
     municipio
     numeroidentidad
     chapanueva

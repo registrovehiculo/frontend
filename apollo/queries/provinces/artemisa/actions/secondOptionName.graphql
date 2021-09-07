@@ -1,5 +1,6 @@
 query contributorsWithDifferentInformationArtemisaName{
   contributorsWithDifferentInformationArtemisaName{
+    id
     municipio
     numeroidentidad
     chapanueva

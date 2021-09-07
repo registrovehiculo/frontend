@@ -1,0 +1,6 @@
+query ciegoNameInfogesti{
+  ciegoNameInfogesti{
+    nombreCompleto
+    nit
+  }
+}

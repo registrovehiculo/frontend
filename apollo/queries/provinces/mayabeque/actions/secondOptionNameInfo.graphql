@@ -1,0 +1,6 @@
+query mayabequeNameInfogesti{
+  mayabequeNameInfogesti{
+    nombreCompleto
+    nit
+  }
+}

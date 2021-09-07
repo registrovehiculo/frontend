@@ -1,0 +1,6 @@
+query islaNameInfogesti{
+  islaNameInfogesti{
+    nombreCompleto
+    nit
+  }
+}

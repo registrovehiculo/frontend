@@ -1,0 +1,6 @@
+query granmaNameInfogesti{
+  granmaNameInfogesti{
+    nombreCompleto
+    nit
+  }
+}

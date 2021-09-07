@@ -1,5 +1,6 @@
   query contributorsWithDifferentInformationSanticEspiritudName{
     contributorsWithDifferentInformationSanticEspiritudName{
+        id
     municipio
     numeroidentidad
     chapanueva

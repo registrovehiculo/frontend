@@ -1,0 +1,6 @@
+query cienfuegosNameInfogesti{
+  cienfuegosNameInfogesti{
+    nombreCompleto
+    nit
+  }
+}

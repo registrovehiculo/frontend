@@ -1,0 +1,6 @@
+query guantanamoNameInfogesti{
+  guantanamoNameInfogesti{
+    nombreCompleto
+    nit
+  }
+}

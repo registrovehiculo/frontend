@@ -1,0 +1,6 @@
+query holguinNameInfogesti{
+  holguinNameInfogesti{
+    nombreCompleto
+    nit
+  }
+}

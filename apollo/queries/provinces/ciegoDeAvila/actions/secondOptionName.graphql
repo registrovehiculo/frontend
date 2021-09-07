@@ -1,5 +1,6 @@
 query contributorsWithDifferentInformationCiegoName{
   contributorsWithDifferentInformationCiegoName{
+    id
     municipio
     numeroidentidad
     chapanueva

@@ -1,0 +1,6 @@
+query santiagoNameInfogesti{
+  santiagoNameInfogesti{
+    nombreCompleto
+    nit
+  }
+}

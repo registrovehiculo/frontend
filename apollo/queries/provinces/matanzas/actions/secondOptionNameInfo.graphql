@@ -1,0 +1,6 @@
+query matanzasNameInfogesti{
+  matanzasNameInfogesti{
+    nombreCompleto
+    nit
+  }
+}

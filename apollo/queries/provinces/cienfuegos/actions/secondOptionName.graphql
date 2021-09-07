@@ -1,5 +1,6 @@
 query contributorsWithDifferentInformationCienfuegosName{
   contributorsWithDifferentInformationCienfuegosName{
+    id
     municipio
     numeroidentidad
     chapanueva

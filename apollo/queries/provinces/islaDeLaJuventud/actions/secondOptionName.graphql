@@ -1,5 +1,6 @@
 query contributorsWithDifferentInformationIslaName{
   contributorsWithDifferentInformationIslaName{
+    id
     municipio
     numeroidentidad
     chapanueva

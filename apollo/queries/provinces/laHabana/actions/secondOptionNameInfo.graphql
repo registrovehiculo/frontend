@@ -1,0 +1,6 @@
+query habanaNameInfogesti{
+  habanaNameInfogesti{
+    nombreCompleto
+    nit
+  }
+}

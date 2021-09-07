@@ -1,0 +1,6 @@
+query pinarNameInfogesti{
+  pinarNameInfogesti{
+    nombreCompleto
+    nit
+  }
+}

@@ -1,5 +1,6 @@
 query contributorsWithDifferentInformationGuantanamoName{
   contributorsWithDifferentInformationGuantanamoName{
+    id
     municipio
     numeroidentidad
     chapanueva
