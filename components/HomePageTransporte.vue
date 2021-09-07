@@ -228,7 +228,7 @@
     </div>
     <div v-if="data_2a !== null" class="has-text-centered">
       <p v-if="data_2a.length === 0" class="font-size-3">
-        {{ 'No se encontraron chapas distintos' }}
+        {{ 'No se encontraron chapas distintas' }}
       </p>
     </div>
     <div class="columns is-centered">
