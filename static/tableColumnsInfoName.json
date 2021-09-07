@@ -1,0 +1,15 @@
+[
+          {
+          "field": "nombreCompleto",
+          "label": "Nombre Completo",
+          "searchable": true,
+          "visible": true
+        },
+  {
+          "field": "nit",
+          "label": "NIT",
+          "searchable": true,
+          "visible": true
+        }
+
+]

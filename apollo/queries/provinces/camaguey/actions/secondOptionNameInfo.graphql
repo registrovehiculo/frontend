@@ -1,0 +1,6 @@
+query camagueyNameInfogesti{
+  camagueyNameInfogesti{
+  nombreCompleto
+    nit
+  }
+}

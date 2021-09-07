@@ -223,16 +223,18 @@
     </div>
     <div v-if="data_2 !== null" class="has-text-centered">
       <p v-if="data_2.length === 0" class="font-size-3">
-        {{ 'No se encontraron nombres distintos' }}
+        {{ 'No se encontraron diferencias' }}
       </p>
     </div>
-    <div v-if="data_2a !== null" class="has-text-centered">
-      <p v-if="data_2a.length === 0" class="font-size-3">
-        {{ 'No se encontraron chapas distintas' }}
-      </p>
-    </div>
-    <div class="columns is-centered">
-      <div v-if="!loading" class="flex-wrap-center column is-10">
+    <div>
+      <div
+        v-if="!loading"
+        :class="
+          radio === names
+            ? 'column is-offset-1'
+            : 'columns is-centered flex-wrap-center column is-10'
+        "
+      >
         <div v-if="getActive()">
           <StatesTable
             v-if="vehiculo"
@@ -257,8 +259,57 @@
             :loading="loading"
           />
         </div>
-
-        <div v-if="selectedAction === 2 && !getActive() && data_2 !== null">
+        <div
+          v-if="
+            selectedAction === 2 &&
+              !getActive() &&
+              data_2 !== null &&
+              data_2a !== null &&
+              radio === 'names'
+          "
+          class="media"
+        >
+          {{ data_2[0].datospersona }}
+          <div class="media-left">
+            <StatesTable
+              v-if="data_2.length > 0"
+              :data="data_2"
+              :columns="tableColumns"
+              checkable
+            />
+          </div>
+          <div class="media-right margin-top-40">
+            <div v-for="(n, i) in data_2a.length" :key="i">
+              <b-button
+                class="is-black changeColorR"
+                size="is-small"
+                style="margin-top: 0.64rem"
+                rounded
+                @click="updateName(i)"
+              >
+                <font-awesome-icon
+                  :icon="['fas', 'arrow-left']"
+                  class="font-size-5 is-white"
+              /></b-button>
+            </div>
+            <div style="z-index: 1; margin-top: -45em" class="margin-left-40">
+              <StatesTable
+                v-if="data_2a.length > 0"
+                :data="data_2a"
+                :columns="tableColumnsInfoName"
+                checkable
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          v-if="
+            selectedAction === 2 &&
+              !getActive() &&
+              data_2 !== null &&
+              radio === 'plates'
+          "
+        >
           <StatesTable
             v-if="data_2.length > 0"
             :data="data_2"
@@ -266,6 +317,7 @@
             checkable
           />
         </div>
+
         <div v-if="!getActive() && selectedAction === 4">
           <StatesTable
             v-if="data_4"
@@ -291,6 +343,7 @@ import infogestiArtemisaQuery from '~/apollo/queries/provinces/artemisa/actions/
 // Camaguey
 import contributorsMissingInOnatCamagueyQuery from '~/apollo/queries/provinces/camaguey/actions/firstOption.graphql'
 import camagueyDifferentNameQuery from '~/apollo/queries/provinces/camaguey/actions/secondOptionName.graphql'
+import camagueyNameInfogestiQuery from '~/apollo/queries/provinces/camaguey/actions/secondOptionNameInfo.graphql'
 import camagueyDifferentPlateQuery from '~/apollo/queries/provinces/camaguey/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationCamagueyQuery from '~/apollo/queries/provinces/camaguey/actions/thirdOption.graphql'
 import infogestiCamagueyQuery from '~/apollo/queries/provinces/camaguey/actions/fourthOption.graphql'
@@ -378,6 +431,8 @@ import VillaClaraDifferentNameQuery from '~/apollo/queries/provinces/villaClara/
 import VillaClaraDifferentPlateQuery from '~/apollo/queries/provinces/villaClara/actions/secondOptionPlate.graphql'
 import contributorsWithEqualsInformationVillaClaraQuery from '~/apollo/queries/provinces/villaClara/actions/thirdOption.graphql'
 import infogestiVillaQuery from '~/apollo/queries/provinces/villaClara/actions/fourthOption.graphql'
+
+import updateNameMutation from '~/apollo/mutations/updateName.graphql'
 // Components
 // import ColumnOptions from '~/components/ColumnOptions'
 import StatesTable from '~/components/StatesTable'
@@ -387,6 +442,7 @@ import different from '~/static/different.json'
 import differentInfo from '~/static/differentInfo.json'
 import tableColumns from '~/static/tableColumns.json'
 import tableColumnsInfo from '~/static/tableColumnsInfo.json'
+import tableColumnsInfoName from '~/static/tableColumnsInfoName.json'
 export default {
   components: { StatesTable },
   asyncData({ req }) {
@@ -395,7 +451,8 @@ export default {
       tableColumns,
       tableColumnsInfo,
       different,
-      differentInfo
+      differentInfo,
+      tableColumnsInfoName
     }
   },
   data() {
@@ -410,6 +467,7 @@ export default {
       tableColumnsInfo,
       different,
       differentInfo,
+      tableColumnsInfoName,
       selectedProvince: null,
       loading: false,
       data_1: null,
@@ -466,11 +524,28 @@ export default {
     clean() {
       this.data = null
     },
+    updateName(index) {
+      console.log(this.data_2[index].id)
+      this.$apollo
+        .mutate({
+          mutation: updateNameMutation,
+          variables: {
+            id: this.data_2[index].id,
+            province: this.selectedProvince,
+            infoGestiName: this.data_2a[index].nombreCompleto
+          }
+        })
+        .then(({ data }) => {
+          console.log(data.status)
+          this.data_2[index].datospersona = this.data_2a[index].nombreCompleto
+        })
+    },
     select() {
       // Artemisa
       this.loading = true
       this.data_1 = null
       this.data_2 = null
+      this.data_2a = null
       this.data_3 = null
       this.data_4 = null
       this.$store.commit('search/setActive', false)
@@ -551,6 +626,14 @@ export default {
               .then(({ data }) => {
                 this.data_2 =
                   data.contributorsWithDifferentInformationCamagueyName
+                this.loading = false
+              })
+            this.$apollo
+              .query({
+                query: camagueyNameInfogestiQuery
+              })
+              .then(({ data }) => {
+                this.data_2a = data.camagueyNameInfogesti
                 this.loading = false
               })
           } else {
