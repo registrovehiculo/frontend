@@ -270,6 +270,7 @@ import shipmentUserDifferentShipmentQuery from '~/apollo/queries/shipmentUserDif
 import shipmentUserDifferentCaptaincyQuery from '~/apollo/queries/shipmentUserDifferentCaptaincy.graphql'
 import shipmentUserDifferentBaseQuery from '~/apollo/queries/shipmentUserDifferentBase.graphql'
 import shipmentUserDifferentRegisterQuery from '~/apollo/queries/shipmentUserDifferentRegister.graphql'
+import shipmentQuery from '~/apollo/queries/shipment.graphql'
 // Components
 import InformationTable from '~/components/InformationTable'
 // json loading
@@ -283,7 +284,6 @@ import tableColumnsEmbarcacionInfo from '~/static/tableColumnsEmbarcacionInfo.js
 import tableColumnsEmbarcacionInfoR from '~/static/tableColumnsEmbarcacionInfoR.json'
 import tableColumnsEmbarcacionInfoCaptaincy from '~/static/tableColumnsEmbarcacionInfoCaptaincy.json'
 import tableColumnsEmbarcacionInfoRegister from '~/static/tableColumnsEmbarcacionInfoRegister.json'
-import shipment from '~/static/shipment.json'
 
 // import validators from '~/utils/validators'
 export default {
@@ -300,9 +300,13 @@ export default {
       tableColumnsEmbarcacionInfo,
       tableColumnsEmbarcacionInfoCaptaincy,
       tableColumnsEmbarcacionInfoR,
-      tableColumnsEmbarcacionInfoRegister,
-      shipment
+      tableColumnsEmbarcacionInfoRegister
     }
+  },
+  beforeMount() {
+    this.$apollo.query({ query: shipmentQuery }).then(({ data }) => {
+      this.shipment = data.shipment
+    })
   },
   data() {
     return {
@@ -311,7 +315,7 @@ export default {
       ownerWithOneShipment: [],
       ownerWithDifferentNameEqualId: [],
       result: [],
-      shipment,
+      shipment: null,
       option1: [],
       option2: [],
       option3: [],

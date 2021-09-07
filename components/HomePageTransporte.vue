@@ -221,6 +221,16 @@
         ></b-skeleton>
       </div>
     </div>
+    <div v-if="data_2 !== null" class="has-text-centered">
+      <p v-if="data_2.length === 0" class="font-size-3">
+        {{ 'No se encontraron nombres distintos' }}
+      </p>
+    </div>
+    <div v-if="data_2a !== null" class="has-text-centered">
+      <p v-if="data_2a.length === 0" class="font-size-3">
+        {{ 'No se encontraron chapas distintos' }}
+      </p>
+    </div>
     <div class="columns is-centered">
       <div v-if="!loading" class="flex-wrap-center column is-10">
         <div v-if="getActive()">
@@ -248,9 +258,9 @@
           />
         </div>
 
-        <div v-if="selectedAction === 2 && !getActive()">
+        <div v-if="selectedAction === 2 && !getActive() && data_2 !== null">
           <StatesTable
-            v-if="data_2"
+            v-if="data_2.length > 0"
             :data="data_2"
             :columns="tableColumns"
             checkable
