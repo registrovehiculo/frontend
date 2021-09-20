@@ -154,7 +154,7 @@ export default {
       await this.$auth.logout().then(() => {
         this.cleanAuth()
       })
-      this.$router.replace('/').catch(() => {})
+      window.location.href = '/'
     },
     changeSystem() {
       if (this.name === 'Transporte') {

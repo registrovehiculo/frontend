@@ -29,7 +29,24 @@
           />
         </template>
         <template #default="props">
+          <p :class="index === 3 && getTableNames ? 'level-left' : ''"></p>
           {{ props.row[column.field] }}
+          <p
+            v-if="index === 3 && getTableNames"
+            class="level-right"
+            style="margin-top: -20px; margin-left: 20px"
+          >
+            <b-button
+              class="is-black changeColorR"
+              size="is-small"
+              rounded
+              @click="update(data.indexOf(props.row))"
+            >
+              <font-awesome-icon
+                :icon="['fas', 'arrow-left']"
+                class="font-size-4 is-white"
+            /></b-button>
+          </p>
         </template>
       </b-table-column>
     </template>
@@ -50,6 +67,28 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  data() {
+    return {
+      index: null
+    }
+  },
+  computed: {
+    getTableNames() {
+      return this.$store.getters['tableNames/getTableNames']
+    }
+  },
+  methods: {
+    update(i) {
+      this.index = i
+      this.$store.commit('arrIndex/setIndex', this.index)
+      this.$emit('update-name')
+    }
   }
 }
 </script>
+<style lang="stylus" scoped>
+.changeColorR:not([disabled]):hover
+  background #d60000 !important
+  transition background 300ms
+</style>

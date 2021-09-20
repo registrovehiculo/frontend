@@ -277,9 +277,10 @@
                 :data="data_2"
                 :columns="tableColumns"
                 checkable
+                @update-name="updateName"
               />
             </div>
-            <div class="column is-1" style="margin-top: 75px">
+            <!--div class="column is-1" style="margin-top: 75px">
               <div
                 v-for="(n, i) in data_2a.length"
                 :key="i"
@@ -296,8 +297,8 @@
                     class="font-size-4 is-white"
                 /></b-button>
               </div>
-            </div>
-            <div class="column is-4" style="margin-left: -60px">
+            </div-->
+            <div class="column is-4">
               <StatesTable
                 v-if="data_2a.length > 0"
                 :data="data_2a"
@@ -544,7 +545,8 @@ export default {
     clean() {
       this.data = null
     },
-    updateName(index) {
+    updateName() {
+      const index = this.$store.getters['arrIndex/getIndex']
       this.data_2[index].datospersona = this.data_2a[index].nombreCompleto
       console.log(this.data_2[index].id)
       this.$apollo
@@ -568,6 +570,11 @@ export default {
       this.data_2a = null
       this.data_3 = null
       this.data_4 = null
+      if (this.radio === 'names' && this.selectedAction === 2) {
+        this.$store.commit('tableNames/setTableNames', true)
+      } else {
+        this.$store.commit('tableNames/setTableNames', false)
+      }
       this.$store.commit('search/setActive', false)
       if (this.selectedProvince === 'artemisa') {
         if (this.selectedAction === 1) {
@@ -1604,10 +1611,12 @@ export default {
 
     ...mapGetters({
       getActive: 'search/getActive',
-      getUser: 'getUser'
+      getUser: 'getUser',
+      getTableNames: 'tableNames/getTableNames'
     }),
     ...mapMutations({
-      setActive: 'search/setActive'
+      setActive: 'search/setActive',
+      setTableNames: 'tableNames/setTableNames'
     })
   }
 }
@@ -1631,7 +1640,4 @@ export default {
   width 87%
   background #ffffff
   z-index 1
-.changeColorR:not([disabled]):hover
-  background #d60000 !important
-  transition background 300ms
 </style>
