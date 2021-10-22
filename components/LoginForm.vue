@@ -37,6 +37,7 @@
                       password-reveal
                       placeholder="Contraseña"
                       rounded
+                      @keydown.native="test_keydown_handler"
                     ></b-input>
                   </b-field>
                 </div>
@@ -111,6 +112,11 @@ export default {
     }
   },
   methods: {
+    test_keydown_handler(event) {
+      if (event.which === 13) {
+        this.login()
+      }
+    },
     login() {
       this.$v.form.$touch()
       if (!this.form.$invalid) {
@@ -142,7 +148,7 @@ export default {
                   this.$cookies.set('auth._token.local', jwtToken)
                   const cookie = this.$cookies.get('auth.redirect')
                   if (cookie) {
-                    this.$cookies.set('auth.redirect', null)
+                    // this.$cookies.set('auth.redirect', null)
                     window.location.href = cookie
                     // this.$router.replace(cookie).catch(() => {})
                   } else {
