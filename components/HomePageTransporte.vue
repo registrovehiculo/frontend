@@ -158,14 +158,16 @@
             >
               Chapas distintas
             </b-radio>
-            <b-radio
-              v-model="radio"
-              name="differentNames"
-              native-value="names"
-              @input="select()"
-            >
-              Nombres distintos
-            </b-radio>
+            <client-only>
+              <b-radio
+                v-model="radio"
+                name="differentNames"
+                native-value="names"
+                @input="select()"
+              >
+                Nombres distintos
+              </b-radio>
+            </client-only>
           </div>
         </div>
       </div>
