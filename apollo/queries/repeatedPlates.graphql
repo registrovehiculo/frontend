@@ -1,0 +1,8 @@
+query repeated{
+  repeated{
+    dpa
+    nit
+    nombreCompleto
+    matricula
+  }
+}

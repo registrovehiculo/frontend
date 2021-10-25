@@ -1,0 +1,8 @@
+query granma{
+  granma{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

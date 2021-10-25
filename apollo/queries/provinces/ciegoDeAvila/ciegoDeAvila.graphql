@@ -1,0 +1,8 @@
+query ciego{
+  ciego{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

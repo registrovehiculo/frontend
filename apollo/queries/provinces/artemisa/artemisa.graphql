@@ -1,0 +1,8 @@
+query artemisa{
+  artemisa{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

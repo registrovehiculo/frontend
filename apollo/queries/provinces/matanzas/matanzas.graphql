@@ -1,0 +1,8 @@
+query matanzas{
+  matanzas{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

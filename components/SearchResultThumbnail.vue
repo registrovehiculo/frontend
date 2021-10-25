@@ -17,7 +17,7 @@ export default {
   computed: {
     title() {
       if (this.result.vehiculo) {
-        return `${this.result.vehiculo.datospersona}`
+        return `${this.result.vehiculo.numeroidentidad}   ${this.result.vehiculo.datospersona}`
       }
       return ''
     }

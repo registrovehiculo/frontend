@@ -16,6 +16,7 @@ import Homepage from '~/components/Homepage'
 export default {
   components: { Homepage, HomePageTransporte, HomePageEmbarcacion },
   auth: false,
+  ssr: false,
   computed: {
     getSystem() {
       return this.$store.getters['system/getActive']

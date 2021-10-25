@@ -7,7 +7,6 @@
     :per-page="16"
     :narrowed="true"
     :hoverable="true"
-    :draggable="true"
     type="is-warning"
   >
     <template v-for="(column, index) in columns">

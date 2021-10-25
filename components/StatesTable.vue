@@ -6,8 +6,6 @@
     :paginated="true"
     :per-page="16"
     :narrowed="true"
-    hoverable
-    :draggable="true"
   >
     <template v-for="(column, index) in columns">
       <b-table-column
@@ -29,10 +27,13 @@
           />
         </template>
         <template #default="props">
-          <p :class="index === 3 && getTableNames ? 'level-left' : ''"></p>
+          <p
+            v-show="!vehiculo"
+            :class="index === 3 && getTableNames ? 'level-left' : ''"
+          ></p>
           {{ props.row[column.field] }}
           <p
-            v-if="index === 3 && getTableNames"
+            v-if="index === 3 && getTableNames && !vehiculo"
             class="level-right"
             style="margin-top: -20px; margin-left: 20px"
           >
@@ -76,6 +77,9 @@ export default {
   computed: {
     getTableNames() {
       return this.$store.getters['tableNames/getTableNames']
+    },
+    vehiculo() {
+      return this.$store.getters['vehiculo/get']
     }
   },
   methods: {

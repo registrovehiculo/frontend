@@ -1,5 +1,5 @@
-query camaguey{
-  camaguey{
+query santiagoDeCuba{
+  santiagoDeCuba{
     municipio
     numeroidentidad
     datospersona

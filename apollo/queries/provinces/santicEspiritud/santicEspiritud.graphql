@@ -1,0 +1,8 @@
+query espiritud{
+  espiritud{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

@@ -1,11 +1,12 @@
 <template>
   <div v-if="$auth.loggedIn">
     <nav
-      class="navbar header is-black padding-right-20 padding-left-20"
+      class="navbar header is-black"
       role="navigation"
       aria-label="main navigation"
+      style="position: fixed; width: 100%"
     >
-      <div class="navbar-brand margin-top-5">
+      <div class="navbar-brand">
         <nuxt-link class="navbar-item" to="/">
           <img v-if="!getSystem" src="~assets/car.png" alt="car" height="10" />
           <img

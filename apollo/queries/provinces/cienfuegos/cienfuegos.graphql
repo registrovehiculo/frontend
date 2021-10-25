@@ -1,0 +1,8 @@
+query cienfuegos{
+  cienfuegos{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

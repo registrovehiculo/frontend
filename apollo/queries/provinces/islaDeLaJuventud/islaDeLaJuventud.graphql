@@ -1,0 +1,8 @@
+query isla{
+  isla{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

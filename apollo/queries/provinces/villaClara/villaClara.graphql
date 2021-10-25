@@ -1,0 +1,8 @@
+query villaClara{
+  villaClara{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

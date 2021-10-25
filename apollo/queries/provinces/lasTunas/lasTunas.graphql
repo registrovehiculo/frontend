@@ -1,0 +1,8 @@
+query lasTunas{
+  lasTunas{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

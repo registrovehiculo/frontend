@@ -1,0 +1,8 @@
+query guantanamo{
+  guantanamo{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

@@ -8,6 +8,9 @@ export const mutations = {
   },
   setDatosPersona(state, datospersona) {
     state.vehiculo.datospersona = datospersona
+  },
+  setNumeroIdentidad(state, numeroidentidad) {
+    state.vehiculo.datospersona = numeroidentidad
   }
 }
 export const getters = {
@@ -16,5 +19,8 @@ export const getters = {
   },
   getDatosPersona: state => {
     return state.vehiculo.datospersona
+  },
+  getNumeroIdentidad: state => {
+    return state.vehiculo.numeroidentidad
   }
 }

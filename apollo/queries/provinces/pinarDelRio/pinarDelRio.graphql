@@ -1,0 +1,8 @@
+query pinar{
+  pinar{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

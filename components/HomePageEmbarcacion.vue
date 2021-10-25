@@ -1,13 +1,15 @@
 <template>
   <div>
     <div class="container">
-      <p
-        class="has-text-centered margin-top-20"
-        style="font-size: 32px; font-weight: 700; color: #0855f5"
-      >
-        Embarcaciones
-      </p>
-      <hr />
+      <div style="padding-top: 90px">
+        <p
+          class="has-text-centered"
+          style="font-size: 32px; font-weight: 700; color: #0855f5"
+        >
+          Embarcaciones
+        </p>
+        <hr />
+      </div>
       <div class="columns is-centered has-text-centered">
         <div class="level margin-top-20">
           <div class="level-left">
@@ -303,11 +305,6 @@ export default {
       tableColumnsEmbarcacionInfoRegister
     }
   },
-  beforeMount() {
-    this.$apollo.query({ query: shipmentQuery }).then(({ data }) => {
-      this.shipment = data.shipment
-    })
-  },
   data() {
     return {
       selectedAction: null,
@@ -393,6 +390,11 @@ export default {
     return {
       title: `Embarcacion | Home`
     }
+  },
+  beforeMount() {
+    this.$apollo.query({ query: shipmentQuery }).then(({ data }) => {
+      this.shipment = data.shipment
+    })
   },
   methods: {
     search() {

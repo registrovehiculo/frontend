@@ -1,0 +1,6 @@
+query habana{
+  habana{
+    municipio
+    numeroidentidad
+  }
+}

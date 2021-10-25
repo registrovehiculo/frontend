@@ -1,0 +1,8 @@
+query mayabeque{
+  mayabeque{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}
