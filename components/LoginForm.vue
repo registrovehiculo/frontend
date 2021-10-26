@@ -148,7 +148,7 @@ export default {
                   this.$cookies.set('auth._token.local', jwtToken)
                   const cookie = this.$cookies.get('auth.redirect')
                   if (cookie) {
-                    // this.$cookies.set('auth.redirect', null)
+                    this.$cookies.set('auth.redirect', null)
                     window.location.href = cookie
                     // this.$router.replace(cookie).catch(() => {})
                   } else {

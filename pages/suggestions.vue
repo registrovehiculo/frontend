@@ -98,13 +98,13 @@
       <div>
         <div class="columns">
           <div class="column">
-            <font-awesome-icon
+            <!--font-awesome-icon
               :icon="['fas', 'plus']"
               class="font-size-4 changeColor icon-plus"
               @click="
-                createReviewAnswer(review.reviewer.username, index, review.text)
+                createReviewAnswer(review.reviewer.username, index, review)
               "
-            />
+            /-->
           </div>
           <div
             v-if="review.reviewer.username === getUsername()"
@@ -217,14 +217,14 @@ export default {
         )
       this.activeModal = null
     },
-    createReviewAnswer(username, index, text) {
+    createReviewAnswer(username, index, review) {
       this.activeModal = username
       this.reviewIndex = index
-      // this.allReviews
+      this.allReviews.splice(index, 0, review)
       this.$apollo
         .mutate({
           mutation: createReviewAnswerQuery,
-          variables: { reviewId: index, text }
+          variables: { reviewId: index, text: review.text }
         })
         .then(({ data }) => {
           this.$store.commit(
