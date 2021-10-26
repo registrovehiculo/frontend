@@ -8,7 +8,7 @@
       <font-awesome-icon :icon="['fas', 'user']" class="font-size-5 is-white" />
       <b>Cuenta de administrador</b>
     </div>
-    <nuxt />
+    <nuxt class="padding-top-20" />
   </div>
 </template>
 

@@ -4,7 +4,7 @@
       class="navbar header is-black"
       role="navigation"
       aria-label="main navigation"
-      style="position: fixed; width: 100%; height: 3.5em"
+      style="position: fixed; width: 100%; height: 3.5em; z-index: 1;"
     >
       <div class="navbar-brand">
         <nuxt-link class="navbar-item" to="/">
