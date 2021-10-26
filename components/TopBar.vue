@@ -4,7 +4,7 @@
       class="navbar header is-black"
       role="navigation"
       aria-label="main navigation"
-      style="position: fixed; width: 100%"
+      style="position: fixed; width: 100%; height: 3.5em"
     >
       <div class="navbar-brand">
         <nuxt-link class="navbar-item" to="/">
@@ -26,16 +26,12 @@
               $route.name !== 'createUser'
           "
           style="width: 100%"
-          class="margin-top-10 is-hidden-tablet is-hidden-desktop"
+          class="margin-top-10 is-hidden-desktop"
         />
-        <a
-          class="navbar-item is-hidden-tablet is-hidden-desktop"
-          @click="logout"
-          >Salir</a
-        >
+        <a class="navbar-item is-hidden-desktop" @click="logout">Salir</a>
       </div>
-      <div class="navbar-menu is-hidden-mobile">
-        <div style="margin-top: 0.75rem; width: 30%" class="margin-left-10">
+      <div class="navbar-menu">
+        <div style="margin-left: 29%; width: 40%">
           <Searcher
             v-if="
               !getSystem &&
@@ -44,6 +40,8 @@
                 $route.name !== 'upload' &&
                 $route.name !== 'createUser'
             "
+            style="width: 100%"
+            class="margin-top-10"
           />
         </div>
         <div class="navbar-end margin-right-30">
@@ -100,12 +98,12 @@
                 @click="userManual()"
                 >Manual de usuario</a
               >
-              <!--a
+              <a
                 v-if="$route.name !== 'suggestions'"
                 class="navbar-item"
                 @click="suggestions()"
                 >Quejas y sugerencias</a
-              -->
+              >
 
               <a
                 v-if="$route.name !== 'upload'"

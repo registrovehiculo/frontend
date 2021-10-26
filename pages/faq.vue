@@ -1,16 +1,16 @@
 <template>
   <div>
     <div class="container">
-      <p
-        class="has-text-centered margin-top-30"
-        style="font-size: 32px; font-weight: 700"
-      >
-        Manual de usuario
-      </p>
-      <hr />
       <section>
         <div class="columns is-centered">
           <div class="column">
+            <p
+              class="has-text-centered"
+              style="font-size: 32px; font-weight: 700"
+            >
+              Manual de usuario
+            </p>
+            <hr />
             <b-tabs size="is-large" position="is-centered">
               <b-tab-item label="Transporte">
                 <ul>

@@ -9,10 +9,9 @@
       field="description"
       expanded
       rounded
-      max-height="700px"
+      max-height="500px"
       scrollable
       size="is-small"
-      style="width: 100%"
       icon="magnify"
       clearable
       @input="search()"

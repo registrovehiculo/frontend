@@ -74,13 +74,13 @@
     <hr />
 
     <div class="margin-top-70 margin-bottom-50"></div>
-    <div v-if="reviews.length > 0">
+    <div v-if="allReviews.length > 0">
       <p class="has-text-centered font-size-5" style="font-weight: 700">
         Opiniones
       </p>
     </div>
     <div
-      v-for="(review, index) in reviews"
+      v-for="(review, index) in allReviews"
       :key="index"
       class="margin-top-20 column is-6 is-offset-3"
     >
@@ -101,7 +101,9 @@
             <font-awesome-icon
               :icon="['fas', 'plus']"
               class="font-size-4 changeColor icon-plus"
-              @click="createReviewAnswer(review.reviewer.username, index)"
+              @click="
+                createReviewAnswer(review.reviewer.username, index, review.text)
+              "
             />
           </div>
           <div
@@ -113,7 +115,7 @@
                 :icon="['fas', 'trash']"
                 class="font-size-5 icon"
                 alt="Borrar sugerencia"
-                @click="reviews.splice(index, 1) && remove(review.id)"
+                @click="allReviews.splice(index, 1) && remove(review.id)"
               />
             </p>
           </div>
@@ -133,7 +135,7 @@ import userReviewsQuery from '~/apollo/queries/userReviews.graphql'
 import allReviewsAnswersQuery from '~/apollo/queries/allReviewsAnswers.graphql'
 import allReviewsQuery from '~/apollo/queries/allReviews.graphql'
 import createReviewMutation from '~/apollo/mutations/reviews/createReview.graphql'
-// import createReviewAnswerQuery from '~/apollo/mutations/reviews/createReviewAnswer.graphql'
+import createReviewAnswerQuery from '~/apollo/mutations/reviews/createReviewAnswer.graphql'
 import userReviewAnswerQuery from '~/apollo/queries/userReviewAnswer.graphql'
 // import updateReviewMutation from '~/apollo/mutations/reviews/updateReview.graphql'
 import removeReviewMutation from '~/apollo/mutations/reviews/removeReview.graphql'
@@ -141,10 +143,11 @@ export default {
   data() {
     return {
       userReview: null,
-      allReviews: null,
-      allReviewsAnswers: null,
-      userAnswers: null,
+      allReviews: [],
+      allReviewsAnswers: [],
+      userAnswers: [],
       reviewIndex: null,
+      reviewsarr: [],
       form: {
         text: null,
         loading: false,
@@ -157,15 +160,8 @@ export default {
       moment
     }
   },
-  computed: {
-    reviews() {
-      return this.$store.getters['review/get']
-    },
-    reviewsAnswers() {
-      return this.$store.getters['reviewAnswer/get']
-    }
-  },
   beforeMount() {
+    this.reviewsarr = this.$store.getters['review/get']
     this.$apollo
       .query({
         query: userReviewsQuery,
@@ -182,7 +178,6 @@ export default {
       })
       .then(({ data }) => {
         this.allReviews = data.allReviews
-        this.$store.commit('review/set', this.allReviews)
       })
     this.$apollo.query({ query: allReviewsAnswersQuery }).then(({ data }) => {
       this.allReviewsAnswers = data.allReviewsAnswers
@@ -203,7 +198,7 @@ export default {
             if (data.createReview) {
               status = data.createReview.status
               review = data.createReview.review
-              this.$store.commit('review/publishReview', review)
+              this.allReviews.push(review)
             }
             if (status === 'forbidden') {
               this.$toast.show('No es posible publicar esa opinión')
@@ -220,20 +215,24 @@ export default {
             }
           }
         )
+      this.activeModal = null
     },
-    // createReviewAnswer(index, text) {
-    //   this.$apollo
-    //     .mutate({
-    //       mutation: createReviewAnswerQuery,
-    //       variables: { reviewId: index, text }
-    //     })
-    //     .then(({ data }) => {
-    //       this.$store.commit(
-    //         'reviewAnswer/publishAnswer',
-    //         data.createReviewAnswer
-    //       )
-    //     })
-    // },
+    createReviewAnswer(username, index, text) {
+      this.activeModal = username
+      this.reviewIndex = index
+      // this.allReviews
+      this.$apollo
+        .mutate({
+          mutation: createReviewAnswerQuery,
+          variables: { reviewId: index, text }
+        })
+        .then(({ data }) => {
+          this.$store.commit(
+            'reviewAnswer/publishAnswer',
+            data.createReviewAnswer
+          )
+        })
+    },
     getUserAnswers(index) {
       this.$apollo
         .query({
@@ -257,11 +256,7 @@ export default {
     cleanForm() {
       this.form.text = null
     },
-    removeReview(reviewId) {
-      this.$store.commit('review/removeReview', reviewId)
-    },
-    remove(reviewId) {
-      this.$store.commit('review/removeReview', reviewId)
+    remove(reviewId, index) {
       this.$apollo
         .mutate({
           mutation: removeReviewMutation,
@@ -274,10 +269,6 @@ export default {
             this.$toast.show('Se eliminó la opinión')
           }
         })
-    },
-    createReviewAnswer(username, index) {
-      this.activeModal = username
-      this.reviewIndex = index
     },
     linkify: require('~/services/linkify').linkify,
     ...mapGetters({

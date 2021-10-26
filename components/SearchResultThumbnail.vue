@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p style="font-size: 9pt">{{ title }}</p>
+    <p class="change-color" style="font-size: 11pt">{{ title }}</p>
   </div>
 </template>
 
@@ -24,3 +24,4 @@ export default {
   }
 }
 </script>
+<style lang="stylus" scoped></style>

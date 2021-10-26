@@ -114,16 +114,13 @@
         class="column is-6-desktop is-12-tablet has-text-centered margin-left-20"
       >
         <p
-          class="has-text-centered margin-top-20"
+          class="has-text-centered margin-top-30"
           style="font-size: 32px; font-weight: 700; color: #d60000"
         >
-          Transporte terrestre
+          Registro de Vehículo
         </p>
         <hr />
-        <div
-          class="column is-hidden-tablet-only is-hidden-mobile margin-left-20"
-          style="margin-top:2.5rem"
-        >
+        <div class="column margin-left-20">
           <b-field class="margin-bottom-10" style="width: 100%">
             <b-select
               v-model="selectedProvince"
@@ -156,7 +153,7 @@
             </b-select>
           </b-field>
           <div v-show="selectedAction === 2" class="margin-top-20">
-            <p v-if="!radio" style="color: #d60000">
+            <p v-if="!radio" class="margin-bottom-10" style="color: #d60000">
               Seleccione criterio de busqueda
             </p>
             <b-radio
@@ -178,7 +175,10 @@
               </b-radio>
             </client-only>
           </div>
-          <div class="has-text-centered" style="margin-bottom: -50px">
+          <div
+            class="has-text-centered is-hidden-mobile is-hidden-tablet-only"
+            style="margin-bottom: -50px"
+          >
             <b-button
               class="is-black margin-left-20 changeColorR"
               rounded
@@ -217,7 +217,11 @@
             <b-button
               class="is-black is-fullwidth is-small"
               rounded
-              :disabled="!selectedProvince || !selectedAction"
+              :disabled="
+                !selectedProvince ||
+                  !selectedAction ||
+                  (!radio && selectedAction === 2)
+              "
               @click="select()"
               >Buscar</b-button
             >
@@ -232,25 +236,6 @@
             >
           </div>
         </div>
-      </div>
-
-      <div class="column is-hidden-desktop">
-        <b-field>
-          <b-select
-            v-model="selectedAction"
-            dropdown-position="bottom"
-            placeholder="Acciones..."
-            expanded
-          >
-            <option
-              v-for="option in actions"
-              :key="option.id"
-              :value="option.id"
-            >
-              {{ option.name }}
-            </option>
-          </b-select>
-        </b-field>
       </div>
     </div>
     <div class="columns is-centered">
@@ -272,7 +257,7 @@
       <div
         v-if="!loading"
         :class="
-          radio === names
+          radio === 'names'
             ? ''
             : 'columns is-centered flex-wrap-center column is-12'
         "
