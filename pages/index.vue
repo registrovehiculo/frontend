@@ -1,8 +1,10 @@
 <template>
   <div>
-    <HomePageTransporte v-if="$auth.loggedIn && !getSystem" />
-    <HomePageEmbarcacion v-else-if="$auth.loggedIn && getSystem" />
-    <Homepage v-else />
+    <client-only>
+      <HomePageTransporte v-show="$auth.loggedIn && !getSystem" />
+      <HomePageEmbarcacion v-show="$auth.loggedIn && getSystem" />
+      <Homepage v-show="!$auth.loggedIn" />
+    </client-only>
   </div>
 </template>
 
