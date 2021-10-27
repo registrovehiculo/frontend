@@ -198,7 +198,7 @@ export default {
             if (data.createReview) {
               status = data.createReview.status
               review = data.createReview.review
-              this.allReviews.push(review)
+              this.allReviews.unshift(review)
             }
             if (status === 'forbidden') {
               this.$toast.show('No es posible publicar esa opinión')
