@@ -2,7 +2,7 @@
   <div>
     <client-only>
       <HomePageTransporte v-show="$auth.loggedIn" />
-      <Homepage v-show="$auth.loggedIn" />
+      <Homepage v-show="!$auth.loggedIn" />
     </client-only>
   </div>
 </template>
