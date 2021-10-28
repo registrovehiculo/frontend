@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-show="getSystem">
+    <div v-show="!getSystem">
       <div class="padding-right-30 padding-left-30">
         <div class="sidebar-page">
           <section>
@@ -385,7 +385,7 @@
         </div>
       </div>
     </div>
-    <HomePageEmbarcacion v-show="!getSystem" />
+    <HomePageEmbarcacion v-show="getSystem" />
   </div>
 </template>
 
