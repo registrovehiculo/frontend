@@ -153,6 +153,7 @@ export default {
       await this.$auth.logout().then(() => {
         this.cleanAuth()
       })
+      // window.location.href = '/'
       this.$router.replace('/').catch(() => {})
     },
     changeSystem() {

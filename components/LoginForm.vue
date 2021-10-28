@@ -154,7 +154,7 @@ export default {
                     // window.location.href = cookie
                     this.$router.replace(cookie).catch(() => {})
                   } else {
-                    // window.location.href = '/'
+                    //   window.location.href = '/'
                     this.$router.replace('/').catch(() => {})
                   }
                 })
