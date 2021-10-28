@@ -537,7 +537,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+  head() {
+    return {
+      title: `Manual de Usuario`
+    }
+  }
+}
 </script>
 
 <style scoped></style>

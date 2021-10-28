@@ -98,7 +98,8 @@ export default {
   beforeCreate() {
     const url = this.$cookies.get('auth.redirect')
     if (url && this.$auth.loggedIn) {
-      this.$router.replace(url)
+      // eslint-disable-next-line nuxt/no-globals-in-created
+      window.location.href = url
     }
   },
   validations: {

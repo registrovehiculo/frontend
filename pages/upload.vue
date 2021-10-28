@@ -189,6 +189,11 @@ export default {
       loading: false
     }
   },
+  head() {
+    return {
+      title: `Actualizar base de datos`
+    }
+  },
   methods: {
     sistema() {
       if (this.system === 'Transporte') {

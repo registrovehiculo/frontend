@@ -7,9 +7,9 @@
     :per-page="16"
     :narrowed="true"
   >
-    <template v-for="(column, index) in columns">
+    <template v-for="(column, pos) in columns">
       <b-table-column
-        :key="index"
+        :key="pos"
         v-bind="column"
         :label="column.label"
         :visible="column.visible"
@@ -29,11 +29,11 @@
         <template #default="props">
           <p
             v-show="!vehiculo"
-            :class="index === 3 && getTableNames ? 'level-left' : ''"
+            :class="pos === 3 && getTableNames ? 'level-left' : ''"
           ></p>
           {{ props.row[column.field] }}
           <p
-            v-if="index === 3 && getTableNames && !vehiculo"
+            v-if="pos === 3 && getTableNames && !vehiculo"
             class="level-right"
             style="margin-top: -20px; margin-left: 20px"
           >

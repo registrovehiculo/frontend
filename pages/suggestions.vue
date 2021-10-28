@@ -94,6 +94,7 @@
             .fromNow()
         }}
       </p>
+      <!-- eslint-disable vue/no-v-html -->
       <div class="Card" v-html="linkify(review.text)"></div>
       <div>
         <div class="columns">
@@ -158,6 +159,11 @@ export default {
       removed: false,
       activeModal: null,
       moment
+    }
+  },
+  head() {
+    return {
+      title: `Quejas y Sugerencias`
     }
   },
   beforeMount() {
