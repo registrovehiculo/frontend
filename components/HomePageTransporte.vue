@@ -1,321 +1,329 @@
 <template>
-  <div class="padding-right-30 padding-left-30">
-    <div class="sidebar-page">
-      <section>
-        <b-sidebar
-          v-model="open"
-          :fullheight="true"
-          :fullwidth="false"
-          :overlay="false"
-          :right="true"
-          :expand-on-hover="true"
-          type="is-light"
-        >
-          <div class="has-text-centered">
-            <img
-              src="~assets/car.png"
-              height="150"
-              width="150"
-              alt="Registro Vehiculo"
-            />
-            <b-menu class="margin-top-10">
-              <vue-excel-xlsx
+  <div>
+    <div v-show="getSystem">
+      <div class="padding-right-30 padding-left-30">
+        <div class="sidebar-page">
+          <section>
+            <b-sidebar
+              v-model="open"
+              :fullheight="true"
+              :fullwidth="false"
+              :overlay="false"
+              :right="true"
+              :expand-on-hover="true"
+              type="is-light"
+            >
+              <div class="has-text-centered">
+                <img
+                  src="~assets/car.png"
+                  height="150"
+                  width="150"
+                  alt="Registro Vehiculo"
+                />
+                <b-menu class="margin-top-10">
+                  <vue-excel-xlsx
+                    v-if="data_1"
+                    :data="data_1"
+                    :columns="tableColumns"
+                    :filename="selectedProvince"
+                    :sheetname="selectedProvince"
+                    class="documentStyle"
+                  >
+                    <b>Documento excel</b>
+                    <font-awesome-icon
+                      :icon="['fas', 'file-excel']"
+                      style="height: 30px; width: 30px; color: green"
+                    />
+                  </vue-excel-xlsx>
+                  <vue-excel-xlsx
+                    v-if="data_2"
+                    :data="data_2"
+                    :columns="tableColumns"
+                    :filename="selectedProvince"
+                    :sheetname="selectedProvince"
+                    class="documentStyle"
+                  >
+                    <b>Documento excel</b>
+                    <font-awesome-icon
+                      :icon="['fas', 'file-excel']"
+                      style="height: 30px; width: 30px; color: green"
+                    />
+                  </vue-excel-xlsx>
+                  <vue-excel-xlsx
+                    v-if="data_3"
+                    :data="data_3"
+                    :columns="tableColumns"
+                    :filename="selectedProvince"
+                    :sheetname="selectedProvince"
+                    class="documentStyle"
+                  >
+                    <b>Documento excel</b>
+                    <font-awesome-icon
+                      :icon="['fas', 'file-excel']"
+                      style="height: 30px; width: 30px; color: green"
+                    />
+                  </vue-excel-xlsx>
+                  <vue-excel-xlsx
+                    v-if="data_4"
+                    :data="data_4"
+                    :columns="tableColumnsInfo"
+                    :filename="selectedProvince"
+                    :sheetname="selectedProvince"
+                    class="documentStyle"
+                  >
+                    <b>Documento excel</b>
+                    <font-awesome-icon
+                      :icon="['fas', 'file-excel']"
+                      style="height: 30px; width: 30px; color: green"
+                    />
+                  </vue-excel-xlsx>
+                  <vue-excel-xlsx
+                    v-if="data_5"
+                    :data="data_5"
+                    :columns="tableColumns"
+                    :filename="selectedProvince"
+                    :sheetname="selectedProvince"
+                    class="documentStyle"
+                  >
+                    <b>Documento excel</b>
+                    <font-awesome-icon
+                      :icon="['fas', 'file-excel']"
+                      style="height: 30px; width: 30px; color: green"
+                    />
+                  </vue-excel-xlsx>
+                  <vue-excel-xlsx
+                    v-if="data_6"
+                    :data="data_6"
+                    :columns="tableColumnsInfo"
+                    :filename="selectedProvince"
+                    :sheetname="selectedProvince"
+                    class="documentStyle"
+                  >
+                    <b>Documento excel</b>
+                    <font-awesome-icon
+                      :icon="['fas', 'file-excel']"
+                      style="height: 30px; width: 30px; color: green"
+                    />
+                  </vue-excel-xlsx>
+                </b-menu>
+              </div>
+            </b-sidebar>
+          </section>
+        </div>
+        <!--ColumnOptions :columns="tableColumns" /-->
+        <div class="columns is-centered hero-body">
+          <div
+            class="column is-6-desktop is-12-tablet has-text-centered margin-left-20"
+          >
+            <p
+              class="has-text-centered margin-top-30"
+              style="font-size: 32px; font-weight: 700; color: #d60000"
+            >
+              Registro de Vehículo
+            </p>
+            <hr />
+            <div class="column margin-left-20">
+              <b-field class="margin-bottom-10" style="width: 100%">
+                <b-select
+                  v-model="selectedProvince"
+                  placeholder="Provincias"
+                  expanded
+                >
+                  <option
+                    v-for="province in provinces"
+                    :key="province.id"
+                    :value="province.value"
+                  >
+                    {{ province.name }}
+                  </option>
+                </b-select>
+              </b-field>
+              <b-field>
+                <b-select
+                  v-model="selectedAction"
+                  dropdown-position="bottom"
+                  placeholder="Acciones..."
+                  expanded
+                >
+                  <option
+                    v-for="option in actions"
+                    :key="option.id"
+                    :value="option.id"
+                  >
+                    {{ option.name }}
+                  </option>
+                </b-select>
+              </b-field>
+              <div v-show="selectedAction === 2" class="margin-top-20">
+                <p
+                  v-if="!radio"
+                  class="margin-bottom-10"
+                  style="color: #d60000"
+                >
+                  Seleccione criterio de busqueda
+                </p>
+                <b-radio
+                  v-model="radio"
+                  name="differentPlates"
+                  native-value="plates"
+                  @input="select()"
+                >
+                  Chapas distintas
+                </b-radio>
+                <client-only>
+                  <b-radio
+                    v-model="radio"
+                    name="differentNames"
+                    native-value="names"
+                    @input="select()"
+                  >
+                    Nombres distintos
+                  </b-radio>
+                </client-only>
+              </div>
+              <div
+                class="has-text-centered is-hidden-mobile is-hidden-tablet-only"
+                style="margin-bottom: -50px"
+              >
+                <b-button
+                  class="is-black margin-left-20 changeColorR"
+                  rounded
+                  style="width: 25%; margin-top: 20px"
+                  :loading="loading"
+                  :disabled="
+                    !selectedProvince ||
+                      !selectedAction ||
+                      (!radio && selectedAction === 2)
+                  "
+                  @click="select()"
+                  >Buscar</b-button
+                >
+                <b-button
+                  class="is-black margin-left-10 changeColorR"
+                  rounded
+                  style="width: 25%; margin-top: 20px"
+                  :disabled="
+                    loading ||
+                      (!data_1 &&
+                        !data_2 &&
+                        !data_3 &&
+                        !data_4 &&
+                        !data_5 &&
+                        !data_6)
+                  "
+                  @click="open = true"
+                  >Exportar</b-button
+                >
+              </div>
+            </div>
+          </div>
+          <div class="is-hidden-table is-hidden-desktop bottom-bar">
+            <div class="columns is-mobile">
+              <div class="column is-6">
+                <b-button
+                  class="is-black is-fullwidth is-small"
+                  rounded
+                  :disabled="
+                    !selectedProvince ||
+                      !selectedAction ||
+                      (!radio && selectedAction === 2)
+                  "
+                  @click="select()"
+                  >Buscar</b-button
+                >
+              </div>
+              <div class="column is-6-mobile">
+                <b-button
+                  class="is-black is-fullwidth is-small"
+                  rounded
+                  :disabled="
+                    loading || (!data_1 && !data_2 && !data_3 && !data_4)
+                  "
+                  @click="open = true"
+                  >Exportar</b-button
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-7">
+            <b-skeleton
+              size="is-large"
+              :active="loading"
+              widt="80%"
+              :count="10"
+            ></b-skeleton>
+          </div>
+        </div>
+        <div v-if="data_2 !== null" class="has-text-centered">
+          <p v-if="data_2.length === 0" class="font-size-3">
+            {{ 'No se encontraron diferencias' }}
+          </p>
+        </div>
+        <div>
+          <div
+            v-if="!loading"
+            :class="
+              radio === 'names'
+                ? ''
+                : 'columns is-centered flex-wrap-center column is-12'
+            "
+          >
+            <div v-if="getActive()">
+              <StatesTable
+                v-if="vehiculo"
+                :data="vehiculo"
+                :columns="tableColumnsV"
+                :loading="false"
+              />
+            </div>
+            <div v-if="selectedAction === 1 && !getActive()">
+              <StatesTable
                 v-if="data_1"
                 :data="data_1"
                 :columns="tableColumns"
-                :filename="selectedProvince"
-                :sheetname="selectedProvince"
-                class="documentStyle"
-              >
-                <b>Documento excel</b>
-                <font-awesome-icon
-                  :icon="['fas', 'file-excel']"
-                  style="height: 30px; width: 30px; color: green"
-                />
-              </vue-excel-xlsx>
-              <vue-excel-xlsx
-                v-if="data_2"
-                :data="data_2"
-                :columns="tableColumns"
-                :filename="selectedProvince"
-                :sheetname="selectedProvince"
-                class="documentStyle"
-              >
-                <b>Documento excel</b>
-                <font-awesome-icon
-                  :icon="['fas', 'file-excel']"
-                  style="height: 30px; width: 30px; color: green"
-                />
-              </vue-excel-xlsx>
-              <vue-excel-xlsx
+                :loading="loading"
+              />
+            </div>
+            <div v-if="selectedAction === 3 && !getActive()">
+              <StatesTable
                 v-if="data_3"
                 :data="data_3"
                 :columns="tableColumns"
-                :filename="selectedProvince"
-                :sheetname="selectedProvince"
-                class="documentStyle"
-              >
-                <b>Documento excel</b>
-                <font-awesome-icon
-                  :icon="['fas', 'file-excel']"
-                  style="height: 30px; width: 30px; color: green"
-                />
-              </vue-excel-xlsx>
-              <vue-excel-xlsx
-                v-if="data_4"
-                :data="data_4"
-                :columns="tableColumnsInfo"
-                :filename="selectedProvince"
-                :sheetname="selectedProvince"
-                class="documentStyle"
-              >
-                <b>Documento excel</b>
-                <font-awesome-icon
-                  :icon="['fas', 'file-excel']"
-                  style="height: 30px; width: 30px; color: green"
-                />
-              </vue-excel-xlsx>
-              <vue-excel-xlsx
+                :loading="loading"
+              />
+            </div>
+            <div v-if="selectedAction === 5 && !getActive()">
+              <StatesTable
                 v-if="data_5"
                 :data="data_5"
                 :columns="tableColumns"
-                :filename="selectedProvince"
-                :sheetname="selectedProvince"
-                class="documentStyle"
-              >
-                <b>Documento excel</b>
-                <font-awesome-icon
-                  :icon="['fas', 'file-excel']"
-                  style="height: 30px; width: 30px; color: green"
-                />
-              </vue-excel-xlsx>
-              <vue-excel-xlsx
-                v-if="data_6"
-                :data="data_6"
-                :columns="tableColumnsInfo"
-                :filename="selectedProvince"
-                :sheetname="selectedProvince"
-                class="documentStyle"
-              >
-                <b>Documento excel</b>
-                <font-awesome-icon
-                  :icon="['fas', 'file-excel']"
-                  style="height: 30px; width: 30px; color: green"
-                />
-              </vue-excel-xlsx>
-            </b-menu>
-          </div>
-        </b-sidebar>
-      </section>
-    </div>
-    <!--ColumnOptions :columns="tableColumns" /-->
-    <div class="columns is-centered hero-body">
-      <div
-        class="column is-6-desktop is-12-tablet has-text-centered margin-left-20"
-      >
-        <p
-          class="has-text-centered margin-top-30"
-          style="font-size: 32px; font-weight: 700; color: #d60000"
-        >
-          Registro de Vehículo
-        </p>
-        <hr />
-        <div class="column margin-left-20">
-          <b-field class="margin-bottom-10" style="width: 100%">
-            <b-select
-              v-model="selectedProvince"
-              placeholder="Provincias"
-              expanded
-            >
-              <option
-                v-for="province in provinces"
-                :key="province.id"
-                :value="province.value"
-              >
-                {{ province.name }}
-              </option>
-            </b-select>
-          </b-field>
-          <b-field>
-            <b-select
-              v-model="selectedAction"
-              dropdown-position="bottom"
-              placeholder="Acciones..."
-              expanded
-            >
-              <option
-                v-for="option in actions"
-                :key="option.id"
-                :value="option.id"
-              >
-                {{ option.name }}
-              </option>
-            </b-select>
-          </b-field>
-          <div v-show="selectedAction === 2" class="margin-top-20">
-            <p v-if="!radio" class="margin-bottom-10" style="color: #d60000">
-              Seleccione criterio de busqueda
-            </p>
-            <b-radio
-              v-model="radio"
-              name="differentPlates"
-              native-value="plates"
-              @input="select()"
-            >
-              Chapas distintas
-            </b-radio>
-            <client-only>
-              <b-radio
-                v-model="radio"
-                name="differentNames"
-                native-value="names"
-                @input="select()"
-              >
-                Nombres distintos
-              </b-radio>
-            </client-only>
-          </div>
-          <div
-            class="has-text-centered is-hidden-mobile is-hidden-tablet-only"
-            style="margin-bottom: -50px"
-          >
-            <b-button
-              class="is-black margin-left-20 changeColorR"
-              rounded
-              style="width: 25%; margin-top: 20px"
-              :loading="loading"
-              :disabled="
-                !selectedProvince ||
-                  !selectedAction ||
-                  (!radio && selectedAction === 2)
-              "
-              @click="select()"
-              >Buscar</b-button
-            >
-            <b-button
-              class="is-black margin-left-10 changeColorR"
-              rounded
-              style="width: 25%; margin-top: 20px"
-              :disabled="
-                loading ||
-                  (!data_1 &&
-                    !data_2 &&
-                    !data_3 &&
-                    !data_4 &&
-                    !data_5 &&
-                    !data_6)
-              "
-              @click="open = true"
-              >Exportar</b-button
-            >
-          </div>
-        </div>
-      </div>
-      <div class="is-hidden-table is-hidden-desktop bottom-bar">
-        <div class="columns is-mobile">
-          <div class="column is-6">
-            <b-button
-              class="is-black is-fullwidth is-small"
-              rounded
-              :disabled="
-                !selectedProvince ||
-                  !selectedAction ||
-                  (!radio && selectedAction === 2)
-              "
-              @click="select()"
-              >Buscar</b-button
-            >
-          </div>
-          <div class="column is-6-mobile">
-            <b-button
-              class="is-black is-fullwidth is-small"
-              rounded
-              :disabled="loading || (!data_1 && !data_2 && !data_3 && !data_4)"
-              @click="open = true"
-              >Exportar</b-button
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="columns is-centered">
-      <div class="column is-7">
-        <b-skeleton
-          size="is-large"
-          :active="loading"
-          widt="80%"
-          :count="10"
-        ></b-skeleton>
-      </div>
-    </div>
-    <div v-if="data_2 !== null" class="has-text-centered">
-      <p v-if="data_2.length === 0" class="font-size-3">
-        {{ 'No se encontraron diferencias' }}
-      </p>
-    </div>
-    <div>
-      <div
-        v-if="!loading"
-        :class="
-          radio === 'names'
-            ? ''
-            : 'columns is-centered flex-wrap-center column is-12'
-        "
-      >
-        <div v-if="getActive()">
-          <StatesTable
-            v-if="vehiculo"
-            :data="vehiculo"
-            :columns="tableColumnsV"
-            :loading="false"
-          />
-        </div>
-        <div v-if="selectedAction === 1 && !getActive()">
-          <StatesTable
-            v-if="data_1"
-            :data="data_1"
-            :columns="tableColumns"
-            :loading="loading"
-          />
-        </div>
-        <div v-if="selectedAction === 3 && !getActive()">
-          <StatesTable
-            v-if="data_3"
-            :data="data_3"
-            :columns="tableColumns"
-            :loading="loading"
-          />
-        </div>
-        <div v-if="selectedAction === 5 && !getActive()">
-          <StatesTable
-            v-if="data_5"
-            :data="data_5"
-            :columns="tableColumns"
-            :loading="loading"
-          />
-        </div>
-        <div
-          v-if="
-            selectedAction === 2 &&
-              !getActive() &&
-              data_2 !== null &&
-              data_2a !== null &&
-              radio === 'names'
-          "
-          class=""
-          style="margin-top: -5%"
-        >
-          <div class="columns is-centered">
-            <div class="column is-8 has-text-centered">
-              <StatesTable
-                v-if="data_2.length > 0"
-                :data="data_2"
-                :columns="tableColumns"
-                checkable
-                @update-name="updateName"
+                :loading="loading"
               />
             </div>
-            <!--div class="column is-1" style="margin-top: 75px">
+            <div
+              v-if="
+                selectedAction === 2 &&
+                  !getActive() &&
+                  data_2 !== null &&
+                  data_2a !== null &&
+                  radio === 'names'
+              "
+              class=""
+              style="margin-top: -5%"
+            >
+              <div class="columns is-centered">
+                <div class="column is-8 has-text-centered">
+                  <StatesTable
+                    v-if="data_2.length > 0"
+                    :data="data_2"
+                    :columns="tableColumns"
+                    checkable
+                    @update-name="updateName"
+                  />
+                </div>
+                <!--div class="column is-1" style="margin-top: 75px">
               <div
                 v-for="(n, i) in data_2a.length"
                 :key="i"
@@ -333,56 +341,60 @@
                 /></b-button>
               </div>
             </div-->
-            <div class="column is-4">
+                <div class="column is-4">
+                  <StatesTable
+                    v-if="data_2a.length > 0"
+                    :data="data_2a"
+                    :columns="tableColumnsInfoName"
+                    checkable
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              v-if="
+                selectedAction === 2 &&
+                  !getActive() &&
+                  data_2 !== null &&
+                  radio === 'plates'
+              "
+            >
               <StatesTable
-                v-if="data_2a.length > 0"
-                :data="data_2a"
-                :columns="tableColumnsInfoName"
+                v-if="data_2.length > 0"
+                :data="data_2"
+                :columns="tableColumns"
                 checkable
+              />
+            </div>
+
+            <div v-if="!getActive() && selectedAction === 4">
+              <StatesTable
+                v-if="data_4"
+                :data="data_4"
+                :columns="tableColumnsInfo"
+              />
+            </div>
+            <div v-if="!getActive() && selectedAction === 6">
+              <StatesTable
+                v-if="data_6"
+                :data="data_6"
+                :columns="tableColumnsInfo"
               />
             </div>
           </div>
         </div>
-        <div
-          v-if="
-            selectedAction === 2 &&
-              !getActive() &&
-              data_2 !== null &&
-              radio === 'plates'
-          "
-        >
-          <StatesTable
-            v-if="data_2.length > 0"
-            :data="data_2"
-            :columns="tableColumns"
-            checkable
-          />
-        </div>
-
-        <div v-if="!getActive() && selectedAction === 4">
-          <StatesTable
-            v-if="data_4"
-            :data="data_4"
-            :columns="tableColumnsInfo"
-          />
-        </div>
-        <div v-if="!getActive() && selectedAction === 6">
-          <StatesTable
-            v-if="data_6"
-            :data="data_6"
-            :columns="tableColumnsInfo"
-          />
-        </div>
       </div>
     </div>
+    <HomePageEmbarcacion v-show="!getSystem" />
   </div>
 </template>
 
 <script>
 import 'vue-select/dist/vue-select.css'
+import { mapGetters, mapMutations } from 'vuex'
+import HomePageEmbarcacion from '~/components/HomePageEmbarcacion'
 // Apollo
 // Artemisa
-import { mapGetters, mapMutations } from 'vuex'
 import contributorsMissingInOnatArtemisaQuery from '~/apollo/queries/provinces/artemisa/actions/firstOption.graphql'
 import artemisaDifferentNameQuery from '~/apollo/queries/provinces/artemisa/actions/secondOptionName.graphql'
 import artemisaNameInfogestiQuery from '~/apollo/queries/provinces/artemisa/actions/secondOptionNameInfo.graphql'
@@ -541,7 +553,7 @@ import tableColumnsV from '~/static/tableColumnsV.json'
 import tableColumnsInfo from '~/static/tableColumnsInfo.json'
 import tableColumnsInfoName from '~/static/tableColumnsInfoName.json'
 export default {
-  components: { StatesTable },
+  components: { StatesTable, HomePageEmbarcacion },
   ssr: false,
   asyncData({ req }) {
     return {
@@ -625,6 +637,9 @@ export default {
   computed: {
     vehiculo() {
       return this.$store.getters['vehiculo/get']
+    },
+    getSystem() {
+      return this.$store.getters['system/getActive']
     }
   },
   methods: {
