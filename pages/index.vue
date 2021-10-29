@@ -1,7 +1,9 @@
 <template>
   <div>
-    <HomePageTransporte v-if="$auth.loggedIn" />
-    <Homepage v-else />
+    <client-only>
+      <HomePageTransporte v-if="$auth.loggedIn" />
+      <Homepage v-else />
+    </client-only>
   </div>
 </template>
 
