@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="$auth.loggedIn">
     <div v-show="!getSystem">
       <div class="padding-right-30 padding-left-30">
         <div class="sidebar-page">

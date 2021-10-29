@@ -391,7 +391,7 @@ export default {
       title: `Embarcacion | Home`
     }
   },
-  beforeMount() {
+  mounted() {
     this.$apollo.query({ query: shipmentQuery }).then(({ data }) => {
       this.shipment = data.shipment
     })
