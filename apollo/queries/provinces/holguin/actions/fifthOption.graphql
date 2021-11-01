@@ -1,0 +1,8 @@
+query wrongIdHolguin{
+  wrongIdHolguin{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

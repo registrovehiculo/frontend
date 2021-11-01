@@ -1,0 +1,8 @@
+query wrongIdGranma{
+  wrongIdGranma{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

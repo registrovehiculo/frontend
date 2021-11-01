@@ -95,6 +95,20 @@
                     v-if="data_6"
                     :data="data_6"
                     :columns="tableColumnsInfo"
+                    filename="Con Dpa distintos"
+                    sheetname="Con Dpa distintos"
+                    class="documentStyle"
+                  >
+                    <b>Documento excel</b>
+                    <font-awesome-icon
+                      :icon="['fas', 'file-excel']"
+                      style="height: 30px; width: 30px; color: green"
+                    />
+                  </vue-excel-xlsx>
+                  <vue-excel-xlsx
+                    v-if="data_7"
+                    :data="data_7"
+                    :columns="tableColumns"
                     :filename="selectedProvince"
                     :sheetname="selectedProvince"
                     class="documentStyle"
@@ -209,12 +223,33 @@
                         !data_3 &&
                         !data_4 &&
                         !data_5 &&
-                        !data_6)
+                        !data_6 &&
+                        !data_7)
                   "
                   @click="open = true"
                   >Exportar</b-button
                 >
               </div>
+            </div>
+            <div style="margin-bottom: -40px">
+              <p v-if="data_1" class="margin-top-40 font-size-5">
+                {{ 'Total: ' + data_1.length }}
+              </p>
+              <p v-if="data_2" class="margin-top-40 font-size-5">
+                {{ 'Total: ' + data_2.length }}
+              </p>
+              <p v-if="data_4" class="margin-top-40 font-size-5">
+                {{ 'Total: ' + data_4.length }}
+              </p>
+              <p v-if="data_5" class="margin-top-40 font-size-5">
+                {{ 'Total: ' + data_5.length }}
+              </p>
+              <p v-if="data_6" class="margin-top-40 font-size-5">
+                {{ 'Total: ' + data_6.length }}
+              </p>
+              <p v-if="data_7" class="margin-top-40 font-size-5">
+                {{ 'Total: ' + data_7.length }}
+              </p>
             </div>
           </div>
           <div class="is-hidden-table is-hidden-desktop bottom-bar">
@@ -237,7 +272,14 @@
                   class="is-black is-fullwidth is-small"
                   rounded
                   :disabled="
-                    loading || (!data_1 && !data_2 && !data_3 && !data_4)
+                    loading ||
+                      (!data_1 &&
+                        !data_2 &&
+                        !data_3 &&
+                        !data_4 &&
+                        !data_5 &&
+                        !data_6 &&
+                        !data_7)
                   "
                   @click="open = true"
                   >Exportar</b-button
@@ -381,6 +423,13 @@
                 :columns="tableColumnsInfo"
               />
             </div>
+            <div v-if="!getActive() && selectedAction === 7">
+              <StatesTable
+                v-if="data_7"
+                :data="data_7"
+                :columns="tableColumns"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -402,6 +451,7 @@ import artemisaDifferentPlateQuery from '~/apollo/queries/provinces/artemisa/act
 import contributorsWithEqualsInformationArtemisaQuery from '~/apollo/queries/provinces/artemisa/actions/thirdOption.graphql'
 import infogestiArtemisaQuery from '~/apollo/queries/provinces/artemisa/actions/fourthOption.graphql'
 import artemisaQuery from '~/apollo/queries/provinces/artemisa/artemisa.graphql'
+import wrongIdArtemisaQuery from '~/apollo/queries/provinces/artemisa/actions/fifthOption.graphql'
 // Camaguey
 import contributorsMissingInOnatCamagueyQuery from '~/apollo/queries/provinces/camaguey/actions/firstOption.graphql'
 import camagueyDifferentNameQuery from '~/apollo/queries/provinces/camaguey/actions/secondOptionName.graphql'
@@ -410,6 +460,7 @@ import camagueyDifferentPlateQuery from '~/apollo/queries/provinces/camaguey/act
 import contributorsWithEqualsInformationCamagueyQuery from '~/apollo/queries/provinces/camaguey/actions/thirdOption.graphql'
 import infogestiCamagueyQuery from '~/apollo/queries/provinces/camaguey/actions/fourthOption.graphql'
 import camagueyQuery from '~/apollo/queries/provinces/camaguey/camaguey.graphql'
+import wrongIdCamagueyQuery from '~/apollo/queries/provinces/camaguey/actions/fifthOption.graphql'
 
 // Ciego de Avila
 import contributorsMissingInOnatCiegoDeAvilaQuery from '~/apollo/queries/provinces/ciegoDeAvila/actions/firstOption.graphql'
@@ -419,6 +470,7 @@ import ciegoDifferentPlateQuery from '~/apollo/queries/provinces/ciegoDeAvila/ac
 import contributorsWithEqualsInformationCiegoDeAvilaQuery from '~/apollo/queries/provinces/ciegoDeAvila/actions/thirdOption.graphql'
 import infogestiCiegoQuery from '~/apollo/queries/provinces/ciegoDeAvila/actions/fourthOption.graphql'
 import ciegoQuery from '~/apollo/queries/provinces/ciegoDeAvila/ciegoDeAvila.graphql'
+import wrongIdCiegoQuery from '~/apollo/queries/provinces/ciegoDeAvila/actions/fifthOption.graphql'
 
 // Cienfuegos
 import contributorsMissingInOnatCienfuegosQuery from '~/apollo/queries/provinces/cienfuegos/actions/firstOption.graphql'
@@ -428,6 +480,7 @@ import cienfuegosDifferentPlateQuery from '~/apollo/queries/provinces/cienfuegos
 import contributorsWithEqualsInformationCienfuegosQuery from '~/apollo/queries/provinces/cienfuegos/actions/thirdOption.graphql'
 import infogestiCienfuegosQuery from '~/apollo/queries/provinces/cienfuegos/actions/fourthOption.graphql'
 import cienfuegosQuery from '~/apollo/queries/provinces/cienfuegos/cienfuegos.graphql'
+import wrongIdCienfuegosQuery from '~/apollo/queries/provinces/cienfuegos/actions/fifthOption.graphql'
 
 // Granma
 import contributorsMissingInOnatGranmaQuery from '~/apollo/queries/provinces/granma/actions/firstOption.graphql'
@@ -437,6 +490,7 @@ import granmaDifferentPlateQuery from '~/apollo/queries/provinces/granma/actions
 import contributorsWithEqualsInformationGranmaQuery from '~/apollo/queries/provinces/granma/actions/thirdOption.graphql'
 import infogestiGranmaQuery from '~/apollo/queries/provinces/granma/actions/fourthOption.graphql'
 import granmaQuery from '~/apollo/queries/provinces/granma/granma.graphql'
+import wrongIdGranmaQuery from '~/apollo/queries/provinces/granma/actions/fifthOption.graphql'
 
 // Guantanamo
 import contributorsMissingInOnatGuantanamoQuery from '~/apollo/queries/provinces/guantanamo/actions/firstOption.graphql'
@@ -446,6 +500,7 @@ import guantanamoDifferentPlateQuery from '~/apollo/queries/provinces/guantanamo
 import contributorsWithEqualsInformationGuantanamoQuery from '~/apollo/queries/provinces/guantanamo/actions/thirdOption.graphql'
 import infogestiGuantanamoQuery from '~/apollo/queries/provinces/guantanamo/actions/fourthOption.graphql'
 import guantanamoQuery from '~/apollo/queries/provinces/guantanamo/guantanamo.graphql'
+import wrongIdGuantanamoQuery from '~/apollo/queries/provinces/guantanamo/actions/fifthOption.graphql'
 
 // Holguin
 import contributorsMissingInOnatHolguinQuery from '~/apollo/queries/provinces/holguin/actions/firstOption.graphql'
@@ -455,6 +510,7 @@ import holguinDifferentPlateQuery from '~/apollo/queries/provinces/holguin/actio
 import contributorsWithEqualsInformationHolguinQuery from '~/apollo/queries/provinces/holguin/actions/thirdOption.graphql'
 import infogestiHolguinQuery from '~/apollo/queries/provinces/holguin/actions/fourthOption.graphql'
 import holguinQuery from '~/apollo/queries/provinces/holguin/holguin.graphql'
+import wrongIdHolguinQuery from '~/apollo/queries/provinces/holguin/actions/fifthOption.graphql'
 
 // Isla de la juventud
 import contributorsMissingInOnatIslaDeLaJuventudQuery from '~/apollo/queries/provinces/islaDeLaJuventud/actions/firstOption.graphql'
@@ -464,6 +520,7 @@ import islaDifferentPlateQuery from '~/apollo/queries/provinces/islaDeLaJuventud
 import contributorsWithEqualsInformationIslaDeLaJuventudQuery from '~/apollo/queries/provinces/islaDeLaJuventud/actions/thirdOption.graphql'
 import infogestiIslaQuery from '~/apollo/queries/provinces/islaDeLaJuventud/actions/fourthOption.graphql'
 import islaQuery from '~/apollo/queries/provinces/islaDeLaJuventud/islaDeLaJuventud.graphql'
+import wrongIdIslaQuery from '~/apollo/queries/provinces/islaDeLaJuventud/actions/fifthOption.graphql'
 
 // La Habana
 import contributorsMissingInOnatLaHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/firstOption.graphql'
@@ -473,6 +530,7 @@ import contributorsWithDifferentInformationHabanaPlateQuery from '~/apollo/queri
 import contributorsWithEqualsInformationLaHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/thirdOption.graphql'
 import infogestiHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/fourthOption.graphql'
 import habanaQuery from '~/apollo/queries/provinces/laHabana/laHabana.graphql'
+import wrongIdHabanaQuery from '~/apollo/queries/provinces/laHabana/actions/fifthOption.graphql'
 
 // Las Tunas
 import contributorsMissingInOnatLasTunasQuery from '~/apollo/queries/provinces/lasTunas/actions/firstOption.graphql'
@@ -482,6 +540,7 @@ import lasTunasDifferentPlateQuery from '~/apollo/queries/provinces/lasTunas/act
 import contributorsWithEqualsInformationLasTunasQuery from '~/apollo/queries/provinces/lasTunas/actions/thirdOption.graphql'
 import infogestiTunasQuery from '~/apollo/queries/provinces/lasTunas/actions/fourthOption.graphql'
 import lastunasQuery from '~/apollo/queries/provinces/lasTunas/lasTunas.graphql'
+import wrongIdLasTunasQuery from '~/apollo/queries/provinces/lasTunas/actions/fifthOption.graphql'
 
 // Matanzas
 import contributorsMissingInOnatMatanzasQuery from '~/apollo/queries/provinces/matanzas/actions/firstOption.graphql'
@@ -491,6 +550,7 @@ import matanzasDifferentPlateQuery from '~/apollo/queries/provinces/matanzas/act
 import contributorsWithEqualsInformationMatanzasQuery from '~/apollo/queries/provinces/matanzas/actions/thirdOption.graphql'
 import infogestiMatanzasQuery from '~/apollo/queries/provinces/matanzas/actions/fourthOption.graphql'
 import matanzasQuery from '~/apollo/queries/provinces/matanzas/matanzas.graphql'
+import wrongIdMatanzasQuery from '~/apollo/queries/provinces/matanzas/actions/fifthOption.graphql'
 
 // Mayabeque
 import contributorsMissingInOnatMayabequeQuery from '~/apollo/queries/provinces/mayabeque/actions/firstOption.graphql'
@@ -500,6 +560,7 @@ import mayabequeDifferentPlateQuery from '~/apollo/queries/provinces/mayabeque/a
 import contributorsWithEqualsInformationMayabequeQuery from '~/apollo/queries/provinces/mayabeque/actions/thirdOption.graphql'
 import infogestiMayabequeQuery from '~/apollo/queries/provinces/mayabeque/actions/fourthOption.graphql'
 import mayabequeQuery from '~/apollo/queries/provinces/mayabeque/mayabeque.graphql'
+import wrongIdMayabequeQuery from '~/apollo/queries/provinces/mayabeque/actions/fifthOption.graphql'
 
 // Pinar del Rio
 import contributorsMissingInOnatPinarQuery from '~/apollo/queries/provinces/pinarDelRio/actions/firstOption.graphql'
@@ -509,6 +570,7 @@ import pinarDifferentPlateQuery from '~/apollo/queries/provinces/pinarDelRio/act
 import contributorsWithEqualsInformationPinarQuery from '~/apollo/queries/provinces/pinarDelRio/actions/thirdOption.graphql'
 import infogestiPinarQuery from '~/apollo/queries/provinces/pinarDelRio/actions/fourthOption.graphql'
 import pinarQuery from '~/apollo/queries/provinces/pinarDelRio/pinarDelRio.graphql'
+import wrongIdPinarQuery from '~/apollo/queries/provinces/pinarDelRio/actions/fifthOption.graphql'
 
 // Santiago de Cuba
 import contributorsMissingInOnatSantiagoDeCubaQuery from '~/apollo/queries/provinces/santiagoDeCuba/actions/firstOption.graphql'
@@ -518,6 +580,7 @@ import santiagoDifferentPlateQuery from '~/apollo/queries/provinces/santiagoDeCu
 import contributorsWithEqualsInformationSantiagoDeCubaQuery from '~/apollo/queries/provinces/santiagoDeCuba/actions/thirdOption.graphql'
 import infogestiSantiagoQuery from '~/apollo/queries/provinces/santiagoDeCuba/actions/fourthOption.graphql'
 import santiagoDeCubaQuery from '~/apollo/queries/provinces/santiagoDeCuba/santiagoDeCuba.graphql'
+import wrongIdSantiagoDeCubaQuery from '~/apollo/queries/provinces/santiagoDeCuba/actions/fifthOption.graphql'
 
 // Santic Espiritud
 import contributorsMissingInOnatSanticEspiritudQuery from '~/apollo/queries/provinces/santicEspiritud/actions/firstOption.graphql'
@@ -527,6 +590,7 @@ import santicEspiritudDifferentPlateQuery from '~/apollo/queries/provinces/santi
 import contributorsWithEqualsInformationSanticEspiritudQuery from '~/apollo/queries/provinces/santicEspiritud/actions/thirdOption.graphql'
 import infogestiEspiritudQuery from '~/apollo/queries/provinces/santicEspiritud/actions/fourthOption.graphql'
 import espiritudQuery from '~/apollo/queries/provinces/santicEspiritud/santicEspiritud.graphql'
+import wrongIdSanticEspiritudQuery from '~/apollo/queries/provinces/santicEspiritud/actions/fifthOption.graphql'
 
 // Villa Clara
 import contributorsMissingInOnatVillaClaraQuery from '~/apollo/queries/provinces/villaClara/actions/firstOption.graphql'
@@ -536,6 +600,7 @@ import VillaClaraDifferentPlateQuery from '~/apollo/queries/provinces/villaClara
 import contributorsWithEqualsInformationVillaClaraQuery from '~/apollo/queries/provinces/villaClara/actions/thirdOption.graphql'
 import infogestiVillaQuery from '~/apollo/queries/provinces/villaClara/actions/fourthOption.graphql'
 import villaClaraQuery from '~/apollo/queries/provinces/villaClara/villaClara.graphql'
+import wrongIdVillaClaraQuery from '~/apollo/queries/provinces/villaClara/actions/fifthOption.graphql'
 
 import updateNameMutation from '~/apollo/mutations/updateName.graphql'
 
@@ -589,6 +654,7 @@ export default {
       data_4: null,
       data_5: null,
       data_6: null,
+      data_7: null,
       actions: [
         {
           id: 1,
@@ -615,6 +681,10 @@ export default {
         {
           id: 6,
           name: 'Repetidos con dpa distintos de todas las provincias'
+        },
+        {
+          id: 7,
+          name: 'Numero Identidad inválido'
         }
       ],
       expandOnHover: false,
@@ -675,6 +745,7 @@ export default {
       this.data_4 = null
       this.data_5 = null
       this.data_6 = null
+      this.data_7 = null
       if (this.radio === 'names' && this.selectedAction === 2) {
         this.$store.commit('tableNames/setTableNames', true)
       } else {
@@ -770,6 +841,16 @@ export default {
               this.loading = false
             })
         }
+        if (this.selectedAction === 7) {
+          this.$apollo
+            .query({
+              query: wrongIdArtemisaQuery
+            })
+            .then(({ data }) => {
+              this.data_7 = data.wrongIdArtemisa
+              this.loading = false
+            })
+        }
       }
       // Camaguey
       else if (this.selectedProvince === 'camaguey') {
@@ -844,6 +925,16 @@ export default {
               this.loading = false
             })
         }
+        if (this.selectedAction === 7) {
+          this.$apollo
+            .query({
+              query: wrongIdCamagueyQuery
+            })
+            .then(({ data }) => {
+              this.data_7 = data.wrongIdCamaguey
+              this.loading = false
+            })
+        }
       }
       // Ciego De Avila
       else if (this.selectedProvince === 'ciegoDeAvila') {
@@ -914,6 +1005,16 @@ export default {
             })
             .then(({ data }) => {
               this.data_5 = data.ciego
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 7) {
+          this.$apollo
+            .query({
+              query: wrongIdCiegoQuery
+            })
+            .then(({ data }) => {
+              this.data_7 = data.wrongIdCiego
               this.loading = false
             })
         }
@@ -991,6 +1092,16 @@ export default {
               this.loading = false
             })
         }
+        if (this.selectedAction === 7) {
+          this.$apollo
+            .query({
+              query: wrongIdCienfuegosQuery
+            })
+            .then(({ data }) => {
+              this.data_7 = data.wrongIdCienfuegos
+              this.loading = false
+            })
+        }
       }
       // Granma
       else if (this.selectedProvince === 'granma') {
@@ -1062,6 +1173,16 @@ export default {
             })
             .then(({ data }) => {
               this.data_5 = data.granma
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 7) {
+          this.$apollo
+            .query({
+              query: wrongIdGranmaQuery
+            })
+            .then(({ data }) => {
+              this.data_7 = data.wrongIdGranma
               this.loading = false
             })
         }
@@ -1141,6 +1262,16 @@ export default {
               this.loading = false
             })
         }
+        if (this.selectedAction === 7) {
+          this.$apollo
+            .query({
+              query: wrongIdGuantanamoQuery
+            })
+            .then(({ data }) => {
+              this.data_7 = data.wrongIdGuantanamo
+              this.loading = false
+            })
+        }
       }
 
       // Holguin
@@ -1216,6 +1347,16 @@ export default {
               this.loading = false
             })
         }
+        if (this.selectedAction === 7) {
+          this.$apollo
+            .query({
+              query: wrongIdHolguinQuery
+            })
+            .then(({ data }) => {
+              this.data_7 = data.wrongIdHolguin
+              this.loading = false
+            })
+        }
       }
       // Isla de la juventud
       else if (this.selectedProvince === 'islaDeLaJuventud') {
@@ -1285,6 +1426,16 @@ export default {
             })
             .then(({ data }) => {
               this.data_5 = data.isla
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 7) {
+          this.$apollo
+            .query({
+              query: wrongIdIslaQuery
+            })
+            .then(({ data }) => {
+              this.data_7 = data.wrongIdIsla
               this.loading = false
             })
         }
@@ -1363,6 +1514,16 @@ export default {
               this.loading = false
             })
         }
+        if (this.selectedAction === 7) {
+          this.$apollo
+            .query({
+              query: wrongIdHabanaQuery
+            })
+            .then(({ data }) => {
+              this.data_7 = data.wrongIdHabana
+              this.loading = false
+            })
+        }
       }
 
       // Las Tunas
@@ -1435,6 +1596,16 @@ export default {
             })
             .then(({ data }) => {
               this.data_5 = data.lastunas
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 7) {
+          this.$apollo
+            .query({
+              query: wrongIdLasTunasQuery
+            })
+            .then(({ data }) => {
+              this.data_7 = data.wrongIdLasTunas
               this.loading = false
             })
         }
@@ -1513,6 +1684,16 @@ export default {
               this.loading = false
             })
         }
+        if (this.selectedAction === 7) {
+          this.$apollo
+            .query({
+              query: wrongIdMatanzasQuery
+            })
+            .then(({ data }) => {
+              this.data_7 = data.wrongIdMatanzas
+              this.loading = false
+            })
+        }
       }
 
       // Mayabeque
@@ -1585,6 +1766,16 @@ export default {
             })
             .then(({ data }) => {
               this.data_5 = data.mayabeque
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 7) {
+          this.$apollo
+            .query({
+              query: wrongIdMayabequeQuery
+            })
+            .then(({ data }) => {
+              this.data_7 = data.wrongIdMayabeque
               this.loading = false
             })
         }
@@ -1662,6 +1853,16 @@ export default {
               this.loading = false
             })
         }
+        if (this.selectedAction === 7) {
+          this.$apollo
+            .query({
+              query: wrongIdPinarQuery
+            })
+            .then(({ data }) => {
+              this.data_7 = data.wrongIdPinar
+              this.loading = false
+            })
+        }
       }
 
       // Santiago de Cuba
@@ -1734,6 +1935,16 @@ export default {
             })
             .then(({ data }) => {
               this.data_5 = data.santiagoDeCuba
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 7) {
+          this.$apollo
+            .query({
+              query: wrongIdSantiagoDeCubaQuery
+            })
+            .then(({ data }) => {
+              this.data_7 = data.wrongIdSantiagoDeCuba
               this.loading = false
             })
         }
@@ -1813,6 +2024,16 @@ export default {
               this.loading = false
             })
         }
+        if (this.selectedAction === 7) {
+          this.$apollo
+            .query({
+              query: wrongIdSanticEspiritudQuery
+            })
+            .then(({ data }) => {
+              this.data_7 = data.wrongIdSanticEspiritud
+              this.loading = false
+            })
+        }
       }
 
       // Villa Clara
@@ -1885,6 +2106,16 @@ export default {
             })
             .then(({ data }) => {
               this.data_5 = data.villaClara
+              this.loading = false
+            })
+        }
+        if (this.selectedAction === 7) {
+          this.$apollo
+            .query({
+              query: wrongIdVillaClaraQuery
+            })
+            .then(({ data }) => {
+              this.data_7 = data.wrongIdVillaClara
               this.loading = false
             })
         }

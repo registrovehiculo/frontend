@@ -1,0 +1,8 @@
+query wrongIdPinar{
+  wrongIdPinar{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

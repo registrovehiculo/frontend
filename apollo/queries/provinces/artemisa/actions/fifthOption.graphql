@@ -1,0 +1,8 @@
+query wrongIdArtemisa{
+  wrongIdArtemisa{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

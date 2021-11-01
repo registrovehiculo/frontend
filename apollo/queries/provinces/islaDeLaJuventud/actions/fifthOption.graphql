@@ -1,0 +1,8 @@
+query wrongIdIsla{
+  wrongIdIsla{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

@@ -1,0 +1,8 @@
+query wrongIdHabana{
+  wrongIdHabana{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

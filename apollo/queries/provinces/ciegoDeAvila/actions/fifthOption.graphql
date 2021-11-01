@@ -1,0 +1,8 @@
+query wrongIdCiego{
+  wrongIdCiego{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

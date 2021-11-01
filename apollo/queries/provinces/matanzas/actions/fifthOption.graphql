@@ -1,0 +1,8 @@
+query wrongIdMatanzas{
+  wrongIdMatanzas{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

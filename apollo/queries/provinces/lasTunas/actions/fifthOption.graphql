@@ -1,0 +1,8 @@
+query wrongIdLasTunas{
+  wrongIdLasTunas{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

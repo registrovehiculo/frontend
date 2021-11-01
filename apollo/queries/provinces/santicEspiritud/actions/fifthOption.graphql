@@ -1,0 +1,8 @@
+query wrongIdSanticEspiritud{
+  wrongIdSanticEspiritud{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

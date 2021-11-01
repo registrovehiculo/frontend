@@ -1,0 +1,8 @@
+query wrongIdMayabeque{
+  wrongIdMayabeque{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

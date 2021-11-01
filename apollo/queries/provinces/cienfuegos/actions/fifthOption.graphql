@@ -1,0 +1,8 @@
+query wrongIdCienfuegos{
+  wrongIdCienfuegos{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

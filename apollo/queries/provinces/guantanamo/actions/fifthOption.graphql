@@ -1,0 +1,8 @@
+query wrongIdGuantanamo{
+  wrongIdGuantanamo{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

@@ -1,0 +1,8 @@
+query wrongIdCamaguey{
+  wrongIdCamaguey{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

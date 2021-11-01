@@ -1,0 +1,8 @@
+query wrongIdSantiagoDeCuba{
+  wrongIdSantiagoDeCuba{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}

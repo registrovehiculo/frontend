@@ -1,0 +1,8 @@
+query wrongIdVillaClara{
+  wrongIdVillaClara{
+    municipio
+    numeroidentidad
+    datospersona
+    chapanueva
+  }
+}
