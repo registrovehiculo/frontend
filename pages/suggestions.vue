@@ -166,7 +166,7 @@ export default {
       title: `Quejas y Sugerencias`
     }
   },
-  beforeMount() {
+  mounted() {
     this.reviewsarr = this.$store.getters['review/get']
     this.$apollo
       .query({
