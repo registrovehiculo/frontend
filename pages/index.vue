@@ -1,9 +1,7 @@
 <template>
   <div>
-    <client-only>
-      <HomePageTransporte v-show="$auth.loggedIn" />
-      <Homepage v-show="!$auth.loggedIn" />
-    </client-only>
+    <HomePageTransporte v-if="$auth.loggedIn" />
+    <Homepage v-else />
   </div>
 </template>
 
@@ -16,12 +14,14 @@ export default {
   components: { Homepage, HomePageTransporte },
   auth: false,
   mounted() {
+    this.$forceUpdate()
     if (this.$auth.loggedIn) {
       if (!this.getUser().username) {
         this.logout()
       }
     }
   },
+
   methods: {
     async logout() {
       this.$cookies.remove('auth.user')

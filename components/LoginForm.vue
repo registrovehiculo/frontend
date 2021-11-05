@@ -95,14 +95,6 @@ export default {
       return this.$store.getters['system/getActive']
     }
   },
-  beforeCreate() {
-    const url = this.$cookies.get('auth.redirect')
-    if (url && this.$auth.loggedIn) {
-      this.$router.replace(url)
-    } else {
-      // this.$router.replace('/login')
-    }
-  },
   validations: {
     form: {
       username: {
@@ -154,7 +146,7 @@ export default {
                     // window.location.href = cookie
                     this.$router.replace(cookie).catch(() => {})
                   } else {
-                    //   window.location.href = '/'
+                    // window.location.href = '/'
                     this.$router.replace('/').catch(() => {})
                   }
                 })
