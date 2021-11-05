@@ -1,6 +1,7 @@
 import environ from './env.js'
 
 export default {
+  mode: 'universal',
   head: {
     title: process.env.npm_package_name || '',
     meta: [
@@ -14,10 +15,11 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
-  // server: {
-  //   port: 3000, // default: 3000
-  //   host: '192.168.8.125' // default: localhost
-  // },
+  server: {
+    port: 80, // default: 3000
+    host: '192.168.0.23' // default: localhost
+  },
+
   /*
    ** Global CSS
    */
@@ -33,10 +35,9 @@ export default {
    */
   plugins: [
     { src: '~/plugins/vuex', ssr: true },
-    { src: '~/plugins/vuelidate', ssr: true },
+    { src: '~/plugins/vuelidate' },
     { src: '~/plugins/vue-select', ssr: false },
-    { src: '~/plugins/vue-excel-xlsx', ssr: false },
-    { src: '~/plugins/vue-json-excel', ssr: false }
+    { src: '~/plugins/vue-excel-xlsx', ssr: false }
   ],
   /*
    ** Auto import components
@@ -200,7 +201,7 @@ export default {
   },
   auth: {
     redirect: {
-      login: '/login',
+      login: '/',
       logout: '/',
       callback: '/accounts/callback',
       home: false
