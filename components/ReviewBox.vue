@@ -239,8 +239,8 @@ export default {
     linkify: require('~/services/linkify').linkify,
     ...mapGetters({
       // Auth
-      getUser: 'getUser',
-      getUsername: 'getUsername'
+      getUser: 'auth/getUser',
+      getUsername: 'auth/getUsername'
     })
   }
 }

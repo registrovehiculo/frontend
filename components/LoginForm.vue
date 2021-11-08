@@ -143,11 +143,11 @@ export default {
                   const cookie = this.$cookies.get('auth.redirect')
                   if (cookie) {
                     this.$cookies.set('auth.redirect', null)
-                    // window.location.href = cookie
-                    this.$router.replace(cookie).catch(() => {})
+                    window.location.href = cookie
+                    // this.$router.replace(cookie).catch(() => {})
                   } else {
-                    // window.location.href = '/'
-                    this.$router.replace('/').catch(() => {})
+                    window.location.href = '/'
+                    // this.$router.replace('/').catch(() => {})
                   }
                 })
                 break
@@ -163,8 +163,8 @@ export default {
       }
     },
     ...mapMutations({
-      setUser: 'setUser',
-      loadAuth: 'loadFromCookie'
+      setUser: 'auth/setUser',
+      loadAuth: 'auth/loadFromCookie'
     })
   }
 }

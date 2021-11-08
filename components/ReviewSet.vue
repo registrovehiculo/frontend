@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     ...mapGetters({
-      getUsername: 'getUsername'
+      getUsername: 'auth/getUsername'
     })
   }
 }

@@ -676,7 +676,7 @@ export default {
         },
         {
           id: 5,
-          name: 'Mostrar todos de este provincia'
+          name: 'Mostrar todos de esta provincia'
         },
         {
           id: 6,
@@ -684,7 +684,7 @@ export default {
         },
         {
           id: 7,
-          name: 'Numero Identidad inválido'
+          name: 'Numero Identidad inválido y/o Nombre Vacío'
         }
       ],
       expandOnHover: false,
@@ -2124,7 +2124,7 @@ export default {
 
     ...mapGetters({
       getActive: 'search/getActive',
-      getUser: 'getUser',
+      getUser: 'auth/getUser',
       getTableNames: 'tableNames/getTableNames'
     }),
     ...mapMutations({

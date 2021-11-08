@@ -187,12 +187,12 @@ export default {
     },
     linkify: require('~/services/linkify').linkify,
     ...mapGetters({
-      getUser: 'getUser',
-      getUsername: 'getUsername'
+      getUser: 'auth/getUser',
+      getUsername: 'auth/getUsername'
     }),
     ...mapMutations({
-      loadAuth: 'loadFromCookie',
-      cleanAuth: 'cleanAuth'
+      loadAuth: 'auth/loadFromCookie',
+      cleanAuth: 'auth/cleanAuth'
     })
   }
 }

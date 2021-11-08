@@ -21,7 +21,7 @@ export default {
   components: { TopBar },
   methods: {
     ...mapGetters({
-      getUser: 'getUser'
+      getUser: 'auth/getUser'
     })
   }
 }

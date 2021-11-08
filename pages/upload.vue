@@ -245,8 +245,8 @@ export default {
         })
     },
     ...mapGetters({
-      getUser: 'getUser',
-      getUsername: 'getUsername'
+      getUser: 'auth/getUser',
+      getUsername: 'auth/getUsername'
     })
   }
 }
