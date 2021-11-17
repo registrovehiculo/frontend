@@ -97,7 +97,7 @@
                 <p>
                   5. Una vez comprobado cuidadosamente, dar click en el botón
                   actualizar, al ser una base de datos tan grande el sistema
-                  puede tardar hasta 30min en actualizarse. Le recomendamos
+                  puede tardar hasta 1hr en actualizarse. Le recomendamos
                   realizar otros trabajos en lo que se ejecuta esta operación.
                   Al finalizar se le notificará con un cartel cuando la
                   actualización haya sido exitosa.
@@ -210,6 +210,7 @@ export default {
         })
         .then(({ data }) => {
           this.status = data.updateTransporte.status
+          console.log(this.status)
           if (this.status === 'ok') {
             this.$buefy.dialog.alert({
               message: 'Se actualizó la base de datos'
@@ -221,6 +222,14 @@ export default {
             })
           }
           this.loading = false
+        })
+        .catch(error => {
+          this.loading = false
+          console.log(error.message)
+          this.$buefy.dialog.alert({
+            message:
+              'Hubo un problema en la actualización verifique que todo esté correcto e intente nuevamente'
+          })
         })
     },
     updateEmbarcacionDatabase() {
@@ -242,6 +251,14 @@ export default {
             })
           }
           this.loading = false
+        })
+        .catch(error => {
+          this.loading = false
+          console.log(error.message)
+          this.$buefy.dialog.alert({
+            message:
+              'Hubo un problema en la actualización verifique que todo esté correcto e intente nuevamente'
+          })
         })
     },
     ...mapGetters({
