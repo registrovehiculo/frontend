@@ -674,10 +674,10 @@ export default {
           id: 4,
           name: 'Contibuyentes que estan en INFOgesti que no estan en RV'
         },
-        {
-          id: 5,
-          name: 'Mostrar todos de esta provincia'
-        },
+        // {
+        //   id: 5,
+        //   name: 'Mostrar todos de esta provincia'
+        // },
         {
           id: 6,
           name: 'Repetidos con dpa distintos de todas las provincias'
@@ -751,19 +751,29 @@ export default {
       } else {
         this.$store.commit('tableNames/setTableNames', false)
       }
+      // 40103102024  41030301885 41062300182 55010304427
+
       this.$store.commit('search/setActive', false)
       if (this.selectedAction === 6) {
         this.$apollo.query({ query: repeatedQuery }).then(({ data }) => {
           this.data_6 = data.repeated
-          for (let i = 0; i < this.data_6.length - 1; i++) {
-            if (this.data_6[i].nit === this.data_6[i + 1].nit) {
-              if (this.data_6[i].dpa === this.data_6[i + 1].dpa) {
-                this.data_6.splice(i, 1)
-                this.data_6.splice(i, 1)
-                i--
+          const arr = []
+          arr.push(this.data_6[0])
+          let founded
+          // debo optimizar esto, me da pereza, lo hare luego
+          for (let i = 1; i < this.data_6.length; i++) {
+            founded = false
+            for (let j = 0; j < arr.length; j++) {
+              if (arr[j].nit === this.data_6[i].nit) {
+                founded = true
+                j = arr.length
               }
             }
+            if (!founded) {
+              arr.push(this.data_6[i])
+            }
           }
+          this.data_6 = Array.from(arr)
           this.loading = false
         })
       }
