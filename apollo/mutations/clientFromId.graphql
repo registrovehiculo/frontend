@@ -1,0 +1,10 @@
+mutation clientId($clientId: String!){
+  clientId(clientId: $clientId){
+    client{
+      dpa
+      nit
+      nombreCompleto
+      matricula
+    }
+  }
+}

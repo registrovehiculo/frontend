@@ -604,6 +604,7 @@ import wrongIdVillaClaraQuery from '~/apollo/queries/provinces/villaClara/action
 
 import updateNameMutation from '~/apollo/mutations/updateName.graphql'
 
+// import clientFromIdMutation from '~/apollo/mutations/clientFromId.graphql'
 // repeated
 import repeatedQuery from '~/apollo/queries/repeatedPlates.graphql'
 // Components
@@ -758,6 +759,7 @@ export default {
         this.$apollo.query({ query: repeatedQuery }).then(({ data }) => {
           this.data_6 = data.repeated
           const arr = []
+          const arr1 = []
           arr.push(this.data_6[0])
           let founded
           // debo optimizar esto, me da pereza, lo hare luego
@@ -771,9 +773,22 @@ export default {
             }
             if (!founded) {
               arr.push(this.data_6[i])
+              arr1.push(this.data_6[i].nit)
             }
           }
           this.data_6 = Array.from(arr)
+          // const arr2 = []
+          // for (let i = 0; i < this.data_6.length; i++) {
+          //   this.$apollo
+          //     .mutate({
+          //       mutation: clientFromIdMutation,
+          //       variables: { clientId: this.data_6[i].nit }
+          //     })
+          //     .then(({ data }) => {
+          //       arr2.push(data.clientId)
+          //     })
+          // }
+          // this.data_6 = arr2
           this.loading = false
         })
       }
